@@ -58,7 +58,7 @@ the game as well as game parameters that admins can customize when creating a se
 
 ====Running the Experiment======
 For a user to access the experiment as administrator in order to create sessions, and see the results of 
-the games, one will need to goto biosecurity.are.uwa.edu.au and the username is "admin", the password is "Rocket427244".
+the games, one will need to goto biosecurity.are.uwa.edu.au and login.
 To have a look at games running, you can use the "Demo" in the navigation banner which will show a page of the game configurations
 that can be run. The Demo games will read the defaults as set in the settings.py "SESSION_CONFIGS", once a game 
 has been selected by clicking it, a new tab will open with single-use links available at the bottom.
