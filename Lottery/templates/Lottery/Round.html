@@ -1,0 +1,172 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    
+{% endblock %}
+
+
+{% block content %}
+
+	<div id="pagehead">
+		<img src="{% static "Lottery/uwalogo.png" %}"/>
+		<div class="title">Lottery Questions Period {{ subsession.round_number }} of {{ Constants.num_rounds }}</div>
+	</div>
+	
+	<div id="main">
+		<div class="top">
+			<div class="headings_row">
+				<div class="number_col">Game</div>
+				<div class="values_col">Balls:</div>
+				<div class="values_col">Balls:</div>
+				<div class="option_col">Prize:</div>
+				<div class="option_col">Prize:</div>
+				<div class="values_col">Balls:</div>
+				<div class="values_col">Balls:</div>
+			</div>
+			<div class="headings_row">
+				<div class="number_col">Number</div>
+				<div class="values_col"> {{ balls_a_r }} </div>
+				<div class="values_col"> {{ balls_a_w }} </div>
+				<div class="option_col"> A </div>
+				<div class="option_col"> B </div>
+				<div class="values_col"> {{ balls_b_r }} </div>
+				<div class="values_col"> {{ balls_b_w }} </div>
+			</div>
+		</div>
+		{% for number in number_of_games %}
+			<div class="game_row">
+				<div class="number_col">
+					{{ game_number|get_list_val:number }}
+				</div>
+			 	<div class="values_col"> ${{ a_values_r|get_list_val:number }} </div>
+			 	<div class="values_col"> ${{ a_values_w|get_list_val:number }} </div>
+			 	<div class="option_col">
+		        	<input id="submitted_answer_{{ number }}" type="radio" name="submitted_answer_{{ number }}" value="A" required>
+		        </div>
+		        <div class="option_col">
+		        	<input id="submitted_answer_{{ number }}" type="radio" name="submitted_answer_{{ number }}" value="B" required>
+		        </div>
+		        <div class="values_col"> ${{ b_values_r|get_list_val:number }} </div>
+				<div class="values_col"> ${{ b_values_w|get_list_val:number }} </div>
+	   		</div>
+		{% endfor %}
+
+		<div class="next_btn">{% next_button %}</div>
+	</div>
+
+
+
+	{% include Constants.lottery_instructions_template %}
+
+
+
+{% endblock %}
+
+{% block styles %}
+    <style type="text/css">
+
+	#pagehead
+	{
+		display:inline-block;
+		float:left;
+		width:100%;
+		background:#27348b;
+		margin:0 0 0 0;
+		padding:0.75em;
+		overflow:hidden;
+		margin-bottom: 1em;
+	}
+	#pagehead img
+	{
+		height:3.8em;
+	}
+	#pagehead .title
+	{
+		display:inline-block;
+		float:right;
+		font-size:2em;
+		color:#ffffff;
+	}
+
+
+    #main
+    {
+    	display: inline-block;
+    	float: left;
+    	width: 100%;
+    	margin-bottom: 5em;
+    }
+    #main .next_btn
+    {
+    	display: inline-block;
+    	float: right;
+    	margin: 2.5em 2.5em 1em 0
+    }
+    #main .top
+    {
+    	display: inline-block;
+    	float: left;
+    	width: 100%;
+    	padding-bottom: 1em;
+    	margin-bottom: 1em;
+    	border-bottom: 1px solid black;
+    }
+    #main .game_row, #main .headings_row
+    {
+    	display: inline-block;
+    	float: left;
+    	width: 100%;
+    }
+    #main .game_row .number_col, #main .game_row .values_col, #main .game_row .option_col,
+    #main .headings_row .number_col, #main .headings_row .values_col, #main .headings_row .option_col
+    {
+    	display: inline-block;
+    	float: left;
+    	text-align: center;
+    	font-size:1.2em;
+    	padding-bottom: 0.15em;
+    }
+    #main .game_row .number_col, #main .headings_row .number_col
+    {
+    	width: 33%;
+    }
+    #main .game_row .values_col, #main .headings_row .values_col
+    {
+    	width:9%;
+    }
+    #main .game_row .option_col, #main .headings_row .option_col
+    {
+    	width:15%;
+    }
+	
+    </style>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+    jQuery(document).ready(function($)
+    {
+		 $('#form input').on('change', function()
+		 {
+		 	var stillA = true;
+		 	for(var i = 1; i < 15; i++)
+		 	{
+		 		if(stillA)
+		 		{
+    				if($('#submitted_answer_'+i+':checked').val() == 'B')
+    				{
+    					stillA = false;
+    				}
+    			}
+    			else
+    			{
+    				$('input[name="submitted_answer_' + i + '"][value="B"]').attr('checked',true);
+    			}
+			}
+        });
+
+    });
+    </script>
+
+{% endblock %}

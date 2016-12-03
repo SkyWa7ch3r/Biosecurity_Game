@@ -1,0 +1,90 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+
+{% block content %}
+
+	<div id="pagehead">
+		<img src="{% static "Lottery/uwalogo.png" %}"/>
+		<div class="title">Lottery Instructions</div>
+	</div>
+	<div id="instructions">
+		<div id="instructText">
+			<p>
+				<h3><strong>Instructions</strong></h3>
+				Imagine you are taking part in a virtual lottery game where you have a choice between playing for the money amounts in Prize A or Prize B.<br>
+				<br>
+				The following PLAY PANELS contain the odds of each Prize for each game. The default choice is Prize A for each game. If you find the odds in Prize B more appealing at any given game, you can switch to Prize B. However, once you’ve switched to Prize B, you cannot go back to Prize A for the rest of the PLAY PANEL.<br>
+				<br>
+				You will be given three PLAY PANELS.<br>
+				<br>
+				<h3>How the game works</h3>
+				Thirty-five balls (numbered 1-35) will be put into a virtual bingo cage and one ball will be randomly picked. This numbered ball will correspond to the GAME NUMBER in one of your PLAY PANELS and determines which out of the 35 games will be played.<br>
+				<br>
+				All balls are then removed from the bingo cage and ten balls (numbered 1-10) are put back in. The next ball that is picked determines how much money you win (or lose).<br>
+				<br>
+				For example, if GAME NUMBER 7 was randomly selected out of the 35 games, and you chose Prize A for that game, you will win<br>
+				<br>
+				- $40 if the ball number is between 1 and 3, or<br>
+				- $10 if the ball number is between 4 and 10.<br>
+				<br>
+				If you chose Prize B, you will win<br>
+				- $150 if the ball number is 1, or<br>
+				- $5 if the ball number is between 2 and 10.<br>
+				<br>
+			</p>
+		</div>
+	</div>
+    <div id="nxtBtn">
+		{% next_button %}
+	</div>
+
+{% endblock %}
+
+{% block scripts %}
+<style type="text/css">
+	#pagehead
+	{
+		display:inline-block;
+		float:left;
+		width:100%;
+		background:#27348b;
+		margin:0 0 0 0;
+		padding:0.75em;
+		overflow:hidden;
+		margin-bottom: 1em;
+	}
+	#pagehead img
+	{
+		height:3.8em;
+	}
+	#pagehead .title
+	{
+		display:inline-block;
+		float:right;
+		font-size:2em;
+		color:#ffffff;
+	}
+	#instructions
+	{
+		margin-bottom: 1em;
+		background: lightgrey;
+		border: solid black 2px;
+		margin-top: 4em;
+		height: 500px;
+		overflow: auto;
+	}
+	#instructText
+	{
+		font-size: 1.5em;
+		margin-bottom: 1em;
+		margin: 2% 5% 2% 5%;
+	}
+	#nxtBtn
+	{
+		float:right;
+		margin-bottom: 100px;
+	}
+	
+</style>
+{% endblock %}

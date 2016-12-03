@@ -1,0 +1,65 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    
+{% endblock %}
+
+{% block content %}
+	<div id="pagehead">
+		<img src="{% static "Lottery/uwalogo.png" %}"/>
+		<div class="title">Introduction</div>
+	</div>
+	<div id="introduction">
+		<p><strong>Overview</strong></p>
+		<p>
+			In this experiment, you can earn money. For a successful experiment, you must not physically communicate with other participants or make yourself noticeable to them in any way. Please read the following instructions carefully. Should you have any questions, please signal us. Thank you for your participation. We hope you enjoy the experiment, and wish you good luck!
+		</p>
+		<br>
+		<p><strong>Today's Session</strong></p>
+		<p>
+			Today’s session is divided into three parts: (1) a virtual lottery game, (2) a biosecurity game, and (3) a questionnaire. We will begin with the virtual lottery game shortly.
+		</p>
+		
+		{% if communication %}
+			<br>
+			<p><strong>Communication Stage</strong></p>
+			<p>
+				At the beginning of rounds 1, 6, and 11  of the Biosecurity Game, you will be able to communicate with your co-players via a “chat room” before you enter the biosecurity contribution stage.
+			</p>
+		{% endif %}
+	</div>
+    {% next_button %}
+
+{% endblock %}
+
+{% block scripts %}
+<style type="text/css">
+	#pagehead
+	{
+		display:inline-block;
+		float:left;
+		width:100%;
+		background:#27348b;
+		margin:0 0 0 0;
+		padding:0.75em;
+		overflow:hidden;
+		margin-bottom: 1em;
+	}
+	#pagehead img
+	{
+		height:3.8em;
+	}
+	#pagehead .title
+	{
+		display:inline-block;
+		float:right;
+		font-size:2em;
+		color:#ffffff;
+	}
+	#introduction
+	{
+		font-size: 1.5em;
+	}
+</style>
+{% endblock %}

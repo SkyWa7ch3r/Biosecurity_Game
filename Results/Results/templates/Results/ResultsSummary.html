@@ -1,0 +1,83 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+{% endblock %}
+
+{% block content %}
+	<div id="pagehead">
+		<img src="{% static "Results/uwalogo.png" %}"/>
+		<div class="title"> Experiment Results Summary</div>
+	</div>
+	
+	<div id="resultBox">
+		<div id="resultText">
+			<p> Results for <strong> {{ name }} </strong>
+			<h2><strong> Lottery Summary </strong></h2>
+			<p>
+				The paying round was {{ paying_round }}. <br>
+				The paying line was {{paying_line}}. <br>
+				The ball number was {{ ball_number }}. <br>
+				<br>
+				Your total pay-off for the Lottery Game is therefore {{ total_payoff }}.
+			</p>
+			<h2><strong> Biosecurity Summary </strong></h2>
+			<p>
+				Your total pay-off for the Biosecurity Game is {{ bio_funds }}
+			</p>
+		</div>
+	<div>
+
+	<div id="nxtBtn">
+		{% next_button %}
+	</div>
+{% endblock %}
+
+{% block styles %}
+<style type="text/css">
+	#pagehead
+	{
+		display:inline-block;
+		float:left;
+		width:100%;
+		background:#27348b;
+		margin:0 0 0 0;
+		padding:0.75em;
+		overflow:hidden;
+		margin-bottom: 2em;
+	}
+	#pagehead img
+	{
+		height:3.8em;
+	}
+	#pagehead .title
+	{
+		display:inline-block;
+		float:right;
+		font-size:2em;
+		color:#ffffff;
+	}
+	#resultBox
+	{
+		margin-bottom: 1em;
+		background: lightgrey;
+		border: solid black 2px;
+		margin-top: 4em;
+		height: 70%;
+		overflow: hidden;
+	}
+	#resultText
+	{
+		font-size: 1.5em;
+		margin-bottom: 1em;
+		margin: 2% 5% 2% 5%;
+	}
+	#nxtBtn
+	{
+		float:right;
+		margin-bottom: 100px;
+	}
+
+	
+</style>
+{% endblock %}

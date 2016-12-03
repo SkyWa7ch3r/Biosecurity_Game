@@ -1,0 +1,208 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    ChatBox for Round {{ subsession.round_number }} of {{ Constants.num_rounds }}
+{% endblock %}
+
+
+{% block content %}
+    <div id="_user_data">
+        <input id="_session_id" value="{{ session_id }}" type="hidden" />
+        <input id="_user_name" value="{{ name }}" type="hidden" />
+		<input id="_group_number" value="{{ groupNum }}" type="hidden" />
+    </div>
+    <div id="main">
+        <div id="chatbox">
+            <div id="output_window">
+            </div>
+            <div id="send">
+                <strong>{{ name }}:</strong> <br>
+                <input type="text" id="data" style="width:75%"/>
+                <input type="button" id="sendtext" value="send text"/>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block styles %}
+<style>
+    #chatbox
+    {
+        display: inline-block;
+        float: left;
+        width:100%;
+        /*margin: 0 0 10em 5%;*/
+        border: 1px solid grey;
+        background-color: lightgrey;
+        overflow: hidden;
+    }
+    #output_window
+    {
+        display: inline-block;
+        float: left;
+        width: 100%;
+        height: 40em;
+        overflow-y: scroll;
+        overflow-x: hidden; 
+    }
+    #output_window .message
+    {
+        display: inline-block;
+        float: left;
+        width: 100%;
+        margin: 1em 0 0 0;
+        padding: 0 0 0 1em;
+        overflow: hidden;
+    }
+    #output_window .message .message_notifcation
+    {
+        display: inline-block;
+        float: left;
+        overflow: hidden;
+        font-weight: bold;
+    }
+    #output_window .message .message_sent, #output_window .message .message_recived
+    {
+        display: inline-block;
+        float: left;
+        overflow: hidden;  
+    }
+    #output_window .message .message_sent .name, #output_window .message .message_recived .namec
+    {
+        display: inline-block;
+        float: left;
+        width:100%;
+        padding: 0 0 0 1em;
+        font-weight: bold; 
+        overflow: hidden;
+    }
+    #output_window .message .message_sent .text, #output_window .message .message_recived .text
+    {
+        display: inline-block;
+        float: left;
+        min-width: 90%;
+        padding: 0em 1em 0em 1em;
+        overflow: hidden;
+		word-wrap: break-word;
+    }
+    #output_window .message .message_sent .name
+    {
+        color: blue;
+    }
+    #send
+    {
+        display: inline-block;
+        float: left;
+        width:100%;
+    }
+</style>
+
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+    jQuery(function($)
+    {
+        if(!("WebSocket" in window))
+        {
+            alert("Your browser does not support web sockets");
+        }
+        else
+        {
+            setup();
+        }
+
+
+        function setup()
+        {
+            var host = "ws://biosecurity.are.uwa.edu.au:8000/ws";
+            var socket = new WebSocket(host);
+            //console.log("socket status: " + socket.readyState);   
+        
+            var $txt = $("#data");
+            var $btnSend = $("#sendtext");
+
+            var username = $("#_user_name").val();
+            var sessionid = $("#_session_id").val();
+			var groupnumber = $("#_group_number").val();
+
+            $txt.focus();
+
+            // event handlers for UI
+            $btnSend.on('click',function()
+            {
+                var text = $txt.val();
+                if(text == "")
+                {
+                    return;
+                }
+
+                text = 'sending;;_;;'+sessionid+"_"+groupnumber+';;_;;'+username+';;_;;'+text;
+
+                socket.send(text);
+                $txt.val("");    
+            });
+
+            $txt.keypress(function(evt)
+            {
+                if(evt.which == 13)
+                {
+                    $btnSend.click();
+                }
+            });
+
+            // event handlers for websocket
+            if(socket)
+            {
+
+                socket.onopen = function()
+                {
+                    //alert("connection opened....");
+                    showServerResponse("Connecting . . .");
+                    socket.send('newconnection;;_;;'+sessionid+"_"+groupnumber+';;_;;'+username);
+                }
+
+                socket.onmessage = function(msg)
+                {
+                    showServerResponse(msg.data);
+                }
+
+                socket.onclose = function()
+                {
+                    //alert("connection closed....");
+                    showServerResponse("The connection has been closed.");
+                }
+            }
+            else
+            {
+                console.log("invalid socket");
+            }
+
+            function showServerResponse(txt)
+            {
+                var p = document.createElement('p');
+                var message = txt.split(';;_;;');
+                var name = message[0]; 
+                var text = message[1];
+                if(text != null)
+                {
+                    if(name != username)
+                        p.innerHTML = '<div class="message"><div class="message_recived"><div class="name">'+name+'</div><div class="text" >'+text+'</div></div></div>';
+                    else
+                        p.innerHTML = '<div class="message"><div class="message_sent"><div class="name">'+name+'</div><div class="text" >'+text+'</div></div></div>';
+                }
+                else
+                    p.innerHTML = '<div class="message"><div class="message_notifcation">'+name+'</div></div>';                    
+                document.getElementById('output_window').appendChild(p); 
+            }   
+        }
+        
+        /*
+            Prevents the form from auto-submitting (moving to another page)
+            when the user hits enter, while still allowing to send the message
+        */
+        $(document).on("keypress","form",function(event){return event.keyCode!=13;});
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,70 @@
+================================================
+================BIOSECURITY GAME================
+==========Online Economic Experiment============
+==School of Agricultural and Resource Economics=
+================================================
+       Licenced under (CC BY-NC 4.0)
+	   
+=================Installation of the game===================
+The Source code was developed to only work on the server as it requires environment variables and certain programs to
+be installed. Therefore I cannot give full instructions here on how to install the server if it ever needs to be done.
+This can be found inside "Biosecurity Game: Administration Instructions" and via http://otree.readthedocs.io/en/latest/server/intro.html
+
+=================Running Tests===================
+In order to conduct the acceptance tests as set by our Testing Documentation, you need to visit
+biosecurity.are.uwa.edu.au in a web browser and login with "admin" and password "Rocket427244".
+Once you have logged in, in the navigation banner, click on "Sessions". Once you are here, you will see
+two forms, one is a drop down menu, please select "Biosecurity Game" in the drop down menu. The other form is
+the number of participants which you can set the value as per whatever test you want to do.
+Click "Configure Sessions"
+This will bring up more forms and checkboxes, it is here you can turn on or off features, and change the configuration of the game.
+dynamic_finances - This feature will read from a csv file the upkeep, max protection and revenue in order to produce adminstrator controlled variability of upkeep, max protection and revenue for each round
+max_protection -  This is the maximum protection a user can put towards their crops that round, the changes will be reflected in the maximum value of the slider
+player_communication - This check box when ticked enables the chat box to come up on rounds 1, 6 and 11
+players_per_group - This value changes the number of players per group (in a basic scenario the amount of groups = number of participants/players_per_group)
+revenue - This is the revenue a player gets each round there is no incursion. (Profit = revenue - upkeep - protection)
+set_leader - This check box when ticked will enable the One Player Feature, each round one player goes first and the protection they provided then gets shown to other players
+			 before they make their decision on the amount of protection they want to provide
+starting_funds - This is the amount of funds every player starts with at the start of the game
+upkeep - This is the amount of cost for the produce each round, representing maintenance and produce costs on a farm.
+use_browser_bots - This check box when ticked enables the browser bots which choose one case at random from the tests and play the game for you. The pages must be open for the browser bots to run.
+
+Once you have configured your session, click "Create".
+
+The website will direct the user to the session page (Keep this page open), on this page you have one of two choices:
+
+1) Use the Session-Wide Links with a participant_label parameter (Recommended)
+	To test your configurations with Session-Wide Links you have two main options, you may send these links without a 
+	participant_label parameter which will allow everyone to use the same link. However this link will allow one person
+	to play as two users, and cannot gurantee that every participant is a different user. The Recommended option is to use
+	these links with a participant_label parameter, to use a participant_label parameter in a url you need to copy the
+	Session-Wide Link e.g. http://biosecurity.are.uwa.edu.au/join/<session-ID>/ and add this onto the end of the url before
+	hitting enter in a new tab ?participant_label=<Name of participant>. The full url will be as below:
+	
+	http://biosecurity.are.uwa.edu.au/join/9ujkn6rbsv/?participant_label=<Name of participant>
+	
+	This will not allow a user to use the link more than once, and it will fill in the participant_label variable
+	which will show up in the payments page which is useful for knowing how much payment is owed to each person.
+	Once you have used these links to goto the start of the game, you may play the game by yourself or with others.
+	
+2) Use the Single-use links
+	To test your configurations using single-use links, click on the links and it will open a new tab for every user.
+	If you have use_browser_bots enabled, the browser bots will start and play the game for you until completion.
+	You can now use these tabs that have been opened for each player and play the game by yourself for testing out your
+	configurations. In the event you want other players to play the game using the single-use links, you will need to send
+	every player a link (via email is best), every player must receive a different link.
+	
+Now play the games with each player in a different tab to completion.
+To see the results, you have two main options:
+
+1) Check the Results via the Session Page
+	To do this, goto "Results" inside the session navigation menu
+	This will show the results for te game, some variables may not be visible here, and you cannot store the data locally
+	from here. Boolean variables with show '1' when True, other variables should be easily read.
+
+2) Download the Results as an Excel or CSV file
+	To do this, goto "Data" in the navigation banner.
+	It is here you can download, Excel or CSV from either all apps or on app per app basis.
+	The Documentation we put in via doc= at the top of every models.py is available for download too.
+	
+FULL INSTRUCTIONS ARE IN "Biosecurity Game: Administration Instructions"

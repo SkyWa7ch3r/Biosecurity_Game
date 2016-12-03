@@ -1,0 +1,93 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+
+{% block title %}
+
+{% endblock %}
+
+
+{% block content %}
+	<div id="pagehead">
+		<img src="{% static "Biosecurity/uwalogo.png" %}"/>
+		<div class="title">Biosecurity Instructions</div>
+	</div>
+
+	<div id="instructions">
+		<div id="instructText">
+			<h2><strong>Introduction</strong></h2>
+			<p> Please read through these instructions carefully. If you have any questions please raise your hand and one of the administrators will come to you.
+				You are about to take part in an experiment about collective decision-making related to risky choices. This experiment gives you an opportunity to earn money. How much you earn depends partly on your decisions, partly on the decisions of others, and partly on chance. 
+			</p>
+			<p>	
+				In this experiment, you own a crop field and you have neighbours who own nearby crop fields. Each season, your crops will generate revenue. You will receive this revenue in the seasons where there is no outbreak of pests. When an outbreak of pests occurs, the pests spread quickly and infect all neighbouring fields, resulting in the loss of that season’s crops. You will generate no revenue in a season where an outbreak of pests occurs.
+			</p>	
+			<p>	
+				You must decide whether to protect or not protect against an outbreak of pests (at the start of) each season. There is a cost associated with choosing to protect. You do not have to pay this cost if you choose to not protect. 
+				The probability of an outbreak of pests occurring is quite variable and dependent on whether your neighbours protect their fields and by what degree. On occasions, the majority may choose to protect to a large degree, and an outbreak of pests will still occur. There is a timer for each round in which a random value will be chosen if not completed within time. Please complete all rounds within the time limit.
+			</p>
+			</br>
+			<p>
+				<strong>Game structure</strong> </br>
+				The game consists of 15 rounds, where each round corresponds to a season. Each round is divided into two stages: a contribution stage and a feedback stage. 
+			</p>
+			</br>
+			<p>
+				<strong>Your payout</strong> </br>
+				At the end of the experiment, you will be paid any revenue generated during the biosecurity game, subject to a conversion rate. The conversion rate is decided by the facilitator.
+			</p>
+		</div>
+	</div>
+	<div id="nxtBtn">
+		{% next_button %}
+	</div>
+{% endblock %}
+
+{% block styles %}
+<style type="text/css">
+	#pagehead
+	{
+		display:inline-block;
+		float:left;
+		width:100%;
+		background:#27348b;
+		margin:0 0 0 0;
+		padding:0.75em;
+		overflow:hidden;
+		margin-bottom: 2em;
+	}
+	#pagehead img
+	{
+		height:3.8em;
+	}
+	#pagehead .title
+	{
+		display:inline-block;
+		float:right;
+		font-size:2em;
+		color:#ffffff;
+	}
+	#instructions
+	{
+		margin-bottom: 1em;
+		background: lightgrey;
+		border: solid black 2px;
+		margin-top: 4em;
+		height: 500px;
+		overflow: auto;
+	}
+	#instructText
+	{
+		font-size: 1.5em;
+		margin-bottom: 1em;
+		margin: 2% 5% 2% 5%;
+	}
+	#nxtBtn
+	{
+		float:right;
+		margin-bottom: 100px;
+	}
+
+	
+</style>
+{% endblock %}

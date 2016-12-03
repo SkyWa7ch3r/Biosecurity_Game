@@ -1,0 +1,87 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+
+{% block title %}
+{% endblock %}
+
+
+{% block content %}
+
+	<div id="pagehead">
+		<img src="{% static "Biosecurity/uwalogo.png" %}"/>
+		<div class="title">Results for {{ subsession.round_number }} of {{ Constants.num_rounds }}</div>
+	</div>
+
+	<div id="resultText">
+		Hello <strong>{{ name }}</strong> <br/>
+		The amount of protection you provided this round was ${{ player.cost }} <br/>
+		The cost for produce is ${{ upkeep }} <br/>
+		The revenue for each round if an incursion didn't occur is ${{ revenue }} <br/>
+		<br></br>
+		{% if group.incursion %}
+			<strong>There was an incursion</strong> <br/>
+			Your total revenue is $0 <br/>
+			Your total cost is ${{ total_cost }} <br/>
+		{% else %}
+			<strong>There was no incursion</strong> <br/>
+			Your total revenue is ${{ revenue }} <br/>
+			Your total cost is ${{total_cost}} <br/>
+		{% endif %}
+		<br></br>
+		<div id ="roundResultCon">
+			<div id ="roundResult">
+				Each Player's Protection: <br/>
+				{% for p in results_list %}
+					<strong>{{ p }} </strong><br/>
+				{% endfor %}
+				<strong> Your current funds: {{ funds }} Dollars. </strong> <br/>
+				
+			</div>
+		</div>
+	</div>
+		{% next_button %}
+
+{% endblock %}
+
+{% block scripts %}
+<style type="text/css">
+	#pagehead
+	{
+		display:inline-block;
+		float:left;
+		width:100%;
+		background:#27348b;
+		margin:0 0 0 0;
+		padding:0.75em;
+		overflow:hidden;
+		margin-bottom: 1em;
+	}
+	#pagehead img
+	{
+		height:3.8em;
+	}
+	#pagehead .title
+	{
+		display:inline-block;
+		float:right;
+		font-size:2em;
+		color:#ffffff;
+	}
+	#resultText
+	{
+		font-size: 1.5em;
+		margin-bottom: 1em;
+	}
+	#roundResultCon
+	{
+		text-align: center;
+	}
+	#roundResult
+	{
+		display: inline-block;
+		text-align: left;
+	}
+	
+</style>
+{% endblock %}
