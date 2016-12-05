@@ -85,8 +85,8 @@ class Round(Page):
             'max_protection': max_protection,
             'cost_factor': cost_factor,
 			'funds': self.player.participant.vars['funds'],
+			'calc': self.session.config['calculator'],
         }
-    
 
 class OthersRound(Page):
 
@@ -158,7 +158,7 @@ class WaitforEveryone(WaitPage):
     pass
 
 class Results(Page):
-    """
+	"""
     The Results class is responsible for determining when and how to display the
     Results.html page. Displays the outcome for the biosecurity round and determines
     revenue and current funds. Returns the following:
@@ -168,28 +168,34 @@ class Results(Page):
     upkeep: Constant cost for producing a product
     revenue: Income gained from no occursion 
     total_cost: Amount of protection used + constant upkeep = cost for the round
-                independant of outcome.
-    """
-    def vars_for_template(self):
-        results = []
-        for p in self.group.get_players():
-            string = "%s --- Protection: $%.2f" % (p.participant.vars['name'], p.cost)
-            results.append(string)
-        if(self.session.config['dynamic_finances'] == False):
-            revenue = self.session.config['revenue']
-            upkeep = self.session.config['upkeep']
-        else:
-            revenue = self.subsession.revenue[self.subsession.round_number-1]
-            upkeep = self.subsession.upkeep[self.subsession.round_number-1]
-
-        return {
-            'results_list': results,
-            'funds': self.player.participant.vars['funds'],
-            'name': self.player.participant.vars['name'],
-            'upkeep': c(upkeep),
-            'revenue': c(revenue),
-            'total_cost': self.player.cost + c(self.session.config['upkeep'])
-        }
+    independant of outcome.
+	"""
+	def vars_for_template(self):
+		results = []
+		negative = False
+		currentFunds = self.player.participant.vars['funds']
+		for p in self.group.get_players():
+			string = "%s --- Protection: $%.2f" % (p.participant.vars['name'], p.cost)
+			results.append(string)
+		if(self.session.config['dynamic_finances'] == False):
+			revenue = self.session.config['revenue']
+			upkeep = self.session.config['upkeep']
+		else:
+			revenue = self.subsession.revenue[self.subsession.round_number-1]
+			upkeep = self.subsession.upkeep[self.subsession.round_number-1]
+		if(self.player.participant.vars['funds'] < 0.00):
+			negative = True
+			currentFunds = currentFunds * -1.00
+		return {
+			'results_list': results,
+			'funds': currentFunds,
+			'name': self.player.participant.vars['name'],
+			'upkeep': c(upkeep),
+			'revenue': c(revenue),
+			'total_cost': self.player.cost + c(self.session.config['upkeep']),
+			'basic' : self.session.config['basic'],
+			'neg' : negative,
+		}
 
 """
     page_sequence determines the order in which pages are displayed.

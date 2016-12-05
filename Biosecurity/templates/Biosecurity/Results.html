@@ -30,13 +30,18 @@
 		{% endif %}
 		<br></br>
 		<div id ="roundResultCon">
+			{% if basic == False %}
 			<div id ="roundResult">
 				Each Player's Protection: <br/>
 				{% for p in results_list %}
 					<strong>{{ p }} </strong><br/>
 				{% endfor %}
-				<strong> Your current funds: {{ funds }} Dollars. </strong> <br/>
-				
+			{% endif %}
+			{% if neg == True %}
+				<strong> Your current funds: -${{ funds }}. </strong> <br/>
+			{% else %}
+				<strong> Your current funds: ${{ funds }}. </strong> <br/>
+			{% endif %}
 			</div>
 		</div>
 	</div>

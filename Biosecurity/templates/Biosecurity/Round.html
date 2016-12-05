@@ -19,20 +19,31 @@
 		Your current funds are: ${{ funds }} </br>
 		How much would you like to spend to protect your crops?
 	</div>
-	
-	<div id="Calculator">
+	{% if calc %}
+		<div id="Calculator">
+			
+			<p>Please drag the slider to adjust the amount of money you wish to spend:</p>
 		
-		<p>Please drag the slider to adjust the amount of money you wish to spend:</p>
-	
-		<!--Slider with a range from 0 to a value set by an admin (max_protection). When the value is altered by the player, the cost and probabillity values are recalculated and displayed-->
-		<input id="numb" input type="range" name="cost" min="0" max= "{{max_protection}}" step="0.01" onchange="printCosts({{cost_factor}})">
-		<br></br>
-		<p>Cost:</p>
-		<p id="text_cost"></p>
-		<p>Protection provided:</p>
-		<p id="text_prob"></p>
-	</div>
-
+			<!--Slider with a range from 0 to a value set by an admin (max_protection). When the value is altered by the player, the cost and probabillity values are recalculated and displayed-->
+			<input id="numb" input type="range" name="cost" min="0" max= "{{max_protection}}" step="0.01" value="0" onchange="printCosts({{cost_factor}})">
+			<br></br>
+			<p>Cost:</p>
+			<p id="text_cost"></p>
+			<p>Probablity that you are <b>not</b> the source of the incursion:</p>
+			<p id="text_prob"></p>
+		</div>
+	{% else %}
+		<div id="Calculator">
+			
+			<p>Please drag the slider to adjust the amount of money you wish to spend:</p>
+		
+			<!--Slider with a range from 0 to a value set by an admin (max_protection). When the value is altered by the player, the cost and probabillity values are recalculated and displayed-->
+			<input id="numb" input type="range" name="cost" min="0" max= "{{max_protection}}" step="0.01" value="0" onchange="printCosts({{cost_factor}})">
+			<br></br>
+			<p>Cost:</p>
+			<p id="text_cost"></p>
+		</div>
+	{% endif %}
 	
 	{% next_button %}
 {% endblock %}
@@ -190,9 +201,11 @@
 document.onload = setDefaultProb({{max_protection}}, {{cost_factor}});
 function setDefaultProb(maxProtection, costFactor) {
 	//calcuate cost
-	text_cost = maxProtection/2;
+	//text_cost = maxProtection/2;
+	text_cost = 0;
 	//calculate the percentage protection provided (1 - the chance of an outbreak)
-	text_prob = Math.round((1-Math.exp(-(text_cost)/costFactor))*100);
+	//text_prob = Math.round((1-Math.exp(-(text_cost)/costFactor))*100);
+	text_prob = 0;
 	//set values in HTML
 	document.getElementById("text_cost").innerHTML = "$"+text_cost;
 	document.getElementById("text_prob").innerHTML = text_prob+ "%";

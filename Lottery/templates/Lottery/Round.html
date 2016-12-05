@@ -1,6 +1,7 @@
 {% extends "global/Base.html" %}
 {% load staticfiles otree_tags %}
 
+
 {% block title %}
     
 {% endblock %}
@@ -40,7 +41,11 @@
 					{{ game_number|get_list_val:number }}
 				</div>
 			 	<div class="values_col"> ${{ a_values_r|get_list_val:number }} </div>
-			 	<div class="values_col"> ${{ a_values_w|get_list_val:number }} </div>
+				{% if subsession.round_number == 3 %}
+					<div class="values_col"> -${{ a_values_w|get_list_val:number }} </div>
+				{% else %}
+					<div class="values_col"> ${{ a_values_w|get_list_val:number }} </div>
+				{% endif %}
 			 	<div class="option_col">
 		        	<input id="submitted_answer_{{ number }}" type="radio" name="submitted_answer_{{ number }}" value="A" required>
 		        </div>
@@ -48,7 +53,11 @@
 		        	<input id="submitted_answer_{{ number }}" type="radio" name="submitted_answer_{{ number }}" value="B" required>
 		        </div>
 		        <div class="values_col"> ${{ b_values_r|get_list_val:number }} </div>
-				<div class="values_col"> ${{ b_values_w|get_list_val:number }} </div>
+				{% if subsession.round_number == 3 %}
+					<div class="values_col"> -${{ b_values_w|get_list_val:number }} </div>
+				{% else %}
+					<div class="values_col"> ${{ b_values_w|get_list_val:number }} </div>
+				{% endif %}
 	   		</div>
 		{% endfor %}
 

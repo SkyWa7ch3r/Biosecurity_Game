@@ -67,9 +67,9 @@ class Round(Page):
             'balls_b_w': "%s" % (Constants.values[index_l]['b_worst_ball_range']),
             'game_number': [Constants.values[i]['game_number'] for i in range(index_l, index_h)],
             'a_values_r': [Constants.values[i]['a_best'] for i in range(index_l, index_h)],
-            'a_values_w': [Constants.values[i]['a_worst'] for i in range(index_l, index_h)],
+            'a_values_w': [Constants.values[i]['a_worst'].replace('-','') for i in range(index_l, index_h)],
             'b_values_r': [Constants.values[i]['b_best'] for i in range(index_l, index_h)],
-            'b_values_w': [Constants.values[i]['b_worst'] for i in range(index_l, index_h)]
+            'b_values_w': [Constants.values[i]['b_worst'].replace('-','') for i in range(index_l, index_h)]
         }
 
 
