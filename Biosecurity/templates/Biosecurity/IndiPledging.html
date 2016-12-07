@@ -1,54 +1,33 @@
 {% extends "global/Base.html" %}
 {% load staticfiles otree_tags %}
 
+
 {% block title %}
-	
-	
+
 {% endblock %}
+
 
 {% block content %}
 	<div id="pagehead">
 		<img src="{% static "Biosecurity/uwalogo.png" %}"/>
-		<div class="title">Biosecurity Game Round {{ subsession.round_number }} of {{ Constants.num_rounds }}</div>
+		<div class="title">Individual Pledging Stage {{ subsession.round_number }} of {{ Constants.num_rounds }}</div>
 	</div>
-	
-	<div class="farm_pic"><img src="{% static "Biosecurity/farm_back.png" %}"/></div>
-	
-	<br></br>
-	<div id="roundText">
-		Your current funds are: ${{ funds }} </br>
-		How much would you like to spend to protect your crops?
-	</div>
-		<div id="Calculator">
-			
-			<p>Please drag the slider to adjust the amount of money you wish to spend:</p>
-		
-			<!--Slider with a range from 0 to a value set by an admin (max_protection). When the value is altered by the player, the cost and probabillity values are recalculated and displayed-->
-			<input id="numb" input type="range" name="cost" min="0" max= "{{max_protection}}" step="0.01" value="0" onchange="printCosts({{cost_factor}})">
-			<br></br>
-			<p>Cost:</p>
-			<p id="text_cost"></p>
-			{% if calc %}
-				<p>Probablity that you are <b>not</b> the source of the incursion:</p>
-				<p id="text_prob"></p>
-			{% endif %}
-		</div>
+	<p>
+	The individual pledging stage will go here.
+	</p>
+	What will you pledge to do in order for the group as a whole to reach its target?
+	<br><br>
+	<input id="numb" input type="range" name="cost" min="0" max= "{{ max_protection }}" step="0.01" value="0" onchange="printCosts({{cost_factor}})">
+	<p>Amount of protection you are pledging to provide:</p>
+	<p id="text_cost"></p>
+	<p>The Resulting chance for the entire group if everyone pledges the same amount as yourself:</p>
+	<p id="text_prob"></p>
 	
 	{% next_button %}
 {% endblock %}
 
 {% block styles %}
 <style type="text/css">
-	.farm_pic
-	{
-		display:inline-block;
-		float:right;
-		z-index: -1;
-		margin-right: 5%;
-		margin-left: 5%;
-		margin-bottom: 2em;
-	}
-	
 	#pagehead
 	{
 		display:inline-block;
@@ -71,17 +50,7 @@
 		font-size:2em;
 		color:#ffffff;
 	}
-	#roundText
-	{
-		font-size: 1.25em;
-		margin-bottom: 1em;
-		display: block;
-	}
 
-	
-	#numb{
-		width: 50%;
-	}
 	<!-- Slider Styling from: https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/ --->
 	input[type=range] {
 	  -webkit-appearance: none;
@@ -173,8 +142,8 @@
 	}
 	<!-- Slider Styling from: https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/ --->
 </style>
-
 {% endblock %}
+
 
 {% block scripts %}
 

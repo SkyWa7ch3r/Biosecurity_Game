@@ -62,25 +62,6 @@ class WSHandler(tornado.websocket.WebSocketHandler):
                 thetime = time.strftime("%d_%m_%Y")
                 #The file name will be sessionid_groupnumber_LOCALDATE
                 name = msg[1] + "_" + str(thetime)
-                #Check if Chat exists, create it if it doesn't exist
-                if not os.path.exists("../Chats/"):
-                    os.makedirs("../Chats/")
-                #The Chats are stored in a 'Chats' Directory
-                try :
-                    #Try writing the file
-                    file = open("../Chats/" + name + ".txt", "a+")
-                    file.write("Created chat room: "+ name + "_" + time.strftime("%H:%M:%S") + "\n")
-                    file.close()
-                    print("Chat file created for chat room" + name)
-                except OSError as e:
-                    #If it cant find the Chats Directory, make it and leave a warning inside the file.
-                    if e.errono == errno.EEXIST:
-                        os.makedirs("../Chats/")
-                        file = open("../Chats/" + name + ".txt", "a+")
-                        file.write("WARNING: YOU MAY HAVE LOST PREVIOUS CHAT DATA" + "\n")
-                        file.write("THIS WARNING COMES UP IN THE EVENT IT CAN'T FIND THE CHAT DIRECTORY, WHILE TRYING TO WRITE ITS POSSIBLE CHATS WAS DELETED" + "\n")
-                        file.write("Created chat room: "+ name + "_" + time.strftime("%H:%M:%S"))
-                        file.close()
 
         # a message coming through
         elif msg[0] == 'sending':
@@ -95,37 +76,9 @@ class WSHandler(tornado.websocket.WebSocketHandler):
                 name = msg[1] + "_" + str(thetime)
                 #Check the message for profanity and display a warning so a user can let the coordinator know of the warning.
                 if any(word in msg[3].lower() for word in profanity_list):
-                    try:
-                            file = open("../Chats/" + name + ".txt", "a")
-                            file.write("\n" + msg[2] + ': ' + msg[3] + ' at ' + time.strftime("%H:%M:%S"))
-                            file.close()
-                    except OSError as e:
-                        #If it cant find the file, make it and leave a warning inside the file.
-                        if e.errono == e.EEXIST:
-                            os.makedirs("../Chats/"+name+".txt")
-                            file = open("../Chats/" + name + ".txt", "a+")
-                            file.write("WARNING: YOU MAY HAVE LOST PREVIOUS CHAT DATA" + "\n")
-                            file.write("THIS WARNING COMES UP IN THE EVENT IT CAN'T FIND THE CHAT DIRECTORY, WHILE TRYING TO WRITE ITS POSSIBLE CHATS WAS DELETED" + "\n")
-                            file.write("Created chat room: "+ name + "_" + time.strftime("%H:%M:%S") + "\n")
-                            file.write("\n" + msg[2] + ': ' + msg[3] + ' at ' + time.strftime("%H:%M:%S"))
-                            file.close()
                     for p in clients:
                         p.write_message("Please keep this conversation civil and about the game, if you are seeing this message, please let the coordinator know")
                 else:
-                    try:
-                        file = open("../Chats/" + name + ".txt", "a")
-                        file.write("\n" + msg[2] + ': ' + msg[3] + ' at ' + time.strftime("%H:%M:%S"))
-                        file.close()
-                    except OSError as e:
-                        #If it cant find the file, make it and leave a warning inside the file.
-                        if e.errono == e.EEXIST:
-                            os.makedirs("../Chats/"+name+".txt")
-                            file = open("../Chats/" + name + ".txt", "a+")
-                            file.write("WARNING: YOU MAY HAVE LOST PREVIOUS CHAT DATA" + "\n")
-                            file.write("THIS WARNING COMES UP IN THE EVENT IT CAN'T FIND THE CHAT DIRECTORY, WHILE TRYING TO WRITE ITS POSSIBLE CHATS WAS DELETED" + "\n")
-                            file.write("Created chat room: "+ name + "_" + time.strftime("%H:%M:%S") + "\n")
-                            file.write("\n" + msg[2] + ': ' + msg[3] + ' at ' + time.strftime("%H:%M:%S"))
-                            file.close()
                     # send the message to everyone in that room
                     for p in clients:
                         send_msg = msg[2]+';;_;;'+msg[3]

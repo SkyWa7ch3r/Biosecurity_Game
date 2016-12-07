@@ -197,6 +197,44 @@ class Results(Page):
 			'neg' : negative,
 		}
 
+class IndiPledging(Page):
+	"""
+	The IndiPledging class does the logic for the Individual Pledging Page
+	"""
+	timeout_seconds = 60
+	def is_displayed(self):
+		return self.session.config['pledge'] == True and (self.round_number == 1 or self.round_number == 6 or self.round_number == 11)
+	def vars_for_template(self):
+		max_protection = self.session.config['max_protection']
+		cost_factor = max_protection/-math.log(0.01)
+		return {
+			'max_protection' : max_protection,
+			'cost_factor' : cost_factor,
+		}
+
+class GroupPledging(Page):
+	"""
+	The GroupPledging class does the logic for the Group Pledging Page
+	"""
+	timeout_seconds = 60
+	def is_displayed(self):
+		return self.session.config['pledge'] == True and (self.round_number == 1 or self.round_number == 6 or self.round_number == 11)
+		
+class PledgingApproval(Page):
+	"""
+	The Approval vlass does the logic for the Approval page
+	"""
+	timeout_seconds = 60
+	def is_displayed(self):
+		return self.session.config['pledge'] == True and (self.round_number == 1 or self.round_number == 6 or self.round_number == 11)
+
+class ActionApproval(Page):
+	"""
+	The Approval vlass does the logic for the Approval page
+	"""
+	timeout_seconds = 60
+	def is_displayed(self):
+		return self.session.config['pledge'] == True and (self.round_number == 6 or self.round_number == 11)
 """
     page_sequence determines the order in which pages are displayed.
 """
@@ -204,7 +242,16 @@ class Results(Page):
 page_sequence = [
     BioInstructions,
     WaitforEveryone,
+	ActionApproval,
+	WaitforEveryone,
+	GroupPledging,
+	WaitforEveryone,
+	IndiPledging,
+	WaitforEveryone,
     ChatBox,
+	WaitforEveryone,
+	PledgingApproval,
+	WaitforEveryone,
     SoloRound,
     WaitforEveryone,
     OthersRound,
