@@ -16,6 +16,14 @@
 	
 	<br></br>
 	<div id="roundText">
+		{% if pledge %}
+				<p>The Group Target is <b>{{ Group_Target }}%</b></p>
+				<p>What you all pledged to do:</p>
+				{% for p in pledge_results %}
+						<strong>{{ p }} </strong></br>
+				{% endfor %}
+			{% endif %}
+		</br>
 		Your current funds are: ${{ funds }} </br>
 		How much would you like to spend to protect your crops?
 	</div>
@@ -77,8 +85,6 @@
 		margin-bottom: 1em;
 		display: block;
 	}
-
-	
 	#numb{
 		width: 50%;
 	}
