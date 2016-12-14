@@ -250,9 +250,21 @@ class PledgingApproval(Page):
 	The Approval vlass does the logic for the Approval page
 	"""
 	timeout_seconds = 60
+	form_model = models.Player
+	form_fields = ['papproval']
+	
 	def is_displayed(self):
 		return self.session.config['Papproval'] == True
-
+	def vars_for_template(self):
+		arrayofnames = []
+		numbers = []
+		for p in self.group.get_players():
+			arrayofnames.append(p.participant.vars['name'])
+			numbers.append(p.id_in_group)
+		zippedlist = zip(arrayofnames, numbers)
+		return {
+			'zip' : zippedlist,
+		}
 class ActionApproval(Page):
 	"""
 	The Approval vlass does the logic for the Approval page

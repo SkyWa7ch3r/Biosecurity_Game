@@ -159,6 +159,21 @@ class Player(BasePlayer):
 	groupTarget = otree.models.IntegerField(widget=otree.widgets.SliderInput(attrs={'step' : '1'}))
 	individualPledge = otree.models.CurrencyField(widget=otree.widgets.SliderInput(attrs={'step' : '0.01'}))
 	cost = otree.models.CurrencyField(verbose_name="How Much protection do you want to do against Biosecurity Threats?", widget=otree.widgets.SliderInput(attrs={'step': '0.01'}))
+	papproval = otree.models.IntegerField(choices=[
+        [-6, 'Strongly Disapprove (-6)'],
+        [-5, '-5'],
+        [-4, '-4'],
+		[-3, '-3'],
+		[-2, '-2'],
+		[-1, '-1'],
+		[0, 'Neutral (0)'],
+		[1, '1'],
+		[2, '2'],
+		[3, '3'],
+		[4, '4'],
+		[5, '5'],
+		[6, 'Strongly approve (6)'],
+    ])
 	#find protection value using cost entered by player and max_protection which is set my an admin
 	def calculate_protection(self):
 		#If the finance variables are static, assign cost_factor statically, otherwise assign value appropriate for the round from the dynamic finance array
