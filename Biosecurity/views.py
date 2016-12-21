@@ -5,6 +5,7 @@ from .models import Constants
 
 import random
 import math
+
 """
 This is the Biosecurity Game views.py, in here are methods which alter how a page or
 template is shown based on different factors. This file is also where the page sequence
@@ -250,20 +251,20 @@ class PledgingApproval(Page):
 	The Approval vlass does the logic for the Approval page
 	"""
 	timeout_seconds = 60
-	form_model = models.Player
-	form_fields = ['papproval']
-	
+	form_model= models.Player
+	def get_form_fields(self):
+		approval = ['approval_{}'.format(i) for i in range(1, self.session.config["players_per_group"] + 1)]
+		name = ['name_{}'.format(i) for i in range(1, self.session.config["players_per_group"] + 1)]
+		return approval + name
 	def is_displayed(self):
 		return self.session.config['Papproval'] == True
 	def vars_for_template(self):
-		arrayofnames = []
-		numbers = []
+		names = []
 		for p in self.group.get_players():
-			arrayofnames.append(p.participant.vars['name'])
-			numbers.append(p.id_in_group)
-		zippedlist = zip(arrayofnames, numbers)
+			names.append(p.participant.vars['name'])
 		return {
-			'zip' : zippedlist,
+			'names' : names,
+			'counter' : 0,
 		}
 class ActionApproval(Page):
 	"""

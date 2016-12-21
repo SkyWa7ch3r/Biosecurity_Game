@@ -36,7 +36,6 @@ Player class contains individual variables for a given player
 Protection : 3 decimal place value between 0 and 1. Represents 1-p where p is the probabillity of an outbreak occuring 
 cost : the amount in in-game dollars the player has elected to spent on protection in a given round. The minimum is 0 and the max is set by an admin. The value is passed from a HTML slider widget
 """
-
 class Constants(BaseConstants):
 
 	players_per_group = None
@@ -49,11 +48,12 @@ class Subsession(BaseSubsession):
 	revenue = []
 	upkeep = []
 	maxProtection= []
-
+	
 	#At the start of this app
 	def before_session_starts(self):
 		#Get the group matching if its the actual game and not just the tests.
 		self.session.vars['incursion_count'] = 0
+		self.session.vars['ListOfNames'] = []
 		if self.round_number == 1 and self.session.config['name'] == 'biosecurity_game':
 			self.set_group_matrix(self.session.vars['matrix'])
 		cost = models.PositiveIntegerField()
@@ -75,15 +75,43 @@ class Subsession(BaseSubsession):
 			for row in file:
 				names.append(row['Names'])
 			been_before = [1000]
-		#assign a random name to each player
+		namesChosen = []
 		for p in self.get_players():
 			num = 1000
+			#No generate random numbers until we get an index that hasnt been chosen before
 			while num in been_before:
 				num = random.randint(0,len(names) - 1)
+			#Record this number so no one else ghets the name
 			been_before.append(num)
+			#Apply starting funds
 			p.participant.vars['funds'] = self.session.config['starting_funds']
+			#Apply the name via the index chosen by num
 			p.participant.vars['name'] = names[num]
-
+			namesChosen.append(names[num])
+		for _ in range(21 - self.session.config['players_per_group']):
+			namesChosen.append(None)
+		for p in self.get_players():
+			p.name_1 = namesChosen[0]
+			p.name_2 = namesChosen[1]
+			p.name_3 = namesChosen[2]
+			p.name_4 = namesChosen[3]
+			p.name_5 = namesChosen[4]
+			p.name_6 = namesChosen[5]
+			p.name_7 = namesChosen[6]
+			p.name_8 = namesChosen[7]
+			p.name_9 = namesChosen[8]
+			p.name_10 = namesChosen[9]
+			p.name_11 = namesChosen[10]
+			p.name_12 = namesChosen[11]
+			p.name_13 = namesChosen[12]
+			p.name_14 = namesChosen[13]
+			p.name_15 = namesChosen[14]
+			p.name_16 = namesChosen[15]
+			p.name_17 = namesChosen[16]
+			p.name_18 = namesChosen[17]
+			p.name_19 = namesChosen[18]
+			p.name_20 = namesChosen[19]	
+			
 class Group(BaseGroup):
 
 	#store incursion state
@@ -159,21 +187,68 @@ class Player(BasePlayer):
 	groupTarget = otree.models.IntegerField(widget=otree.widgets.SliderInput(attrs={'step' : '1'}))
 	individualPledge = otree.models.CurrencyField(widget=otree.widgets.SliderInput(attrs={'step' : '0.01'}))
 	cost = otree.models.CurrencyField(verbose_name="How Much protection do you want to do against Biosecurity Threats?", widget=otree.widgets.SliderInput(attrs={'step': '0.01'}))
-	papproval = otree.models.IntegerField(choices=[
-        [-6, 'Strongly Disapprove (-6)'],
-        [-5, '-5'],
-        [-4, '-4'],
-		[-3, '-3'],
+	
+	#Define all the player decisions
+	RATING = [
+		[-6, 'Strongly Disapprove (-6)'],
+		[-5, '-5'],
+		[-4, '-4'],
+		[-3, 'Disapprove (-3)'],
 		[-2, '-2'],
 		[-1, '-1'],
 		[0, 'Neutral (0)'],
 		[1, '1'],
 		[2, '2'],
-		[3, '3'],
+		[3, 'Approve (3)'],
 		[4, '4'],
 		[5, '5'],
 		[6, 'Strongly approve (6)'],
-    ])
+	]
+	
+	#All the names to put alongside the approval, n corresponds to n, e.g. name_1 corresponds to approval_1 
+	name_1 = otree.models.CharField(default=None, widget=otree.widgets.HiddenInput(), verbose_name='')
+	name_2 = otree.models.CharField(default=None, widget=otree.widgets.HiddenInput(), verbose_name='')
+	name_3 = otree.models.CharField(default=None, widget=otree.widgets.HiddenInput(), verbose_name='')
+	name_4 = otree.models.CharField(default=None, widget=otree.widgets.HiddenInput(), verbose_name='')
+	name_5 = otree.models.CharField(default=None, widget=otree.widgets.HiddenInput(), verbose_name='')
+	name_6 = otree.models.CharField(default=None, widget=otree.widgets.HiddenInput(), verbose_name='')
+	name_7 = otree.models.CharField(default=None, widget=otree.widgets.HiddenInput(), verbose_name='')
+	name_8 = otree.models.CharField(default=None, widget=otree.widgets.HiddenInput(), verbose_name='')
+	name_9 = otree.models.CharField(default=None, widget=otree.widgets.HiddenInput(), verbose_name='')
+	name_10 = otree.models.CharField(default=None, widget=otree.widgets.HiddenInput(), verbose_name='')
+	name_11 = otree.models.CharField(default=None, widget=otree.widgets.HiddenInput(), verbose_name='')
+	name_12 = otree.models.CharField(default=None, widget=otree.widgets.HiddenInput(), verbose_name='')
+	name_13 = otree.models.CharField(default=None, widget=otree.widgets.HiddenInput(), verbose_name='')
+	name_14 = otree.models.CharField(default=None, widget=otree.widgets.HiddenInput(), verbose_name='')
+	name_15 = otree.models.CharField(default=None, widget=otree.widgets.HiddenInput(), verbose_name='')
+	name_16 = otree.models.CharField(default=None, widget=otree.widgets.HiddenInput(), verbose_name='')
+	name_17 = otree.models.CharField(default=None, widget=otree.widgets.HiddenInput(), verbose_name='')
+	name_18 = otree.models.CharField(default=None, widget=otree.widgets.HiddenInput(), verbose_name='')
+	name_19 = otree.models.CharField(default=None, widget=otree.widgets.HiddenInput(), verbose_name='')
+	name_20 = otree.models.CharField(default=None, widget=otree.widgets.HiddenInput(), verbose_name='')
+	
+	#Number of Approvals, this will indicate a maximum amount of players per group
+	approval_1 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
+	approval_2 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
+	approval_3 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
+	approval_4 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
+	approval_5 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
+	approval_6 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
+	approval_7 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
+	approval_8 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
+	approval_9 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
+	approval_10 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
+	approval_11 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
+	approval_12 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
+	approval_13 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
+	approval_14 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
+	approval_15 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
+	approval_16 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
+	approval_17 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
+	approval_18 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
+	approval_19 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
+	approval_20 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
+	
 	#find protection value using cost entered by player and max_protection which is set my an admin
 	def calculate_protection(self):
 		#If the finance variables are static, assign cost_factor statically, otherwise assign value appropriate for the round from the dynamic finance array
@@ -191,4 +266,4 @@ class Player(BasePlayer):
 		if(self.session.config['set_leader']):
 			if self.id_in_group == ((self.subsession.round_number-1)%self.session.config['players_per_group'])+1:
 				return 'Leader'
-
+				
