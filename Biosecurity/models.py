@@ -132,6 +132,7 @@ class Group(BaseGroup):
 		for p in self.get_players():
 				p.protection = p.calculate_protection()
 		#Sum and average the protection probabillities of all players within this group
+		#TODO Joint Probability (1-P1*P2*P3*....*P20)
 		self.total_protection = sum([p.protection for p in self.get_players()])
 		#Calculate the outbreak using Psuedo-random number generator (seeded with system clock)
 		if(random.random()>self.total_protection/len(self.get_players())):
