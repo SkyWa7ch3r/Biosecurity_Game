@@ -86,7 +86,15 @@ class Round(Page):
 		else:
 			max_protection = self.subsession.maxProtection[self.subsession.round_number-1]
 		pledge_results = []
-		if(self.session.config['pledge'] == True):
+		if(self.session.config['pledge'] == True and self.session.config['Papproval'] == False and self.session.config['Capproval'] == False):
+			for p in self.group.get_players():
+				string = "%s --- : $%.2f" % (p.participant.vars['name'], p.individualPledge)
+				pledge_results.append(string)
+		if(self.session.config['pledge'] == True and self.session.config['Papproval'] == True and self.session.config['Capproval'] == False):
+			for p in self.group.get_players():
+				string = "%s --- : $%.2f The group's approval of their pledge: %.2f" % (p.participant.vars['name'], p.individualPledge, self.group.approval_means[p.id_in_group - 1])
+				pledge_results.append(string)
+		if(self.session.config['pledge'] == True and self.session.config['Papproval'] == False and self.session.config['Capproval'] == True):
 			for p in self.group.get_players():
 				string = "%s --- : $%.2f" % (p.participant.vars['name'], p.individualPledge)
 				pledge_results.append(string)
@@ -217,6 +225,12 @@ class PledgeWait(WaitPage):
 		return self.session.config['pledge'] == True
 	def after_all_players_arrive(self):
 		self.group.calculate_group_target()
+	
+class AopWait(WaitPage):
+	def is_displayed(self):
+		return self.session.config['pledge'] == True and self.session.config['Papproval'] == True
+	def after_all_players_arrive(self):
+		self.group.calculate_mean_approval()
 		
 class IndiPledging(Page):
 	"""
@@ -248,31 +262,36 @@ class GroupPledging(Page):
 		
 class PledgingApproval(Page):
 	"""
-	The Approval vlass does the logic for the Approval page
+	The PledgingApproval class does the logic for the Pledging Approval page
 	"""
 	timeout_seconds = 60
 	form_model= models.Player
 	def get_form_fields(self):
 		approval = ['approval_{}'.format(i) for i in range(1, self.session.config["players_per_group"] + 1)]
-		name = ['name_{}'.format(i) for i in range(1, self.session.config["players_per_group"] + 1)]
-		return approval + name
+		return approval
 	def is_displayed(self):
-		return self.session.config['Papproval'] == True
+		return self.session.config['pledge'] == True and self.session.config['Papproval'] == True
 	def vars_for_template(self):
 		names = []
+		ids = []
+		pledge_results = []
 		for p in self.group.get_players():
 			names.append(p.participant.vars['name'])
+			ids.append(p.id_in_group)
+			string = "%s --- : $%.2f" % (p.participant.vars['name'], p.individualPledge)
+			pledge_results.append(string)
 		return {
-			'names' : names,
-			'counter' : 0,
+			'list' : zip(ids, names),
+			'pledge_results' : pledge_results,
+			'Group_Target' : self.group.calculatedGroupTarget,
 		}
 class ActionApproval(Page):
 	"""
-	The Approval vlass does the logic for the Approval page
+	The ActionApproval class does the logic for the Action Approval page
 	"""
 	timeout_seconds = 60
 	def is_displayed(self):
-		return self.session.config['Capproval'] == True
+		return self.session.config['pledge'] == True and self.session.config['Capproval'] == True
 """
 	page_sequence determines the order in which pages are displayed.
 """
@@ -289,7 +308,7 @@ page_sequence = [
 	ChatBox,
 	WaitforEveryone,
 	PledgingApproval,
-	WaitforEveryone,
+	AopWait,
 	SoloRound,
 	WaitforEveryone,
 	OthersRound,

@@ -117,12 +117,17 @@ class Group(BaseGroup):
 	#store incursion state
 	incursion = models.NullBooleanField(False)
 	incursion_count = models.IntegerField(blank = True, default = 0)
+	
 	#Median Data for every Pledging Stage and the group Target to see in the Results
 	medians = []
 	calculatedGroupTarget = models.FloatField(default = 0.0)
-
+	
+	#Mean Approval List for the Group to store everyone's average approval rating per player, approval_means[n - 1] = average of the approval_n in each player, approval_n = approval of name_n or Player n.
+	approval_means = [0.00] * 21
+	previous_round_for_pledging = 1
+	
 	#Group's averaged protection values
-	total_protection = models.DecimalField(max_digits=4,decimal_places=2, default=0.00)
+	chance_of_incursion = models.DecimalField(max_digits=4,decimal_places=2, default=0.00)
 	#When the resusts page loads, this function finds net incoms of players
 	def calculate_profits(self):
 		if(self.session.config['player_communication']):
@@ -131,11 +136,14 @@ class Group(BaseGroup):
 		#Calucate the protection each player provides (0-0.99) representing a percentage (0 = 100% chance of incursion etc.)
 		for p in self.get_players():
 				p.protection = p.calculate_protection()
-		#Sum and average the protection probabillities of all players within this group
-		#TODO Joint Probability (1-P1*P2*P3*....*P20)
-		self.total_protection = sum([p.protection for p in self.get_players()])
-		#Calculate the outbreak using Psuedo-random number generator (seeded with system clock)
-		if(random.random()>self.total_protection/len(self.get_players())):
+		#Work out the joint probability of the entire group, where the multiplication of everyone's probability is the chance of no incursion for the group
+		jointprob = 1
+		for p in self.get_players():
+			jointprob = jointprob * p.protection
+		#1 - the chance of no incursion for the group = the chance of incursion
+		self.chance_of_incursion = 1 - jointprob
+		#Calculate the outbreak using Psuedo-random number generator (seeded with system clock), if the number is lower the chance_of_incursion then there is an incursion
+		if(random.random()<self.chance_of_incursion):
 			#An incursion occured
 			self.incursion = True
 			self.session.vars['incursion_count'] +=1
@@ -181,7 +189,197 @@ class Group(BaseGroup):
 		#Put the median as calculatedGroupTarget and add it to the medians list
 		self.calculatedGroupTarget = median(targets)
 		self.medians.append(median(targets))
-		
+	
+	def calculate_mean_approval(self):
+		"""
+		This is going to be messy due to the constraints of oTree and Django, since we are not
+		able to do a ListField or DictionaryField and can't dynamically assign approval fields
+		we are stuck with the loop below which just goes from 0 to number of players_per_group, and then based
+		on the current iteration number i, do the average of approval_i from each player and store the value
+		in approval_means. In an ideal world I'd be able to do this loop in about 5 lines but well that's life.
+		"""
+		for i in range(0, self.session.config["players_per_group"]):
+			if(i is 0):
+				#Reset approval_means
+				self.approval_means[i] = 0
+				approval_total = 0
+				#For each player get approval_1
+				for p in self.get_players():
+					approval_total = approval_total + p.approval_1
+				#Get the average approval for Player 1
+				self.approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+			elif(i is 1):
+				#Reset approval_means
+				self.approval_means[i] = 0
+				approval_total = 0
+				#For each player get approval_2
+				for p in self.get_players():
+					approval_total += p.approval_2
+				#Get the average approval for Player 2
+				self.approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+			elif(i is 2):
+				#Reset approval_means
+				self.approval_means[i] = 0
+				approval_total = 0
+				#For each player get approval_3
+				for p in self.get_players():
+					approval_total += p.approval_3
+				#Get the average approval for Player 3
+				self.approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+			elif(i is 3):
+				#Reset approval_means
+				self.approval_means[i] = 0
+				approval_total = 0
+				#For each player get approval_4
+				for p in self.get_players():
+					approval_total += p.approval_4
+				#Get the average approval for Player 4
+				self.approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+			elif(i is 4):
+				#Reset approval_means
+				self.approval_means[i] = 0
+				approval_total = 0
+				#For each player get approval_5
+				for p in self.get_players():
+					approval_total += p.approval_5
+				#Get the average approval for Player 5
+				self.approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+			elif(i is 5):
+				#Reset approval_means
+				self.approval_means[i] = 0
+				approval_total = 0
+				#For each player get approval_6
+				for p in self.get_players():
+					approval_total += p.approval_6
+				#Get the average approval for Player 6
+				self.approval_means[i] = float(approval_total)/self.session.config["players_per_group"]	
+			elif(i is 6):
+				#Reset approval_means
+				self.approval_means[i] = 0
+				approval_total = 0
+				#For each player get approval_7
+				for p in self.get_players():
+					approval_total += p.approval_7
+				#Get the average approval for Player 7
+				self.approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+			elif(i is 7):
+				#Reset approval_means
+				self.approval_means[i] = 0
+				approval_total = 0
+				#For each player get approval_8
+				for p in self.get_players():
+					approval_total += p.approval_8
+				#Get the average approval for Player 8
+				self.approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+			elif(i is 8):
+				#Reset approval_means
+				self.approval_means[i] = 0
+				approval_total = 0
+				#For each player get approval_9
+				for p in self.get_players():
+					approval_total += p.approval_9
+				#Get the average approval for Player 9
+				self.approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+			elif(i is 9):
+				#Reset approval_means
+				self.approval_means[i] = 0
+				approval_total = 0
+				#For each player get approval_10
+				for p in self.get_players():
+					approval_total += p.approval_10
+				#Get the average approval for Player 10
+				self.approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+			elif(i is 10):
+				#Reset approval_means
+				self.approval_means[i] = 0
+				approval_total = 0
+				#For each player get approval_11
+				for p in self.get_players():
+					approval_total += p.approval_11
+				#Get the average approval for Player 11
+				self.approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+			elif(i is 11):
+				#Reset approval_means
+				self.approval_means[i] = 0
+				approval_total = 0
+				#For each player get approval_12
+				for p in self.get_players():
+					approval_total += p.approval_12
+				#Get the average approval for Player 12
+				self.approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+			elif(i is 12):
+				#Reset approval_means
+				self.approval_means[i] = 0
+				approval_total = 0
+				#For each player get approval_13
+				for p in self.get_players():
+					approval_total += p.approval_13
+				#Get the average approval for Player 13
+				self.approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+			elif(i is 13):
+				#Reset approval_means
+				self.approval_means[i] = 0
+				approval_total = 0
+				#For each player get approval_14
+				for p in self.get_players():
+					approval_total += p.approval_14
+				#Get the average approval for Player 14
+				self.approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+			elif(i is 14):
+				#Reset approval_means
+				self.approval_means[i] = 0
+				approval_total = 0
+				#For each player get approval_15
+				for p in self.get_players():
+					approval_total += p.approval_15
+				#Get the average approval for Player 15
+				self.approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+			elif(i is 15):
+				#Reset approval_means
+				self.approval_means[i] = 0
+				approval_total = 0
+				#For each player get approval_16
+				for p in self.get_players():
+					approval_total += p.approval_16
+				#Get the average approval for Player 16
+				self.approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+			elif(i is 16):
+				#Reset approval_means
+				self.approval_means[i] = 0
+				approval_total = 0
+				#For each player get approval_17
+				for p in self.get_players():
+					approval_total += p.approval_17
+				#Get the average approval for Player 17
+				self.approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+			elif(i is 17):
+				#Reset approval_means
+				self.approval_means[i] = 0
+				approval_total = 0
+				#For each player get approval_18
+				for p in self.get_players():
+					approval_total += p.approval_18
+				#Get the average approval for Player 18
+				self.approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+			elif(i is 18):
+				#Reset approval_means
+				self.approval_means[i] = 0
+				approval_total = 0
+				#For each player get approval_19
+				for p in self.get_players():
+					approval_total += p.approval_19
+				#Get the average approval for Player 19
+				self.approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+			elif(i is 19):
+				#Reset approval_means
+				self.approval_means[i] = 0
+				approval_total = 0
+				#For each player get approval_20
+				for p in self.get_players():
+					approval_total += p.approval_20
+				#Get the average approval for Player 20
+				self.approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+			
 class Player(BasePlayer):
 	funds_at_rounds_end = otree.models.CurrencyField(default = 0)
 	protection = otree.models.DecimalField(max_digits = 2, decimal_places = 2)
