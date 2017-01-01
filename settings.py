@@ -143,6 +143,7 @@ SESSION_CONFIGS = [
 		'pledge' : False,
 		'Papproval' : False,
 		'Capproval' : False,
+		'pledge_looper' : 0,
     },
 	{
         'name': 'basic_biosecurity_game_test',
@@ -163,6 +164,7 @@ SESSION_CONFIGS = [
 		'pledge' : False,
 		'Papproval' : False,
 		'Capproval' : False,
+		'pledge_looper' : 0,
     },
 	{
         'name': 'freeform_biosecurity_game_test',
@@ -183,6 +185,7 @@ SESSION_CONFIGS = [
 		'pledge' : False,
 		'Papproval' : False,
 		'Capproval' : False,
+		'pledge_looper' : 0,
     },
 	{
         'name': 'monitoring_biosecurity_game_test',
@@ -203,6 +206,7 @@ SESSION_CONFIGS = [
 		'pledge' : False,
 		'Papproval' : False,
 		'Capproval' : False,
+		'pledge_looper' : 0,
     },
 	{
         'name': 'pledging_biosecurity_game_test',
@@ -223,6 +227,7 @@ SESSION_CONFIGS = [
 		'pledge' : True,
 		'Papproval' : False,
 		'Capproval' : False,
+		'pledge_looper' : 4,
     },
 	{
         'name': 'pledging_mon_biosecurity_game_test',
@@ -242,6 +247,7 @@ SESSION_CONFIGS = [
 		'monitoring' : True,
 		'Papproval' : False,
 		'Capproval' : False,
+		'pledge_looper' : 4,
     },
 	{
         'name': 'aop_biosecurity_game_test',
@@ -262,6 +268,7 @@ SESSION_CONFIGS = [
 		'pledge' : True,
 		'Papproval' : True,
 		'Capproval' : False,
+		'pledge_looper' : 4,
     },
 	{
         'name': 'aoc_biosecurity_game_test',
@@ -280,8 +287,9 @@ SESSION_CONFIGS = [
         'use_browser_bots': False,
 		'monitoring' : True,
 		'pledge' : True,
-		'Papproval' : True,
-		'Capproval' : False,
+		'Papproval' : False,
+		'Capproval' : True,
+		'pledge_looper' : 4,
     },
 	#Start of the Full Games
 	{
@@ -303,6 +311,7 @@ SESSION_CONFIGS = [
 		'pledge' : False,
 		'Papproval' : False,
 		'Capproval' : False,
+		'pledge_looper' : 0,
     },
 	{
         'name': 'freeform_biosecurity_game',
@@ -323,6 +332,7 @@ SESSION_CONFIGS = [
 		'pledge' : False,
 		'Papproval' : False,
 		'Capproval' : False,
+		'pledge_looper' : 0,
     },
 	{
         'name': 'monitoring_biosecurity_game',
@@ -343,6 +353,7 @@ SESSION_CONFIGS = [
 		'pledge' : False,
 		'Papproval' : False,
 		'Capproval' : False,
+		'pledge_looper' : 0,
     },
 	{
         'name': 'pledging_biosecurity_game',
@@ -363,6 +374,7 @@ SESSION_CONFIGS = [
 		'pledge' : True,
 		'Papproval' : False,
 		'Capproval' : False,
+		'pledge_looper' : 4,
     },
 	{
         'name': 'mon_pledging_biosecurity_game',
@@ -383,6 +395,7 @@ SESSION_CONFIGS = [
 		'pledge' : True,
 		'Papproval' : False,
 		'Capproval' : False,
+		'pledge_looper' : 4,
     },
 		{
         'name': 'aop_biosecurity_game',
@@ -403,6 +416,7 @@ SESSION_CONFIGS = [
 		'pledge' : True,
 		'Papproval' : True,
 		'Capproval' : False,
+		'pledge_looper' : 4,
     },
 	{
         'name': 'aoc_biosecurity_game',
@@ -421,8 +435,9 @@ SESSION_CONFIGS = [
         'use_browser_bots': False,
 		'monitoring' : True,
 		'pledge' : True,
-		'Papproval' : True,
-		'Capproval' : False,
+		'Papproval' : False,
+		'Capproval' : True,
+		'pledge_looper' : 4,
     },
 	{
         'name': 'custom_biosecurity_game',

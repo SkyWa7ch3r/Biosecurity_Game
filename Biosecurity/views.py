@@ -43,14 +43,14 @@ class SoloRound(Page):
 			if(self.session.config['dynamic_finances'] == False):
 				self.player.cost= random.uniform(0.00, self.session.config['max_protection'])
 			else:
-				self.player.cost= random.uniform(0.00,self.subsession.maxProtection[self.subsession.round_number-1])
+				self.player.cost= random.uniform(0.00,Constants.maxProtection[self.subsession.round_number-1])
 
 	#Output protection and cost_factor values to results
 	def vars_for_template(self):
 		if(self.session.config['dynamic_finances'] == False):
 			max_protection = self.session.config['max_protection']
 		else:
-			max_protection = self.subsession.maxProtection[self.subsession.round_number-1]
+			max_protection = Constants.maxProtection[self.subsession.round_number-1]
 		cost_factor = max_protection/-math.log(0.01)
 		return {
 			'max_protection': max_protection,
@@ -77,26 +77,26 @@ class Round(Page):
 			if(self.session.config['dynamic_finances'] == False):
 				self.player.cost= random.uniform(0.00, self.session.config['max_protection'])
 			else:
-				self.player.cost= random.uniform(0.00,self.subsession.maxProtection[self.subsession.round_number-1])
+				self.player.cost= random.uniform(0.00,Constants.maxProtection[self.subsession.round_number-1])
 
 	#Output protection and cost_factor values to results
 	def vars_for_template(self):
 		if(self.session.config['dynamic_finances'] == False):
 			max_protection = self.session.config['max_protection']
 		else:
-			max_protection = self.subsession.maxProtection[self.subsession.round_number-1]
+			max_protection = Constants.maxProtection[self.subsession.round_number-1]
 		pledge_results = []
 		if(self.session.config['pledge'] == True and self.session.config['Papproval'] == False and self.session.config['Capproval'] == False):
 			for p in self.group.get_players():
-				string = "%s --- : $%.2f" % (p.participant.vars['name'], p.individualPledge)
+				string = "%s Pledged: $%.2f" % (p.participant.vars['name'], p.individualPledge)
 				pledge_results.append(string)
 		if(self.session.config['pledge'] == True and self.session.config['Papproval'] == True and self.session.config['Capproval'] == False):
 			for p in self.group.get_players():
-				string = "%s --- : $%.2f The group's approval of their pledge: %.2f" % (p.participant.vars['name'], p.individualPledge, self.group.approval_means[p.id_in_group - 1])
+				string = "%s Pledged: $%.2f The group's approval of their pledge: %.2f" % (p.participant.vars['name'], p.individualPledge, self.group.approval_means[p.id_in_group - 1])
 				pledge_results.append(string)
 		if(self.session.config['pledge'] == True and self.session.config['Papproval'] == False and self.session.config['Capproval'] == True):
 			for p in self.group.get_players():
-				string = "%s --- : $%.2f" % (p.participant.vars['name'], p.individualPledge)
+				string = "%s Pledged: $%.2f The group's approval of their Contribution: %.2f" % (p.participant.vars['name'], p.individualPledge, self.group.approval_means[p.id_in_group - 1])
 				pledge_results.append(string)
 		cost_factor = max_protection/-math.log(0.01)
 		
@@ -128,13 +128,13 @@ class OthersRound(Page):
 			if(self.session.config['dynamic_finances'] == False):
 				self.player.cost= random.uniform(0.00, self.session.config['max_protection'])
 			else:
-				self.player.cost= random.uniform(0.00,self.subsession.maxProtection[self.subsession.round_number-1])
+				self.player.cost= random.uniform(0.00,Constants.maxProtection[self.subsession.round_number-1])
 	 #Output protection and cost_factor values to results
 	def vars_for_template(self):
 		if(self.session.config['dynamic_finances'] == False):
 			max_protection = self.session.config['max_protection']
 		else:
-			max_protection = self.subsession.maxProtection[self.subsession.round_number-1]
+			max_protection = Constants.maxProtection[self.subsession.round_number-1]
 		cost_factor = max_protection/-math.log(0.01)
 		#print leader's contribution to html page
 		return {
@@ -192,6 +192,8 @@ class Results(Page):
 	total_cost: Amount of protection used + constant upkeep = cost for the round
 	independant of outcome.
 	"""
+	def is_displayed(self):
+		return self.session.config['Capproval'] == False
 	def vars_for_template(self):
 		results = []
 		negative = False
@@ -203,8 +205,8 @@ class Results(Page):
 			revenue = self.session.config['revenue']
 			upkeep = self.session.config['upkeep']
 		else:
-			revenue = self.subsession.revenue[self.subsession.round_number-1]
-			upkeep = self.subsession.upkeep[self.subsession.round_number-1]
+			revenue = Constants.revenue[self.subsession.round_number-1]
+			upkeep = Constants.upkeep[self.subsession.round_number-1]
 		if(self.player.participant.vars['funds'] < 0.00):
 			negative = True
 			currentFunds = currentFunds * -1.00
@@ -229,6 +231,12 @@ class PledgeWait(WaitPage):
 class AopWait(WaitPage):
 	def is_displayed(self):
 		return self.session.config['pledge'] == True and self.session.config['Papproval'] == True
+	def after_all_players_arrive(self):
+		self.group.calculate_mean_approval()
+		
+class AocWait(WaitPage):
+	def is_displayed(self):
+		return self.session.config['pledge'] == True and self.session.config['Capproval'] == True
 	def after_all_players_arrive(self):
 		self.group.calculate_mean_approval()
 		
@@ -264,7 +272,7 @@ class PledgingApproval(Page):
 	"""
 	The PledgingApproval class does the logic for the Pledging Approval page
 	"""
-	timeout_seconds = 60
+	timeout_seconds = 90
 	form_model= models.Player
 	def get_form_fields(self):
 		approval = ['approval_{}'.format(i) for i in range(1, self.session.config["players_per_group"] + 1)]
@@ -278,28 +286,66 @@ class PledgingApproval(Page):
 		for p in self.group.get_players():
 			names.append(p.participant.vars['name'])
 			ids.append(p.id_in_group)
-			string = "%s --- : $%.2f" % (p.participant.vars['name'], p.individualPledge)
+			string = "%s Pledged: $%.2f" % (p.participant.vars['name'], p.individualPledge)
 			pledge_results.append(string)
 		return {
 			'list' : zip(ids, names),
 			'pledge_results' : pledge_results,
 			'Group_Target' : self.group.calculatedGroupTarget,
 		}
+		
 class ActionApproval(Page):
 	"""
-	The ActionApproval class does the logic for the Action Approval page
+	The ActionApproval class does the logic for the Action Approval page, essentially the same as the pledging approval
+	class just some small changes to reflect for it to come up on a different time compared to the approval for pledges.
+	This class will also replace the results page in the case of approval by contributions.
 	"""
-	timeout_seconds = 60
+	timeout_seconds = 90
+	form_model= models.Player
+	def get_form_fields(self):
+		approval = ['approval_{}'.format(i) for i in range(1, self.session.config["players_per_group"] + 1)]
+		return approval
 	def is_displayed(self):
 		return self.session.config['pledge'] == True and self.session.config['Capproval'] == True
+	def vars_for_template(self):
+		names = []
+		ids = []
+		pledge_results = []
+		results = []
+		negative = False
+		for p in self.group.get_players():
+			names.append(p.participant.vars['name'])
+			ids.append(p.id_in_group)
+			string = "%s --- Pledged: $%.2f" % (p.participant.vars['name'], p.individualPledge)
+			pledge_results.append(string)
+			string = "%s --- Protection: $%.2f" % (p.participant.vars['name'], p.cost)
+			results.append(string)
+		if(self.session.config['dynamic_finances'] == False):
+			revenue = self.session.config['revenue']
+			upkeep = self.session.config['upkeep']
+		else:
+			revenue = Constants.revenue[self.subsession.round_number-1]
+			upkeep = Constants.upkeep[self.subsession.round_number-1]
+		if(self.player.participant.vars['funds'] < 0.00):
+			negative = True
+			currentFunds = currentFunds * -1.00
+		return {
+			'list' : zip(ids, names, results),
+			'pledge_results' : pledge_results,
+			'Group_Target' : self.group.calculatedGroupTarget,
+			'neg' : negative,
+			'player_name': self.player.participant.vars['name'],
+			'upkeep': c(upkeep),
+			'revenue': c(revenue),
+			'total_cost': self.player.cost + c(self.session.config['upkeep']),
+			'funds' : self.player.participant.vars['funds'],
+		}
 """
 	page_sequence determines the order in which pages are displayed.
 """
 
 page_sequence = [
 	BioInstructions,
-	WaitforEveryone,
-	ActionApproval,
 	WaitforEveryone,
 	GroupPledging,
 	PledgeWait,
@@ -315,7 +361,8 @@ page_sequence = [
 	Round,
 	ResultsWaitPage,
 	Results,
-	WaitforEveryone,
+	ActionApproval,
+	AocWait,
 ]
 
 

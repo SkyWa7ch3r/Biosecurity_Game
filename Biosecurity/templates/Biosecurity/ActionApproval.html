@@ -10,43 +10,84 @@
 {% block content %}
 	<div id="pagehead">
 		<img src="{% static "Biosecurity/uwalogo.png" %}"/>
-		<div class="title">Social Approval Stage {{ subsession.round_number }} of {{ Constants.num_rounds }}</div>
+		<div class="title">Approval based on Contribution Stage {{ subsession.round_number }} of {{ Constants.num_rounds }}</div>
 	</div>
-	<p>
-	<strong>This is a stub for the Social Approval</strong>
-	</p>
-	<p>
-	The Social Approval stage will go here.
-	</p>
 	
+	<div id="resultText">
+		Hello <strong>{{ player_name }}</strong> <br/>
+			The amount of protection you provided this round was ${{ player.cost }} <br/>
+			The cost for produce is ${{ upkeep }} <br/>
+			The revenue for each round if an incursion didn't occur is ${{ revenue }} <br/>
+			<br>
+			{% if group.incursion %}
+				<strong>There was an incursion</strong> <br/>
+				Your total revenue is $0 <br/>
+				Your total cost is ${{ total_cost }} <br/>
+			{% else %}
+				<strong>There was no incursion</strong> <br/>
+				Your total revenue is ${{ revenue }} <br/>
+				Your total cost is ${{total_cost}} <br/>
+			{% endif %}
+		<p>The Group Target is <b>{{ Group_Target }}%</b></p>
+		<p>What you everyone pledged to do in order to meet the group target:</p>
+		{% for p in pledge_results %}
+			<strong>{{ p }} </strong></br>
+		{% endfor %}
+	</div>
+	
+	{% for id, name, result in list %}
+		<strong>Your approval of {{name}} based on their Contribution:</strong>
+		<div class="form-group required">
+			<div class="controls  field-approval_{{id}}">
+				<strong>{{result}}</strong><select name="approval_{{id}}" required id="id_approval_{{id}}}" class="form-control">
+					<option value="-6">Strongly Disapprove (-6)</option>
+					<option value="-5">-5</option>
+					<option value="-4">-4</option>
+					<option value="-3">Disapprove (-3)</option>
+					<option value="-2">-2</option>
+					<option value="-1">-1</option>
+					<option value="0" selected="selected">Neutral (0)</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">Approve (3)</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">Strongly approve (6)</option>
+				</select>    
+			</div>
+		</div>
+	{% endfor %}
 	{% next_button %}
 {% endblock %}
 
 {% block styles %}
-<style type="text/css">
-	#pagehead
-	{
-		display:inline-block;
-		float:left;
-		width:100%;
-		background:#27348b;
-		margin:0 0 0 0;
-		padding:0.75em;
-		overflow:hidden;
-		margin-bottom: 2em;
-	}
-	#pagehead img
-	{
-		height:3.8em;
-	}
-	#pagehead .title
-	{
-		display:inline-block;
-		float:right;
-		font-size:2em;
-		color:#ffffff;
-	}
-
-	
-</style>
+	<style type="text/css">
+		#pagehead
+		{
+			display:inline-block;
+			float:left;
+			width:100%;
+			background:#27348b;
+			margin:0 0 0 0;
+			padding:0.75em;
+			overflow:hidden;
+			margin-bottom: 2em;
+		}
+		#pagehead img
+		{
+			height:3.8em;
+		}
+		#pagehead .title
+		{
+			display:inline-block;
+			float:right;
+			font-size:2em;
+			color:#ffffff;
+		}
+		#resultText
+		{
+			font-size: 1.5em;
+			margin-bottom: 1em;
+		}		
+	</style>
 {% endblock %}

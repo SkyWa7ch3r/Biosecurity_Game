@@ -42,12 +42,36 @@ class Constants(BaseConstants):
 	name_in_url = 'Biosecurity'
 	num_rounds = 15
 	
-class Subsession(BaseSubsession):
-
+	#Define all the player decisions
+	RATING = [
+		[-6, 'Strongly Disapprove (-6)'],
+		[-5, '-5'],
+		[-4, '-4'],
+		[-3, 'Disapprove (-3)'],
+		[-2, '-2'],
+		[-1, '-1'],
+		[0, 'Neutral (0)'],
+		[1, '1'],
+		[2, '2'],
+		[3, 'Approve (3)'],
+		[4, '4'],
+		[5, '5'],
+		[6, 'Strongly approve (6)'],
+	]
+	
 	#Dynamic value arrays
 	revenue = []
 	upkeep = []
 	maxProtection= []
+	with open('CSV/dynamic_finances.csv') as filestream:
+				file = csv.DictReader(filestream)
+				for row in file:
+					revenue.append(float(row['revenue']))
+					upkeep.append(float(row['upkeep']))
+					maxProtection.append(float(row['protection']))
+
+	
+class Subsession(BaseSubsession):
 	
 	#At the start of this app
 	def before_session_starts(self):
@@ -59,16 +83,7 @@ class Subsession(BaseSubsession):
 		cost = models.PositiveIntegerField()
 		#array for player names
 		names = []
-		#If dynamic finacial values are active
-		if(self.session.config['dynamic_finances'] == True):
-			#read financial values from csv and store in arraylists
-			with open('CSV/dynamic_finances.csv') as filestream:
-				file = csv.DictReader(filestream)
-				for row in file:
-					self.revenue.append(float(row['revenue']))
-					self.upkeep.append(float(row['upkeep']))
-					self.maxProtection.append(float(row['protection']))
-
+		
 		#Read names from csv and store in array    
 		with open('CSV/names.csv') as filestream:
 			file = csv.DictReader(filestream)
@@ -155,7 +170,7 @@ class Group(BaseGroup):
 					p.payoff = - p.cost - c(self.session.config['upkeep'])
 				#dynamic finacial values  
 				else:
-					p.payoff = - p.cost - c(self.subsession.upkeep[self.subsession.round_number-1]) 
+					p.payoff = - p.cost - c(Constants.upkeep[self.subsession.round_number-1]) 
 				p.participant.vars['funds'] += p.payoff
 				p.funds_at_rounds_end  = p.participant.vars['funds']
 				if self.subsession.round_number == 1:
@@ -171,7 +186,7 @@ class Group(BaseGroup):
 					p.payoff = c(self.session.config['revenue']) - c(self.session.config['upkeep']) - p.cost
 				else:
 					#dynamic finacial values
-					p.payoff = c(self.subsession.revenue[self.subsession.round_number-1]) - c(self.subsession.upkeep[self.subsession.round_number-1]) - p.cost
+					p.payoff = c(Constants.revenue[self.subsession.round_number-1]) - c(Constants.upkeep[self.subsession.round_number-1]) - p.cost
 				#Set funds of player as value calculated above
 				p.participant.vars['funds'] += p.payoff
 				p.funds_at_rounds_end  = p.participant.vars['funds']
@@ -387,22 +402,6 @@ class Player(BasePlayer):
 	individualPledge = otree.models.CurrencyField(widget=otree.widgets.SliderInput(attrs={'step' : '0.01'}))
 	cost = otree.models.CurrencyField(verbose_name="How Much protection do you want to do against Biosecurity Threats?", widget=otree.widgets.SliderInput(attrs={'step': '0.01'}))
 	
-	#Define all the player decisions
-	RATING = [
-		[-6, 'Strongly Disapprove (-6)'],
-		[-5, '-5'],
-		[-4, '-4'],
-		[-3, 'Disapprove (-3)'],
-		[-2, '-2'],
-		[-1, '-1'],
-		[0, 'Neutral (0)'],
-		[1, '1'],
-		[2, '2'],
-		[3, 'Approve (3)'],
-		[4, '4'],
-		[5, '5'],
-		[6, 'Strongly approve (6)'],
-	]
 	
 	#All the names to put alongside the approval, n corresponds to n, e.g. name_1 corresponds to approval_1 
 	name_1 = otree.models.CharField(default=None, widget=otree.widgets.HiddenInput(), verbose_name='')
@@ -427,26 +426,26 @@ class Player(BasePlayer):
 	name_20 = otree.models.CharField(default=None, widget=otree.widgets.HiddenInput(), verbose_name='')
 	
 	#Number of Approvals, this will indicate a maximum amount of players per group
-	approval_1 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
-	approval_2 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
-	approval_3 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
-	approval_4 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
-	approval_5 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
-	approval_6 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
-	approval_7 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
-	approval_8 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
-	approval_9 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
-	approval_10 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
-	approval_11 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
-	approval_12 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
-	approval_13 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
-	approval_14 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
-	approval_15 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
-	approval_16 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
-	approval_17 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
-	approval_18 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
-	approval_19 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
-	approval_20 = otree.models.IntegerField(default=0, choices=RATING, verbose_name='')
+	approval_1 = otree.models.IntegerField(default=0, choices=Constants.RATING, verbose_name='')
+	approval_2 = otree.models.IntegerField(default=0, choices=Constants.RATING, verbose_name='')
+	approval_3 = otree.models.IntegerField(default=0, choices=Constants.RATING, verbose_name='')
+	approval_4 = otree.models.IntegerField(default=0, choices=Constants.RATING, verbose_name='')
+	approval_5 = otree.models.IntegerField(default=0, choices=Constants.RATING, verbose_name='')
+	approval_6 = otree.models.IntegerField(default=0, choices=Constants.RATING, verbose_name='')
+	approval_7 = otree.models.IntegerField(default=0, choices=Constants.RATING, verbose_name='')
+	approval_8 = otree.models.IntegerField(default=0, choices=Constants.RATING, verbose_name='')
+	approval_9 = otree.models.IntegerField(default=0, choices=Constants.RATING, verbose_name='')
+	approval_10 = otree.models.IntegerField(default=0, choices=Constants.RATING, verbose_name='')
+	approval_11 = otree.models.IntegerField(default=0, choices=Constants.RATING, verbose_name='')
+	approval_12 = otree.models.IntegerField(default=0, choices=Constants.RATING, verbose_name='')
+	approval_13 = otree.models.IntegerField(default=0, choices=Constants.RATING, verbose_name='')
+	approval_14 = otree.models.IntegerField(default=0, choices=Constants.RATING, verbose_name='')
+	approval_15 = otree.models.IntegerField(default=0, choices=Constants.RATING, verbose_name='')
+	approval_16 = otree.models.IntegerField(default=0, choices=Constants.RATING, verbose_name='')
+	approval_17 = otree.models.IntegerField(default=0, choices=Constants.RATING, verbose_name='')
+	approval_18 = otree.models.IntegerField(default=0, choices=Constants.RATING, verbose_name='')
+	approval_19 = otree.models.IntegerField(default=0, choices=Constants.RATING, verbose_name='')
+	approval_20 = otree.models.IntegerField(default=0, choices=Constants.RATING, verbose_name='')
 	
 	#find protection value using cost entered by player and max_protection which is set my an admin
 	def calculate_protection(self):
@@ -454,7 +453,7 @@ class Player(BasePlayer):
 		if(self.session.config['dynamic_finances'] == False):
 			cost_factor = self.session.config['max_protection']/-math.log(0.01)
 		else:
-			cost_factor = self.subsession.maxProtection[self.subsession.round_number-1]/-math.log(0.01)
+			cost_factor = Constants.maxProtection[self.subsession.round_number-1]/-math.log(0.01)
 
 		#protection is defined as 1-e^(-cost/cost_factor)
 		self.protection = 1-math.exp(-self.cost/cost_factor)
