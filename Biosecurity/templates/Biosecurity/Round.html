@@ -16,12 +16,14 @@
 	
 	<br></br>
 	<div id="roundText">
+		{{ player_name }}<br>Please Choose the amount of Protection you're providing against Biosecurity Threats using the slider.
 		{% if pledge %}
-				<p>The Group Target is <b>{{ Group_Target }}%</b></p>
-				<p>What you all pledged to do:</p>
-				{% for p in pledge_results %}
-						<strong>{{ p }} </strong></br>
-				{% endfor %}
+			<p>Rounds till the next pledge: {{next_pledge}}</p>
+			<p>The Group Target is <b>{{ Group_Target }}%</b></p>
+			<p>What you all pledged to do:</p>
+			{% for p in pledge_results %}
+				<strong>{{ p }} </strong></br>
+			{% endfor %}
 		{% endif %}
 		</br>
 		Your current funds are: ${{ funds }} </br>
@@ -34,7 +36,7 @@
 			<!--Slider with a range from 0 to a value set by an admin (max_protection). When the value is altered by the player, the cost and probabillity values are recalculated and displayed-->
 			<input id="numb" input type="range" name="cost" min="0" max= "{{max_protection}}" step="0.01" value="0" onchange="printCosts({{cost_factor}})">
 			<br></br>
-			<p>Cost:</p>
+			<p>Cost of Protection:</p>
 			<p id="text_cost"></p>
 			{% if calc %}
 				<p>Probablity that you are <b>not</b> the source of the incursion:</p>

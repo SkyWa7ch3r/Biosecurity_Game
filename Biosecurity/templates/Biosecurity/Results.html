@@ -26,21 +26,30 @@
 		{% else %}
 			<strong>There was no incursion</strong> <br/>
 			Your total revenue is ${{ revenue }} <br/>
-			Your total cost is ${{total_cost}} <br/>
+			Your total cost is ${{ total_cost }} <br/>
 		{% endif %}
-		<br></br>
+		<br>
 		<div id ="roundResultCon">
 			{% if monitoring == True %}
 			<div id ="roundResult">
-				Each Player's Protection: <br/>
-				{% for p in results_list %}
-					<strong>{{ p }} </strong><br/>
+				<table border="5" cellpadding="5" cellspacing="5">
+				<caption>Each Player's Protection</caption>
+				<tr>
+					<th>Name</th>
+					<th>Protection Provided</th>
+				</tr>
+				{% for name, cost in results %}
+					<tr>
+						<td>{{ name }}</td>
+						<td>${{ cost }}</td>
+					</tr>
 				{% endfor %}
+				</table>
 			{% endif %}
 			{% if neg == True %}
-				<strong> Your current funds: -${{ funds }}. </strong> <br/>
+				<strong> Your current funds: -${{ funds }} </strong> <br/>
 			{% else %}
-				<strong> Your current funds: ${{ funds }}. </strong> <br/>
+				<strong> Your current funds: ${{ funds }} </strong> <br/>
 			{% endif %}
 			</div>
 		</div>
