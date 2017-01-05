@@ -95,33 +95,34 @@ class Round(Page):
 
 	#Output protection and cost_factor values to results
 	def vars_for_template(self):
+		names = []
 		pledge_results = []
+		average = []
+		abovec = False
+		#Getting average approval p.participant.vars["approval_means"][p.id_in_group - 1]
+		if(self.subsession.round_number > self.session.config["contribution_looper"]):
+			abovec = True
+		for p in self.group.get_players():
+			names.append(p.participant.vars["name"])
+			pledge_results.append(p.participant.vars["Recent_Pledge"][1])
+			if(self.session.config["Papproval"]):
+				average.append(p.participant.vars["approval_means"][p.id_in_group - 1])
+			elif(self.session.config["Capproval"] and abovec):
+				average.append(p.participant.vars["approval_means"][p.id_in_group - 1])
+			else:
+				average.append(None)
 		if(self.session.config['dynamic_finances'] == False):
 			max_protection = self.session.config['max_protection']
 		else:
 			max_protection = Constants.maxProtection[self.subsession.round_number-1]
-		if(self.session.config['pledge'] == True and self.session.config['Papproval'] == False and self.session.config['Capproval'] == False):
-			for p in self.group.get_players():
-				string = "%s Pledged: $%.2f" % (p.participant.vars['name'], p.participant.vars["Recent_Pledge"][1])
-				pledge_results.append(string)
-		if(self.session.config['pledge'] == True and self.session.config['Papproval'] == True and self.session.config['Capproval'] == False):
-			for p in self.group.get_players():
-				string = "%s Pledged: $%.2f The group's approval of their pledge: %.2f" % (p.participant.vars['name'], p.participant.vars["Recent_Pledge"][1], p.participant.vars["approval_means"][p.id_in_group - 1])
-				pledge_results.append(string)
-		if(self.session.config['pledge'] == True and self.session.config['Papproval'] == False and self.session.config['Capproval'] == True):
-			if(self.subsession.round_number < self.session.config["contribution_looper"]):
-				for p in self.group.get_players():
-					string = "%s Pledged: $%.2f" % (p.participant.vars['name'], p.participant.vars["Recent_Pledge"][1])
-					pledge_results.append(string)
-			else:
-				for p in self.group.get_players():
-					string = "%s Pledged: $%.2f The group's approval of their Contribution: %.2f" % (p.participant.vars['name'], p.participant.vars["Recent_Pledge"][1], p.participant.vars["approval_means"][p.id_in_group - 1])
-					pledge_results.append(string)
 		if(self.group.get_player_by_id(1).participant.vars["pledge_round"] == True):
 			if(self.subsession.round_number == 1):
 				self.group.get_player_by_id(1).participant.vars["Rounds_Till_Pledge"] = self.session.config["pledge_looper"] - 1
 			else:
 				self.group.get_player_by_id(1).participant.vars["Rounds_Till_Pledge"] = self.session.config["pledge_looper"]
+		if(self.group.get_player_by_id(1).participant.vars["Rounds_Till_Contribution"] == 0):
+			self.group.get_player_by_id(1).participant.vars["Rounds_Till_Contribution"] = self.session.config["contribution_looper"]
+			contribution_message = "\nAfter the results, You will decide your approval of everyone's contribution in the last %d rounds including this one."%self.session.config["contribution_looper"]
 		cost_factor = max_protection/-math.log(0.01)
 		
 		return {
@@ -129,11 +130,16 @@ class Round(Page):
 			'cost_factor': cost_factor,
 			'funds': self.player.participant.vars['funds'],
 			'calc': self.session.config['calculator'],
-			'pledge_results' : pledge_results,
+			'list' : zip(names, pledge_results, average),
 			'pledge' : self.session.config['pledge'],
-			'Group_Target' : self.participant.vars["Group_Targets"][1],
+			'Group_Target_Prob' : self.participant.vars["Group_Targets_Prob"][1],
+			'Group_Target_Cost' : self.participant.vars["Group_Targets_Cost"][1],
 			'next_pledge' : self.group.get_player_by_id(1).participant.vars["Rounds_Till_Pledge"],
+			'next_cont' : self.group.get_player_by_id(1).participant.vars["Rounds_Till_Contribution"],
+			'Capproval' : self.session.config["Capproval"],
+			'Papproval' : self.session.config["Papproval"],
 			'player_name' : self.player.participant.vars["name"],
+			'abovec' : abovec,
 		}
 
 class OthersRound(Page):
@@ -262,6 +268,8 @@ class PledgeWaitCounter(WaitPage):
 	def after_all_players_arrive(self):
 		self.group.get_player_by_id(1).participant.vars["Rounds_Till_Pledge"] -= 1
 		self.group.get_player_by_id(1).participant.vars['pledge_round'] = False
+		if(self.session.config["Capproval"]):
+			self.group.get_player_by_id(1).participant.vars["Rounds_Till_Contribution"] -= 1
 class AopWait(WaitPage):
 	def is_displayed(self):
 		return self.session.config['pledge'] == True and self.session.config['Papproval'] == True and (self.subsession.round_number % self.session.config["pledge_looper"] == 0 or self.subsession.round_number == 1)
@@ -289,7 +297,8 @@ class IndiPledging(Page):
 		max_protection = self.session.config['max_protection']
 		cost_factor = max_protection/-math.log(0.01)
 		return {
-			'Group_Target' : self.participant.vars["Group_Targets"][1],
+			'Group_Target_Prob' : self.participant.vars["Group_Targets_Prob"][1],
+			'Group_Target_Cost' : self.participant.vars["Group_Targets_Cost"][1],
 			'max_protection' : max_protection,
 			'cost_factor' : cost_factor,
 		}
@@ -335,7 +344,8 @@ class PledgingApproval(Page):
 		return {
 			'list' : zip(ids, names),
 			'pledge_results' : pledge_results,
-			'Group_Target' : self.participant.vars["Group_Targets"][1],
+			'Group_Target_Prob' : self.participant.vars["Group_Targets_Prob"][1],
+			'Group_Target_Cost' : self.participant.vars["Group_Targets_Cost"][1],
 		}
 		
 class ActionApproval(Page):
@@ -373,7 +383,8 @@ class ActionApproval(Page):
 			'list_for_table' : zip(names, pledge_results, results),
 			'list_for_form' : zip(ids, names),
 			'round_numbers' : round_numbers,
-			'Group_Target' : self.participant.vars["Group_Targets"][0],
+			'Group_Target_Prob' : self.participant.vars["Group_Targets_Prob"][0],
+			'Group_Target_Cost' : self.participant.vars["Group_Targets_Cost"][0],
 			'player_name': self.player.participant.vars['name'],
 			'contribution_looper' : self.session.config["contribution_looper"],
 		}	

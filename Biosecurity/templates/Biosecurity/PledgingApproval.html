@@ -11,12 +11,13 @@
 		<img src="{% static "Biosecurity/uwalogo.png" %}"/>
 		<div class="title">Approval based on Pledges Stage {{ subsession.round_number }} of {{ Constants.num_rounds }}</div>
 	</div>
+	<strong>Hello {{ player_name }}</strong>
 	This is the Social Approval based on pledges stage, here you will rate your apporval of everyone's pledge to meet the group target.</br>
 	This pledge will be on a scale of Strongly Dissaprove (-6) to Strongly Approve (6), on a scale of -6 to 6 respectively. The average</br>
 	approval given by all participants of yourself and others will be shown on the next page where you will decide how much you actually</br>
 	you will spend towards the prevention of incursion by Biosecurity Threats.</br>
 	<br>
-	<p>The Group Target is <b>{{ Group_Target }}%</b></p>
+	<p>The Group Target is <b>{{ Group_Target_Prob }}% or ${{ Group_Target_Cost }}</b></p>
 	<p>What you everyone pledged to do in order to meet the group target:</p>
 	{% for p in pledge_results %}
 		<strong>{{ p }} </strong></br>

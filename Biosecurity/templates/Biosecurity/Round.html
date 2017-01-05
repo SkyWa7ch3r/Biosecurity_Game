@@ -16,14 +16,35 @@
 	
 	<br></br>
 	<div id="roundText">
-		{{ player_name }}<br>Please Choose the amount of Protection you're providing against Biosecurity Threats using the slider.
+		<strong>Hello {{ player_name }}</strong>
 		{% if pledge %}
-			<p>Rounds till the next pledge: {{next_pledge}}</p>
-			<p>The Group Target is <b>{{ Group_Target }}%</b></p>
-			<p>What you all pledged to do:</p>
-			{% for p in pledge_results %}
-				<strong>{{ p }} </strong></br>
-			{% endfor %}
+			<p>Rounds till the next pledge: <b>{{ next_pledge }}</b></p>
+			<p>The Group Target is <b>{{ Group_Target_Prob }}% or ${{ Group_Target_Cost }}</b></p>
+			<table border="5" cellpadding="5" cellspacing="5">
+				<caption>Each Player's Pledges</caption>
+				<tr>
+					<th>Name</th>
+					<th>Individual Pledge</th>
+					{% if Papproval %}
+						<th>Group's Approval of Individual Pledge</th>
+					{% endif %}
+					{% if Capproval and abovec %}
+						<th>Group's Approval of Contribution</th>
+					{% endif %}
+				</tr>
+				{% for name, pledge, average in list %}
+					<tr>
+						<td>{{ name }}</td>
+						<td>${{ pledge }}</td>
+						{% if Papproval %}
+							<td>{{ average }}</td>
+						{% endif %}
+						{% if Capproval and abovec %}
+							<td>{{ average }}</td>
+						{% endif %}
+					</tr>
+				{% endfor %}
+				</table>
 		{% endif %}
 		</br>
 		Your current funds are: ${{ funds }} </br>

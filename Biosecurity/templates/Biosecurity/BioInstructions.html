@@ -18,25 +18,103 @@
 			<h2><strong>Introduction</strong></h2>
 			<p> <strong>Hi, your name throughout the game will be <i>{{ name }}.</i></strong></p>
 			<p> Please read through these instructions carefully. If you have any questions please contact one of the administrators.
-				You are about to take part in an experiment about collective decision-making related to risky choices. This experiment gives you an opportunity to earn money. How much you earn depends partly on your decisions, partly on the decisions of others, and partly on chance. 
-			</p>
+				You are about to take part in an experiment about collective decision-making related to risky choices. This experiment gives you an opportunity to earn money. How much you earn depends partly on your decisions, partly on the decisions of others, and partly on chance. 	
 			<p>	
-				In this experiment, you own a crop field and you have neighbours who own nearby crop fields. Each season, your crops will generate revenue. You will receive this revenue in the seasons where there is no outbreak of pests. When an outbreak of pests occurs, the pests spread quickly and infect all neighbouring fields, resulting in the loss of that season’s crops. You will generate no revenue in a season where an outbreak of pests occurs.
-			</p>	
-			<p>	
-				You must decide whether to protect or not protect against an outbreak of pests (at the start of) each season. There is a cost associated with choosing to protect. You do not have to pay this cost if you choose to not protect. 
-				The probability of an outbreak of pests occurring is quite variable and dependent on whether your neighbours protect their fields and by what degree. On occasions, the majority may choose to protect to a large degree, and an outbreak of pests will still occur. There is a timer for each round in which a random value will be chosen if not completed within time. Please complete all rounds within the time limit.
+				<strong>The Basics</strong> </br>
+				The game will consist of 15 rounds with multiple stages per round. You will start the game with ${{ starting_funds }}, each round you will need to pay
+				${{ upkeep }} for the production of the crops. In the case of there being no incursions from Biosecurity Threats, everyone will gain have revenue of ${{ revenue }}
+				and the amount of protection you put towards Biosecurity Threats will be taken away from the revenue, the maximum amount of protection you can put towards
+				Biosecurity Threats in each round is ${{ max_protection }}. In the case where an incursion occurs, everyone will lose the the rounds crops and all revenue is lost,
+				resulting in a loss for that round. The loss will come from the production of crops and the amount of protection you provided those crops against the threat.
+				The chance of incursion will be decided from the amount of protection every group member decides to provide, even if a majority of the group members provide
+				a decent amount of protection against biosecurity threats, an incursion may still occur.
 			</p>
-			</br>
 			<p>
-				<strong>Game structure</strong> </br>
-				The game consists of 15 rounds, where each round corresponds to a season. Each round is divided into two stages: a contribution stage and a feedback stage. 
+				<Strong>The Stages</strong>
 			</p>
-			</br>
+				{% if dynamic_finances %}
+					<p>
+					<b><i> Dynamic Finances has been turned on, you will receive a different amount of revenue, production costs and maximum amounts of protection per round</b></i>
+					</p>
+				{% endif %}
+				{% if pledge %}
+					<p>
+					<b><i>Group Pledging</b></i></br>
+					In this stage, you will use a slider to decide an ideal target the group should strive for. This target is done on a scale of 0-100%, and represents
+					the chance of not having an incursion that the group should strive for. Once you and your group members have individually decided what you believe to
+					be an ideal target (the chance of no incursion as a group), everyone's ideal target will be taken into an equation, which will result in an overall
+					Group Target, the chance of no incursion that your group as a whole has decided to strive for.</br>
+					</p>
+					<p>
+					<b><i>Individual Pledging</b></i></br>
+					In this stage, you and your group members will see the Group Target. Using the slider you will pledge how much you will spend on protection against
+					Biosecurity Threats for the next {{ plooper }} rounds. This individual pledge will be shown as a cost in currency, below this will be a calculation
+					of probability that you will not be the source of the incursion based upon the amount of protection you are willing to provide.
+					</p>
+				{% endif %}
+				{% if Papproval %}
+					<p>
+					<b><i>Approval Based on Individual Pledges</b></i></br>
+					In this stage you will have the opportunity to show your approval of your group member's individual pledges as well as your own. The approval is done based
+					on a scale of -6 to 6.</br>-6 being Strongly Dissaprove</br>6 being Strongly Approve</br> The closer the number is to 6, the more you approve of that player's individual
+					pledge. On this page you will also be reminded of the Group Target to compare that with everybody's individual pledge.
+					</p>
+				{% endif %}
+				<p>
+					<b><i>Deciding Your Protection</b></i></br>
+					In this stage, using the slider, you will decide how much you protection to provide against Biosecurity Threats.
+					{% if dynamic_finances %}
+						The maximum amount of protection you can provide per round will be different. The revenue and the cost of production will also differ.
+					{% else %}
+						The maximum amount of protection you can provide per round will be ${{ max_protection }}, the cost of production will be ${{ upkeep }}
+						the amount of revenue to gain in the event no incursion occurs is ${{ revenue }}.
+					{% endif %}
+					{% if pledge %}
+						In the main round you will again see the Group Target, and everybodies individual pledges, including your own including how many rounds there are till the next pledging stage.
+						{% if Papproval %}
+							After selecting the approval of everyone's pledges, the groups approval of each player will be shown. The group's approval
+							of each player is the average of everyone's approval of that player.
+						{% endif %}
+						{% if Capproval %}
+							After completing a round where you gave an approval of everyone's Contribution over the last {{ clooper }} rounds, the group's
+							approval of each player will be shown. The Group's approval of each player is the average of everybodies approval of the player's contributions.
+							More information will be provided below in <i>Approval based On Contribution</i>.
+						{% endif %}
+					{% endif %}
+					Below the slider, it will show the cost of protection you're providing.
+					{% if calc %}
+						Below the cost of protection it will also show the chance of you not being the source of the incursion according to how much
+						protection you are providing.
+					{% endif %}	
+				</p>
+				<p>
+					<b><i>The Results</b></i></br>
+					In this stage you will be reminded of the revenue, cost of production and the amount of protection you provided. It will show whether an incursion
+					occured or not.
+					{% if monitoring %}
+						Alongside your own protection, you will also be shown how much protection everybody else provided. Pay attention to this carefully as it
+						will allow you to possibly figure out who was the source of the incursion, which will be helpful in other stages of the game.
+					{% endif %}
+				</p>
+					{% if Capproval %}
+						<p>
+						<b><i>Approval based On Contribution</b></i></br>
+						This stage will show up every {{ clooper }} rounds. It will show the results from the last {{ clooper }} rounds, the results will include
+						the Group Target, everybodies individual pledges and the protection provided from the last {{ clooper }} rounds. With this information, you will
+						decide your approval of that player on a scale of -6 to 6.</br>
+						-6 being Strongly Dissaprove</br>
+						6 being Strongly Approve</br>
+						The closer the number is to 6, the more you approve of the player's contributions. Again, the Group's Approval of each player will be the average
+						of everyone's approval of that player, and this Group Approval will be displayed in the Deciding Your Protection Stage.
+						</p>
+					{% endif %}
 			<p>
-				<strong>Your payout</strong> </br>
+				<strong>Your Payout</strong> </br>
 				At the end of the experiment, you will be paid any revenue generated during the biosecurity game, subject to a conversion rate. The conversion rate is decided by the facilitator.
 			</p>
+			<strong>Anonymity</strong><br>
+			If you happen to be playing this game with friends, work collegues, or  have the ability to communicate with group members outside the game,<br>
+			<i>Please do not communicate, this game needs to be played anonymously</i>
 		</div>
 	</div>
 	<div id="nxtBtn">

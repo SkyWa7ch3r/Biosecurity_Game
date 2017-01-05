@@ -84,7 +84,10 @@ class Subsession(BaseSubsession):
 		#array for player names
 		names = []
 		for g in self.get_groups():
+			#Start the pledge counter, displays how many rounds till next pledge
 			g.get_player_by_id(1).participant.vars["Rounds_Till_Pledge"] = self.session.config["pledge_looper"]
+			#Start the Contribution Counter, displays how many rounds till next Contribution Approval
+			g.get_player_by_id(1).participant.vars["Rounds_Till_Contribution"] = self.session.config["contribution_looper"]
 			#Start the incursion counter
 			g.get_player_by_id(1).participant.vars['incursion_count'] = 0
 			#Have a boolean so the game knows its a pledging round
@@ -110,10 +113,11 @@ class Subsession(BaseSubsession):
 			namesChosen.append(names[num])
 			#Define All the Participant Variables needed for the session, even if they're not used.
 			p.participant.vars["approval_means"] = [0.00] * 20
-			# Recent_Pledge[1] =  Current Group Target, Recent_Pledge[0] = Previous Group Target
+			# Recent_Pledge[1] =  Current Pledge, Recent_Pledge[0] = Previous Pledge
 			p.participant.vars["Recent_Pledge"] = [0,0]
 			# Group_Targets[1] =  Current Group Target, Group_Targets[0] = Previous Group Target
-			p.participant.vars["Group_Targets"] = [0, 0]
+			p.participant.vars["Group_Targets_Prob"] = [0, 0]
+			p.participant.vars["Group_Targets_Cost"] = [0, 0]
 			#For Approval By Contribution may come in handy later, a list for costs done by every player per ["pledge_looper"] rounds
 			p.participant.vars["Protection_Provided"] = []
 		for _ in range(21 - self.session.config['players_per_group']):
@@ -147,7 +151,8 @@ class Group(BaseGroup):
 	incursion_count = models.IntegerField(blank = True, default = 0)
 	
 	#Median Data for every Pledging Stage and the group Target to see in the Results
-	calculatedGroupTarget = models.FloatField(default = 0.0)
+	GroupTargetProbability = models.FloatField(default= 0.0)
+	GroupTargetCost = models.FloatField(default= 0.0)
 	
 	#Group's averaged protection values
 	chance_of_incursion = models.DecimalField(max_digits=4,decimal_places=2, default=0.00)
@@ -210,11 +215,20 @@ class Group(BaseGroup):
 			targets.append(p.groupTarget)
 		#Use the python sort function
 		targets.sort()
-		#Put the median as calculatedGroupTarget and add it to the Group Targets list
-		self.calculatedGroupTarget = median(targets)
+		#Get the median
+		self.GroupTargetProbability = median(targets)
+		#Get The Cost_Factor
+		cost_factor = self.session.config['max_protection']/-math.log(0.01)
+		#Get the Group Target cost as an inverse of Player.calculate_protection
+		self.GroupTargetCost = round(-cost_factor*math.log(1 - self.GroupTargetProbability/100), 2)
+		if(self.GroupTargetCost == -0.0):
+			self.GroupTargetCost = self.GroupTargetCost * -1.0
+		#Go Through and change the Group Targets to reflect the changes.
 		for p in self.get_players():
-			p.participant.vars["Group_Targets"][0] = p.participant.vars["Group_Targets"][1]
-			p.participant.vars["Group_Targets"][1] = self.calculatedGroupTarget
+			p.participant.vars["Group_Targets_Prob"][0] = p.participant.vars["Group_Targets_Prob"][1]
+			p.participant.vars["Group_Targets_Cost"][0] = p.participant.vars["Group_Targets_Cost"][1]
+			p.participant.vars["Group_Targets_Prob"][1] = self.GroupTargetProbability
+			p.participant.vars["Group_Targets_Cost"][1] = self.GroupTargetCost
 	
 	def calculate_mean_approval(self):
 		"""
@@ -454,6 +468,7 @@ class Player(BasePlayer):
 			cost_factor = Constants.maxProtection[self.subsession.round_number-1]/-math.log(0.01)
 
 		#protection is defined as 1-e^(-cost/cost_factor)
+		#cost is defined with -cost_factor*ln(1-cost)
 		self.protection = 1-math.exp(-self.cost/cost_factor)
 		return self.protection
 
