@@ -13,17 +13,19 @@
 		<div class="title">Individual Pledging Stage {{ subsession.round_number }} of {{ Constants.num_rounds }}</div>
 	</div>
 	<p>
-	Everyone's ideal target for the chance of having an incursion was calculated. <br>
-	The target for the group as it stands is:<br>
-	<strong>{{ Group_Target_Prob }}% or ${{ Group_Target_Cost }}</strong>
-	</p>
-	What will you pledge to do in order for the group as a whole to reach its target?
-	<br><br>
-	<input id="numb" input type="range" name="individualPledge" min="0" max= "{{ max_protection }}" step="0.01" value="0" onchange="printCosts({{cost_factor}})">
-	<p>Amount of protection you are pledging to provide:</p>
-	<p id="text_cost"></p>
-	<p>The chance of you <b>not</b> being the source of the incursion based on the amount of protection you pledged to provide:</p>
-	<p id="text_prob"></p>
+	<div id="roundText">
+		Everyone's ideal target for the chance of having <b>no</b> incursion was calculated.<br>
+		The target for the group as it stands is:<br>
+		<strong>{{ Group_Target_Prob }}% or ${{ Group_Target_Cost }}</strong>
+		</p>
+		What will you pledge to do in order for the group as a whole to reach its target?
+		<br><br>
+		<input id="numb" input type="range" name="individualPledge" min="0" max= "{{ max_protection }}" step="0.01" value="0" onchange="printCosts({{cost_factor}})">
+		<p>Amount of protection you are pledging to provide:</p>
+		<p id="text_cost"></p>
+		<p>The chance of you <b>not</b> being the source of the incursion based on the amount of protection you pledged to provide:</p>
+		<p id="text_prob"></p>
+	</div>
 	{% next_button %}
 {% endblock %}
 
@@ -53,6 +55,12 @@
 	}
 	#numb{
 		width: 50%;
+	}
+	#roundText
+	{
+		font-size: 1.25em;
+		margin-bottom: 1em;
+		display: block;
 	}
 	<!-- Slider Styling from: https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/ --->
 	input[type=range] {

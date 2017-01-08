@@ -15,6 +15,12 @@
 	
 	<strong>Hello {{ player_name }}</strong> <br/>	
 	<p>The Group Target was <b>{{ Group_Target_Prob }}% or ${{ Group_Target_Cost }}</b></p>
+	Review the table Below and use the drop down box the right hand side of each row to decide<br>
+	your Approval of each players Contribution from the last {{ contribution_looper }} rounds.<br>
+	You Approval of Each Player will be on a scale of -6 (Strongly Disapprove) to +6 (Strongly Approve)<br>
+	From now on, when you decide your Protection against Biosecuirty Threats you will see the Group's Approval<br>
+	of yourself and other players. The closer the Group Approval is to +6, the more the Group Approves of that person.<br>
+	
 	<br>
 	<div id="results">
 		<table border="5" cellspacing="5" cellpadding="5">
@@ -24,40 +30,41 @@
 			{% for n in round_numbers %}
 				<th>Round: {{ n }}</th>
 			{% endfor %}
-			{% for name, pledge_result, results in list_for_table %}
+			<th>Approval of Player's Contribution</th>
+			{% for name, id, pledge_result, results in list_for_table %}
 				<tr>
 					<td>{{ name }}</td>
 					<td>${{ pledge_result }}</td>
 					{% for result in results %}
 						<td>${{ result }}</td>
 					{% endfor %}
+					<td>
+						<div class="form-group required">
+							<div class="controls  field-approval_{{id}}">
+								<select name="approval_{{id}}" required id="id_approval_{{id}}}" class="form-control">
+									<option value="-6">Strongly Disapprove (-6)</option>
+									<option value="-5">-5</option>
+									<option value="-4">-4</option>
+									<option value="-3">Disapprove (-3)</option>
+									<option value="-2">-2</option>
+									<option value="-1">-1</option>
+									<option value="0" selected="selected">Neutral (0)</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">Approve (3)</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">Strongly approve (6)</option>
+								</select>	 
+							</div>
+						</div>
+					</td>
 				</tr>
 			{% endfor %}
 		</table>
 		<br>
-		</div>
-		{% for id, name in list_for_form %}
-			<strong>Your approval of {{name}} based on their Contribution from the last {{ contribution_looper }} rounds:</strong>
-			<div class="form-group required">
-				<div class="controls  field-approval_{{id}}">
-					<select name="approval_{{id}}" required id="id_approval_{{id}}}" class="form-control">
-						<option value="-6">Strongly Disapprove (-6)</option>
-						<option value="-5">-5</option>
-						<option value="-4">-4</option>
-						<option value="-3">Disapprove (-3)</option>
-						<option value="-2">-2</option>
-						<option value="-1">-1</option>
-						<option value="0" selected="selected">Neutral (0)</option>
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">Approve (3)</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
-						<option value="6">Strongly approve (6)</option>
-					</select>    
-				</div>
-			</div>
-		{% endfor %}
+	</div>
+	
 	{% next_button %}
 {% endblock %}
 

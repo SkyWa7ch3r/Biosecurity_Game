@@ -250,6 +250,7 @@ SESSION_CONFIGS = [
 		'calculator' : True,
         'use_browser_bots': False,
 		'monitoring' : True,
+		'pledge' : True,
 		'Papproval' : False,
 		'Capproval' : False,
 		'pledge_looper' : 5,

@@ -87,7 +87,7 @@ class Subsession(BaseSubsession):
 			#Start the pledge counter, displays how many rounds till next pledge
 			g.get_player_by_id(1).participant.vars["Rounds_Till_Pledge"] = self.session.config["pledge_looper"]
 			#Start the Contribution Counter, displays how many rounds till next Contribution Approval
-			g.get_player_by_id(1).participant.vars["Rounds_Till_Contribution"] = self.session.config["contribution_looper"]
+			g.get_player_by_id(1).participant.vars["Rounds_Till_Contribution"] = self.session.config["contribution_looper"] - 1
 			#Start the incursion counter
 			g.get_player_by_id(1).participant.vars['incursion_count'] = 0
 			#Have a boolean so the game knows its a pledging round
@@ -220,7 +220,10 @@ class Group(BaseGroup):
 		#Get The Cost_Factor
 		cost_factor = self.session.config['max_protection']/-math.log(0.01)
 		#Get the Group Target cost as an inverse of Player.calculate_protection
-		self.GroupTargetCost = round(-cost_factor*math.log(1 - self.GroupTargetProbability/100), 2)
+		if(self.GroupTargetProbability == 100):
+			self.GroupTargetCost = self.session.config["max_protection"]
+		else:
+			self.GroupTargetCost = round(-cost_factor*math.log(1 - self.GroupTargetProbability/100), 2)
 		if(self.GroupTargetCost == -0.0):
 			self.GroupTargetCost = self.GroupTargetCost * -1.0
 		#Go Through and change the Group Targets to reflect the changes.
@@ -409,7 +412,7 @@ class Group(BaseGroup):
 			p.participant.vars["Protection_Provided"] = []
 class Player(BasePlayer):
 	funds_at_rounds_end = otree.models.CurrencyField(default = 0)
-	protection = otree.models.DecimalField(max_digits = 2, decimal_places = 2)
+	protection = otree.models.DecimalField(max_digits = 3, decimal_places = 2)
 	groupTarget = otree.models.IntegerField(widget=otree.widgets.SliderInput(attrs={'step' : '1'}))
 	individualPledge = otree.models.CurrencyField(widget=otree.widgets.SliderInput(attrs={'step' : '0.01'}))
 	cost = otree.models.CurrencyField(widget=otree.widgets.SliderInput(attrs={'step': '0.01'}))

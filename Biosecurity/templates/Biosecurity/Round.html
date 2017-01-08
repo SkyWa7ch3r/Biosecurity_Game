@@ -16,10 +16,17 @@
 	
 	<br></br>
 	<div id="roundText">
-		<strong>Hello {{ player_name }}</strong>
+		<p><strong>Hello {{ player_name }}</strong></p>
 		{% if pledge %}
 			<p>Rounds till the next pledge: <b>{{ next_pledge }}</b></p>
+			{% if Capproval and not cont_TF %}
+				<p>Rounds Till the next Approval by Contribution: {{ next_cont }}</p>
+			{% endif %}
+			{% if Capproval and cont_TF %}
+				<p>You will do an Approval based on each person's Contribution this round.</p>
+			{% endif %}
 			<p>The Group Target is <b>{{ Group_Target_Prob }}% or ${{ Group_Target_Cost }}</b></p>
+			<p>
 			<table border="5" cellpadding="5" cellspacing="5">
 				<caption>Each Player's Pledges</caption>
 				<tr>
@@ -44,12 +51,14 @@
 						{% endif %}
 					</tr>
 				{% endfor %}
-				</table>
+			</table>
+			</p>
 		{% endif %}
-		</br>
+		<p>
 		Your current funds are: ${{ funds }} </br>
 		How much would you like to spend to protect your crops?
-	</div>
+		</p>
+	
 		<div id="Calculator">
 			
 			<p>Please drag the slider to adjust the amount of money you wish to spend:</p>
@@ -64,7 +73,7 @@
 				<p id="text_prob"></p>
 			{% endif %}
 		</div>
-	
+	</div>
 	{% next_button %}
 {% endblock %}
 
@@ -218,11 +227,7 @@
 */
 document.onload = setDefaultProb({{max_protection}}, {{cost_factor}});
 function setDefaultProb(maxProtection, costFactor) {
-	//calcuate cost
-	//text_cost = maxProtection/2;
 	text_cost = 0;
-	//calculate the percentage protection provided (1 - the chance of an outbreak)
-	//text_prob = Math.round((1-Math.exp(-(text_cost)/costFactor))*100);
 	text_prob = 0;
 	//set values in HTML
 	document.getElementById("text_cost").innerHTML = "$"+text_cost;
