@@ -466,13 +466,13 @@ class Player(BasePlayer):
 	def calculate_protection(self):
 		#If the finance variables are static, assign cost_factor statically, otherwise assign value appropriate for the round from the dynamic finance array
 		if(self.session.config['dynamic_finances'] == False):
-			cost_factor = self.session.config['max_protection']/-math.log(0.01)
+			cost_factor = self.session.config['max_protection']/-math.log(0.99 - 0.4)
 		else:
 			cost_factor = Constants.maxProtection[self.subsession.round_number-1]/-math.log(0.01)
-
+		probability_coefficient = 0.4 
 		#protection is defined as 1-e^(-cost/cost_factor)
 		#cost is defined with -cost_factor*ln(1-cost)
-		self.protection = 1-math.exp(-self.cost/cost_factor)
+		self.protection = 1-math.exp(-self.cost/cost_factor) + probability_coefficient
 		return self.protection
 
 	#If the lead_player feature is enabled, set the next player in order as the leader

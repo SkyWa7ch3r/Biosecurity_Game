@@ -245,7 +245,7 @@ function printCosts(costFactor) {
     // Get the value of the input field with id="numb"
     x = document.getElementById("numb").value;
     text_cost = x;
-    x = Math.round((1-Math.exp(-(text_cost)/costFactor))*100);
+    x = Math.round((1+0.4-Math.exp(-(text_cost)/costFactor))*100);
     text_prob = x;
     // Set values in HTML
     document.getElementById("text_cost").innerHTML = "$"+text_cost;

@@ -124,7 +124,7 @@ class Round(Page):
 		if(self.group.get_player_by_id(1).participant.vars["Rounds_Till_Contribution"] == 0):
 			self.group.get_player_by_id(1).participant.vars["Rounds_Till_Contribution"] = self.session.config["contribution_looper"]
 			contribution = True
-		cost_factor = max_protection/-math.log(0.01)
+		cost_factor = max_protection/-math.log(1 + 0.4 - 0.99)
 		
 		return {
 			'max_protection': max_protection,

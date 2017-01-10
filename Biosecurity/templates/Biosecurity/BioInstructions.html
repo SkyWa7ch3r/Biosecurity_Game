@@ -28,7 +28,22 @@
 				The maximum amount of protection you can put towards Biosecurity Threats in each round is ${{ max_protection }}. In the case where an incursion occurs, everyone will lose the the rounds crops and all revenue is lost,
 				resulting in a loss for that round. The loss will come from the production of crops and the amount of protection you provided those crops against the threat.
 				The chance of incursion will be decided from the amount of protection every group member decides to provide. Even if a majority of the group members provide
-				a decent amount of protection against biosecurity threats, an incursion may still occur due to the nature of joint probability.
+				a relatively high amount of protection against biosecurity threats, an incursion may still occur due to the way the joint probability of incursion is calculated.
+				</p>
+				<p>
+				<i>How the Joint Probability is calculated:</i><br>
+				In a round where there are 2 players and each player contributes an effort of 90% towards protection against Biosecurity Threats 
+				to give a 90% chance that they're not the source of the incursion.<br>
+				Then<br>
+				Probability of Incursion = 1 - Player 1's Probability x Player 2's Probability<br>
+				Probability of Incursion = 1 - (0.9) x (0.9)<br>
+				Probability of Incursion = 1 - 0.81<br>
+				Probability of Incursion = 0.19 or 19%<br>
+				<br>
+				In another scenario, again with 2 players, 1 player contributes 90% and another player contributes 10%<br>
+				Probability of Incursion = 1 - (0.9) x (0.1)<br>
+				Probability of Incursion = 0.91 or 91%<br>
+				</p>
 			</p>
 			<p>
 				<Strong>The Stages</strong>
