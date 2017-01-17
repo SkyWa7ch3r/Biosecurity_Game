@@ -42,7 +42,7 @@ class Constants(BaseConstants):
 	name_in_url = 'Biosecurity'
 	num_rounds = 15
 	
-	#Define all the player decisions
+	#Define all the player decisions for approval
 	RATING = [
 		[-6, 'Strongly Disapprove (-6)'],
 		[-5, '-5'],
@@ -58,6 +58,9 @@ class Constants(BaseConstants):
 		[5, '5'],
 		[6, 'Strongly approve (6)'],
 	]
+	
+	#Do the values for the Cost and Probability Calculations
+	max_probability = 0.9999
 	
 	#Dynamic value arrays
 	revenue = []
@@ -80,69 +83,69 @@ class Subsession(BaseSubsession):
 		#Get the group matching if its the actual game and not just the tests.
 		if "game" in self.session.config['name']:
 			self.set_group_matrix(self.session.vars['matrix'])
-		cost = models.PositiveIntegerField()
-		#array for player names
-		names = []
-		for g in self.get_groups():
-			#Start the pledge counter, displays how many rounds till next pledge
-			g.get_player_by_id(1).participant.vars["Rounds_Till_Pledge"] = self.session.config["pledge_looper"]
-			#Start the Contribution Counter, displays how many rounds till next Contribution Approval
-			g.get_player_by_id(1).participant.vars["Rounds_Till_Contribution"] = self.session.config["contribution_looper"] - 1
-			#Start the incursion counter
-			g.get_player_by_id(1).participant.vars['incursion_count'] = 0
-			#Have a boolean so the game knows its a pledging round
-			g.get_player_by_id(1).participant.vars['pledge_round'] = False
-		#Read names from csv and store in array    
-		with open('CSV/names.csv') as filestream:
-			file = csv.DictReader(filestream)
-			for row in file:
-				names.append(row['Names'])
+		if(self.round_number == 1):
+			for g in self.get_groups():
+				#Start the pledge counter, displays how many rounds till next pledge
+				g.get_player_by_id(1).participant.vars["Rounds_Till_Pledge"] = self.session.config["pledge_looper"]
+				#Start the Contribution Counter, displays how many rounds till next Contribution Approval
+				g.get_player_by_id(1).participant.vars["Rounds_Till_Contribution"] = self.session.config["contribution_looper"] - 1
+				#Start the incursion counter
+				g.get_player_by_id(1).participant.vars['incursion_count'] = 0
+				#Have a boolean so the game knows its a pledging round
+				g.get_player_by_id(1).participant.vars['pledge_round'] = False
+				#Define All the Participant Variables needed for the group, even if they're not used.
+				g.get_player_by_id(1).participant.vars["approval_means"] = [0.00] * 20
+			names = []
+			#Read names from csv and store in array    
+			with open('CSV/names.csv') as filestream:
+				file = csv.DictReader(filestream)
+				for row in file:
+					names.append(row['Names'])
 			been_before = [1000]
-		namesChosen = []
+			namesChosen = []
+			for p in self.get_players():
+				num = 1000
+				#No generate random numbers until we get an index that hasnt been chosen before
+				while num in been_before:
+					num = random.randint(0,len(names) - 1)
+				#Record this number so no one else ghets the name
+				been_before.append(num)
+				#Apply starting funds
+				p.participant.vars['funds'] = self.session.config['starting_funds']
+				#Apply the name via the index chosen by num
+				p.participant.vars['name'] = names[num]
+				namesChosen.append(names[num])
+				# Recent_Pledge[1] =  Current Pledge, Recent_Pledge[0] = Previous Pledge
+				p.participant.vars["Recent_Pledge"] = [0,0]
+				# Group_Targets[1] =  Current Group Target, Group_Targets[0] = Previous Group Target
+				p.participant.vars["Group_Targets_Prob"] = [0, 0]
+				#For Approval By Contribution may come in handy later, a list for costs done by every player per ["pledge_looper"] rounds
+				p.participant.vars["Protection_Provided"] = []
+			for _ in range(21 - self.session.config['players_per_group']):
+				namesChosen.append(None)
 		for p in self.get_players():
-			num = 1000
-			#No generate random numbers until we get an index that hasnt been chosen before
-			while num in been_before:
-				num = random.randint(0,len(names) - 1)
-			#Record this number so no one else ghets the name
-			been_before.append(num)
-			#Apply starting funds
-			p.participant.vars['funds'] = self.session.config['starting_funds']
-			#Apply the name via the index chosen by num
-			p.participant.vars['name'] = names[num]
-			namesChosen.append(names[num])
-			#Define All the Participant Variables needed for the session, even if they're not used.
-			p.participant.vars["approval_means"] = [0.00] * 20
-			# Recent_Pledge[1] =  Current Pledge, Recent_Pledge[0] = Previous Pledge
-			p.participant.vars["Recent_Pledge"] = [0,0]
-			# Group_Targets[1] =  Current Group Target, Group_Targets[0] = Previous Group Target
-			p.participant.vars["Group_Targets_Prob"] = [0, 0]
-			p.participant.vars["Group_Targets_Cost"] = [0, 0]
-			#For Approval By Contribution may come in handy later, a list for costs done by every player per ["pledge_looper"] rounds
-			p.participant.vars["Protection_Provided"] = []
-		for _ in range(21 - self.session.config['players_per_group']):
-			namesChosen.append(None)
-		for p in self.get_players():
-			p.name_1 = namesChosen[0]
-			p.name_2 = namesChosen[1]
-			p.name_3 = namesChosen[2]
-			p.name_4 = namesChosen[3]
-			p.name_5 = namesChosen[4]
-			p.name_6 = namesChosen[5]
-			p.name_7 = namesChosen[6]
-			p.name_8 = namesChosen[7]
-			p.name_9 = namesChosen[8]
-			p.name_10 = namesChosen[9]
-			p.name_11 = namesChosen[10]
-			p.name_12 = namesChosen[11]
-			p.name_13 = namesChosen[12]
-			p.name_14 = namesChosen[13]
-			p.name_15 = namesChosen[14]
-			p.name_16 = namesChosen[15]
-			p.name_17 = namesChosen[16]
-			p.name_18 = namesChosen[17]
-			p.name_19 = namesChosen[18]
-			p.name_20 = namesChosen[19]	
+			if(self.round_number == 1):
+				p.participant.vars['namesChosen'] = list(namesChosen)
+			p.name_1 = p.participant.vars['namesChosen'][0]
+			p.name_2 = p.participant.vars['namesChosen'][1]
+			p.name_3 = p.participant.vars['namesChosen'][2]
+			p.name_4 = p.participant.vars['namesChosen'][3]
+			p.name_5 = p.participant.vars['namesChosen'][4]
+			p.name_6 = p.participant.vars['namesChosen'][5]
+			p.name_7 = p.participant.vars['namesChosen'][6]
+			p.name_8 = p.participant.vars['namesChosen'][7]
+			p.name_9 = p.participant.vars['namesChosen'][8]
+			p.name_10 = p.participant.vars['namesChosen'][9]
+			p.name_11 = p.participant.vars['namesChosen'][10]
+			p.name_12 = p.participant.vars['namesChosen'][11]
+			p.name_13 = p.participant.vars['namesChosen'][12]
+			p.name_14 = p.participant.vars['namesChosen'][13]
+			p.name_15 = p.participant.vars['namesChosen'][14]
+			p.name_16 = p.participant.vars['namesChosen'][15]
+			p.name_17 = p.participant.vars['namesChosen'][16]
+			p.name_18 = p.participant.vars['namesChosen'][17]
+			p.name_19 = p.participant.vars['namesChosen'][18]
+			p.name_20 = p.participant.vars['namesChosen'][19]	
 			
 class Group(BaseGroup):
 
@@ -152,10 +155,16 @@ class Group(BaseGroup):
 	
 	#Median Data for every Pledging Stage and the group Target to see in the Results
 	GroupTargetProbability = models.FloatField(default= 0.0)
-	GroupTargetCost = models.FloatField(default= 0.0)
 	
 	#Group's averaged protection values
 	chance_of_incursion = models.DecimalField(max_digits=4,decimal_places=2, default=0.00)
+	
+	#Approval by contribution round, True when its a contribution round
+	contribution = models.NullBooleanField(False)
+	
+	#Pledging Round, True when its a Pledging Round
+	pledge = models.NullBooleanField(False)
+	
 	#When the resusts page loads, this function finds net incoms of players
 	def calculate_profits(self):
 		if(self.session.config['player_communication']):
@@ -217,21 +226,12 @@ class Group(BaseGroup):
 		targets.sort()
 		#Get the median
 		self.GroupTargetProbability = median(targets)
-		#Get The Cost_Factor
-		cost_factor = self.session.config['max_protection']/-math.log(0.01)
-		#Get the Group Target cost as an inverse of Player.calculate_protection
-		if(self.GroupTargetProbability == 100):
-			self.GroupTargetCost = self.session.config["max_protection"]
-		else:
-			self.GroupTargetCost = round(-cost_factor*math.log(1 - self.GroupTargetProbability/100), 2)
-		if(self.GroupTargetCost == -0.0):
-			self.GroupTargetCost = self.GroupTargetCost * -1.0
 		#Go Through and change the Group Targets to reflect the changes.
 		for p in self.get_players():
+			#Put the old target in the previous index
 			p.participant.vars["Group_Targets_Prob"][0] = p.participant.vars["Group_Targets_Prob"][1]
-			p.participant.vars["Group_Targets_Cost"][0] = p.participant.vars["Group_Targets_Cost"][1]
+			#Save the new target in the current index
 			p.participant.vars["Group_Targets_Prob"][1] = self.GroupTargetProbability
-			p.participant.vars["Group_Targets_Cost"][1] = self.GroupTargetCost
 	
 	def calculate_mean_approval(self):
 		"""
@@ -239,7 +239,8 @@ class Group(BaseGroup):
 		able to do a ListField or DictionaryField and can't dynamically assign approval fields
 		we are stuck with the loop below which just goes from 0 to number of players_per_group, and then based
 		on the current iteration number i, do the average of approval_i from each player and store the value
-		in approval_means. In an ideal world I'd be able to do this loop in about 5 lines but well that's life.
+		in approval_means. In an ideal world I'd be able to do this loop in about 5 lines and have it much cleaner 
+		but well that's life.
 		"""
 		#Mean Approval List for the Group to store everyone's average approval rating per player, approval_means[n - 1] = average of the approval_n in each player, approval_n = approval of name_n or Player n.
 		approval_means = [0.00] * 21
@@ -251,6 +252,7 @@ class Group(BaseGroup):
 					approval_total = approval_total + p.approval_1
 				#Get the average approval for Player 1
 				approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+				self.get_player_by_id(i + 1).Group_Approval = approval_means[i]
 			elif(i is 1):
 				
 				approval_total = 0
@@ -259,6 +261,7 @@ class Group(BaseGroup):
 					approval_total += p.approval_2
 				#Get the average approval for Player 2
 				approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+				self.get_player_by_id(i + 1).Group_Approval = approval_means[i]
 			elif(i is 2):
 				
 				approval_total = 0
@@ -267,6 +270,7 @@ class Group(BaseGroup):
 					approval_total += p.approval_3
 				#Get the average approval for Player 3
 				approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+				self.get_player_by_id(i + 1).Group_Approval = approval_means[i]
 			elif(i is 3):
 				
 				approval_total = 0
@@ -275,6 +279,7 @@ class Group(BaseGroup):
 					approval_total += p.approval_4
 				#Get the average approval for Player 4
 				approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+				self.get_player_by_id(i + 1).Group_Approval = approval_means[i]
 			elif(i is 4):
 				
 				approval_total = 0
@@ -283,6 +288,7 @@ class Group(BaseGroup):
 					approval_total += p.approval_5
 				#Get the average approval for Player 5
 				approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+				self.get_player_by_id(i + 1).Group_Approval = approval_means[i]
 			elif(i is 5):
 				
 				approval_total = 0
@@ -290,7 +296,8 @@ class Group(BaseGroup):
 				for p in self.get_players():
 					approval_total += p.approval_6
 				#Get the average approval for Player 6
-				approval_means[i] = float(approval_total)/self.session.config["players_per_group"]	
+				approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+				self.get_player_by_id(i + 1).Group_Approval = approval_means[i]				
 			elif(i is 6):
 				
 				approval_total = 0
@@ -299,6 +306,7 @@ class Group(BaseGroup):
 					approval_total += p.approval_7
 				#Get the average approval for Player 7
 				approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+				self.get_player_by_id(i + 1).Group_Approval = approval_means[i]
 			elif(i is 7):
 				
 				approval_total = 0
@@ -307,6 +315,7 @@ class Group(BaseGroup):
 					approval_total += p.approval_8
 				#Get the average approval for Player 8
 				approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+				self.get_player_by_id(i + 1).Group_Approval = approval_means[i]
 			elif(i is 8):
 				
 				approval_total = 0
@@ -315,6 +324,7 @@ class Group(BaseGroup):
 					approval_total += p.approval_9
 				#Get the average approval for Player 9
 				approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+				self.get_player_by_id(i + 1).Group_Approval = approval_means[i]
 			elif(i is 9):
 				
 				approval_total = 0
@@ -323,6 +333,7 @@ class Group(BaseGroup):
 					approval_total += p.approval_10
 				#Get the average approval for Player 10
 				approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+				self.get_player_by_id(i + 1).Group_Approval = approval_means[i]
 			elif(i is 10):
 				
 				approval_total = 0
@@ -331,6 +342,7 @@ class Group(BaseGroup):
 					approval_total += p.approval_11
 				#Get the average approval for Player 11
 				approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+				self.get_player_by_id(i + 1).Group_Approval = approval_means[i]
 			elif(i is 11):
 				
 				approval_total = 0
@@ -339,6 +351,7 @@ class Group(BaseGroup):
 					approval_total += p.approval_12
 				#Get the average approval for Player 12
 				approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+				self.get_player_by_id(i + 1).Group_Approval = approval_means[i]
 			elif(i is 12):
 				
 				approval_total = 0
@@ -347,6 +360,7 @@ class Group(BaseGroup):
 					approval_total += p.approval_13
 				#Get the average approval for Player 13
 				approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+				self.get_player_by_id(i + 1).Group_Approval = approval_means[i]
 			elif(i is 13):
 				
 				approval_total = 0
@@ -355,6 +369,7 @@ class Group(BaseGroup):
 					approval_total += p.approval_14
 				#Get the average approval for Player 14
 				approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+				self.get_player_by_id(i + 1).Group_Approval = approval_means[i]
 			elif(i is 14):
 				
 				approval_total = 0
@@ -363,6 +378,7 @@ class Group(BaseGroup):
 					approval_total += p.approval_15
 				#Get the average approval for Player 15
 				approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+				self.get_player_by_id(i + 1).Group_Approval = approval_means[i]
 			elif(i is 15):
 				
 				approval_total = 0
@@ -371,6 +387,7 @@ class Group(BaseGroup):
 					approval_total += p.approval_16
 				#Get the average approval for Player 16
 				approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+				self.get_player_by_id(i + 1).Group_Approval = approval_means[i]
 			elif(i is 16):
 				
 				approval_total = 0
@@ -379,6 +396,7 @@ class Group(BaseGroup):
 					approval_total += p.approval_17
 				#Get the average approval for Player 17
 				approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+				self.get_player_by_id(i + 1).Group_Approval = approval_means[i]
 			elif(i is 17):
 				
 				approval_total = 0
@@ -387,6 +405,7 @@ class Group(BaseGroup):
 					approval_total += p.approval_18
 				#Get the average approval for Player 18
 				approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+				self.get_player_by_id(i + 1).Group_Approval = approval_means[i]
 			elif(i is 18):
 				
 				approval_total = 0
@@ -395,6 +414,7 @@ class Group(BaseGroup):
 					approval_total += p.approval_19
 				#Get the average approval for Player 19
 				approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+				self.get_player_by_id(i + 1).Group_Approval = approval_means[i]
 			elif(i is 19):
 				
 				approval_total = 0
@@ -403,20 +423,19 @@ class Group(BaseGroup):
 					approval_total += p.approval_20
 				#Get the average approval for Player 20
 				approval_means[i] = float(approval_total)/self.session.config["players_per_group"]
+				self.get_player_by_id(i + 1).Group_Approval = approval_means[i]
+		#Save the List of Approval Means
+		self.get_player_by_id(1).participant.vars["approval_means"] = list(approval_means)
 		for p in self.get_players():
-			p.participant.vars["approval_means"] = list(approval_means)
-			'''
-			Since the list won't matter in the Approval based on Pledging, only in Approval by Contribution
-			we'll reset every list here of Protection_Provided to make sure in ActionApproval that no overlap takes place
-			'''
 			p.participant.vars["Protection_Provided"] = []
 class Player(BasePlayer):
+	#Save the values to store for the excel or CSV data, names a re self explanatory
 	funds_at_rounds_end = otree.models.CurrencyField(default = 0)
 	protection = otree.models.DecimalField(max_digits = 3, decimal_places = 2)
 	groupTarget = otree.models.IntegerField(widget=otree.widgets.SliderInput(attrs={'step' : '1'}))
 	individualPledge = otree.models.CurrencyField(widget=otree.widgets.SliderInput(attrs={'step' : '0.01'}))
 	cost = otree.models.CurrencyField(widget=otree.widgets.SliderInput(attrs={'step': '0.01'}))
-	
+	Group_Approval = models.FloatField(default=0.0)
 	
 	#All the names to put alongside the approval, n corresponds to n, e.g. name_1 corresponds to approval_1 
 	name_1 = otree.models.CharField(default=None, widget=otree.widgets.HiddenInput(), verbose_name='')
@@ -465,14 +484,13 @@ class Player(BasePlayer):
 	#find protection value using cost entered by player and max_protection which is set my an admin
 	def calculate_protection(self):
 		#If the finance variables are static, assign cost_factor statically, otherwise assign value appropriate for the round from the dynamic finance array
-		if(self.session.config['dynamic_finances'] == False):
-			cost_factor = self.session.config['max_protection']/-math.log(0.99 - 0.4)
+		if(self.session.config['dynamic_finances'] == True):
+			cost_factor = Constants.maxProtection[self.subsession.round_number-1]/-math.log(1 - Constants.max_probability + self.session.config["probability_coefficient"])
 		else:
-			cost_factor = Constants.maxProtection[self.subsession.round_number-1]/-math.log(0.01)
-		probability_coefficient = 0.4 
-		#protection is defined as 1-e^(-cost/cost_factor)
-		#cost is defined with -cost_factor*ln(1-cost)
-		self.protection = 1-math.exp(-self.cost/cost_factor) + probability_coefficient
+			cost_factor = self.session.config['max_protection']/-math.log(1 - Constants.max_probability + self.session.config["probability_coefficient"])
+		#protection is defined as 1 + probability_coefficient -e^(-cost/cost_factor)
+		#cost is defined with -cost_factor*ln(1-protection) - probability_coefficient
+		self.protection = 1-math.exp(-self.cost/cost_factor) + self.session.config["probability_coefficient"]
 		return self.protection
 
 	#If the lead_player feature is enabled, set the next player in order as the leader

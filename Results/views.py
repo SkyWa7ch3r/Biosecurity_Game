@@ -29,7 +29,7 @@ class Questioner(Page):
     form_model = models.Player
 
     def get_form_fields(self):
-        return ['questioner_{}'.format(i) for i in range(1, 16)]
+        return ['questioner_{}'.format(i) for i in range(1, 21)]
     
 page_sequence = [
     Questioner,

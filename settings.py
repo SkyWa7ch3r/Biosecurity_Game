@@ -114,6 +114,14 @@ SESSION_CONFIG_DEFAULTS = {
 }
 
 SESSION_CONFIGS = [
+	{
+		'name': 'Result_Test',
+        'display_name': 'Result_Test',
+        'num_demo_participants': 1,
+        'app_sequence': ['Results'],
+        'players_per_group': 1,
+        'use_browser_bots': False,
+	},
     {
         'name': 'Lottery_Test',
         'display_name': 'Lottery_Test',
@@ -145,6 +153,7 @@ SESSION_CONFIGS = [
 		'Capproval' : False,
 		'pledge_looper' : 0,
 		'contribution_looper' : 0,
+		'probability_coefficient' : 0.4,
     },
 	{
         'name': 'basic_biosecurity_test',
@@ -167,6 +176,7 @@ SESSION_CONFIGS = [
 		'Capproval' : False,
 		'pledge_looper' : 0,
 		'contribution_looper' : 0,
+		'probability_coefficient' : 0.4,
     },
 	{
         'name': 'freeform_biosecurity_test',
@@ -189,6 +199,7 @@ SESSION_CONFIGS = [
 		'Capproval' : False,
 		'pledge_looper' : 0,
 		'contribution_looper' : 0,
+		'probability_coefficient' : 0.4,
     },
 	{
         'name': 'monitoring_biosecurity_test',
@@ -211,6 +222,7 @@ SESSION_CONFIGS = [
 		'Capproval' : False,
 		'pledge_looper' : 0,
 		'contribution_looper' : 0,
+		'probability_coefficient' : 0.4,
     },
 	{
         'name': 'pledging_biosecurity_test',
@@ -231,8 +243,9 @@ SESSION_CONFIGS = [
 		'pledge' : True,
 		'Papproval' : False,
 		'Capproval' : False,
-		'pledge_looper' : 5,
+		'pledge_looper' : 3,
 		'contribution_looper' : 0,
+		'probability_coefficient' : 0.4,
     },
 	{
         'name': 'pledging_mon_biosecurity_test',
@@ -253,8 +266,9 @@ SESSION_CONFIGS = [
 		'pledge' : True,
 		'Papproval' : False,
 		'Capproval' : False,
-		'pledge_looper' : 5,
+		'pledge_looper' : 3,
 		'contribution_looper' : 0,
+		'probability_coefficient' : 0.4,
     },
 	{
         'name': 'aop_biosecurity_test',
@@ -275,8 +289,9 @@ SESSION_CONFIGS = [
 		'pledge' : True,
 		'Papproval' : True,
 		'Capproval' : False,
-		'pledge_looper' : 5,
+		'pledge_looper' : 3,
 		'contribution_looper' : 0,
+		'probability_coefficient' : 0.4,
     },
 	{
         'name': 'aoc_biosecurity_test',
@@ -297,8 +312,9 @@ SESSION_CONFIGS = [
 		'pledge' : True,
 		'Papproval' : False,
 		'Capproval' : True,
-		'pledge_looper' : 5,
-		'contribution_looper' : 5,
+		'pledge_looper' : 3,
+		'contribution_looper' : 1,
+		'probability_coefficient' : 0.4,
     },
 	#Start of the Full Games
 	{
@@ -322,6 +338,7 @@ SESSION_CONFIGS = [
 		'Capproval' : False,
 		'pledge_looper' : 0,
 		'contribution_looper' : 0,
+		'probability_coefficient' : 0.4,
     },
 	{
         'name': 'freeform_biosecurity_game',
@@ -344,6 +361,7 @@ SESSION_CONFIGS = [
 		'Capproval' : False,
 		'pledge_looper' : 0,
 		'contribution_looper' : 0,
+		'probability_coefficient' : 0.4,
     },
 	{
         'name': 'monitoring_biosecurity_game',
@@ -366,6 +384,7 @@ SESSION_CONFIGS = [
 		'Capproval' : False,
 		'pledge_looper' : 0,
 		'contribution_looper' : 0,
+		'probability_coefficient' : 0.4,
     },
 	{
         'name': 'pledging_biosecurity_game',
@@ -386,8 +405,9 @@ SESSION_CONFIGS = [
 		'pledge' : True,
 		'Papproval' : False,
 		'Capproval' : False,
-		'pledge_looper' : 5,
+		'pledge_looper' : 3,
 		'contribution_looper' : 0,
+		'probability_coefficient' : 0.4,
     },
 	{
         'name': 'mon_pledging_biosecurity_game',
@@ -408,8 +428,9 @@ SESSION_CONFIGS = [
 		'pledge' : True,
 		'Papproval' : False,
 		'Capproval' : False,
-		'pledge_looper' : 5,
+		'pledge_looper' : 3,
 		'contribution_looper' : 0,
+		'probability_coefficient' : 0.4,
     },
 		{
         'name': 'aop_biosecurity_game',
@@ -430,8 +451,9 @@ SESSION_CONFIGS = [
 		'pledge' : True,
 		'Papproval' : True,
 		'Capproval' : False,
-		'pledge_looper' : 5,
+		'pledge_looper' : 3,
 		'contribution_looper' : 0,
+		'probability_coefficient' : 0.4,
     },
 	{
         'name': 'aoc_biosecurity_game',
@@ -452,8 +474,9 @@ SESSION_CONFIGS = [
 		'pledge' : True,
 		'Papproval' : False,
 		'Capproval' : True,
-		'pledge_looper' : 5,
-		'contribution_looper' : 5,
+		'pledge_looper' : 3,
+		'contribution_looper' : 1,
+		'probability_coefficient' : 0.4,
     },
 	{
         'name': 'custom_biosecurity_game',
@@ -476,6 +499,7 @@ SESSION_CONFIGS = [
 		'Capproval' : False,
 		'pledge_looper' : 0,
 		'contribution_looper' : 0,
+		'probability_coefficient' : 0.4,
     },
 ]
 

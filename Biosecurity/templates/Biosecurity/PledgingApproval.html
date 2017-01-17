@@ -1,10 +1,6 @@
 {% extends "global/Base.html" %}
 {% load staticfiles otree_tags %}
 
-{% block title %}
-
-{% endblock %}
-
 
 {% block content %}
 	<div id="pagehead">
@@ -13,7 +9,7 @@
 	</div>
 	<div id="roundText">
 		<p><strong>Hello {{ player_name }}</strong></p>
-		<p>The Group Target is <b>{{ Group_Target_Prob }}% or ${{ Group_Target_Cost }}</b></p>
+		<p>The Group Target is <b>{{ Group_Target_Prob }}%</b></p>
 		<p>
 		Review the table Below and use the drop down box the right hand side of each row to decide
 		your Approval of each players Individual Pledge for the next {{ pledge_looper }} rounds.<br>

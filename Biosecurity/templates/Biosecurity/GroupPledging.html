@@ -1,12 +1,6 @@
 {% extends "global/Base.html" %}
 {% load staticfiles otree_tags %}
 
-
-{% block title %}
-
-{% endblock %}
-
-
 {% block content %}
 	<div id="pagehead">
 		<img src="{% static "Biosecurity/uwalogo.png" %}"/>
@@ -21,7 +15,7 @@
 		</p>
 		What chance of <b>not</b> having an incursion do you think the group needs?
 		<br><br>
-		<input id="numb" input type="range" name="groupTarget" min="0" max= "100" step="1.0" value="0" onchange="printProb()">
+		<input id="numb" input type="range" name="groupTarget" min="{{ prob_coeff }}" max= "100" step="1.0" value="0" onchange="printProb()">
 		<br>
 		The chance of <b>not</b> having an incursion you have chosen:
 		<p id="text_prob">%</p>
@@ -162,9 +156,9 @@
 {% block scripts %}
 
 	<script>
-	document.onload = setDefaultOutput();
-	function setDefaultOutput() {
-		document.getElementById("text_prob").innerHTML = 0 + "%";
+	document.onload = setDefaultOutput({{prob_coeff}});
+	function setDefaultOutput(prob_coeff) {
+		document.getElementById("text_prob").innerHTML = prob_coeff + "%";
 	}
 	function printProb() {
 		document.getElementById("text_prob").innerHTML = document.getElementById("numb").value + "%";

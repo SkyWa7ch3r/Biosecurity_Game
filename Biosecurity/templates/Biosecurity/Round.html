@@ -1,11 +1,6 @@
 {% extends "global/Base.html" %}
 {% load staticfiles otree_tags %}
 
-{% block title %}
-	
-	
-{% endblock %}
-
 {% block content %}
 	<div id="pagehead">
 		<img src="{% static "Biosecurity/uwalogo.png" %}"/>
@@ -25,7 +20,7 @@
 			{% if Capproval and cont_TF %}
 				<p>You will do an Approval based on each person's Contribution this round.</p>
 			{% endif %}
-			<p>The Group Target is <b>{{ Group_Target_Prob }}% or ${{ Group_Target_Cost }}</b></p>
+			<p>The Group Target is <b>{{ Group_Target_Prob }}%</b></p>
 			<p>
 			<table border="5" cellpadding="5" cellspacing="5">
 				<caption>Each Player's Pledges</caption>
@@ -64,7 +59,7 @@
 			<p>Please drag the slider to adjust the amount of money you wish to spend:</p>
 		
 			<!--Slider with a range from 0 to a value set by an admin (max_protection). When the value is altered by the player, the cost and probabillity values are recalculated and displayed-->
-			<input id="numb" input type="range" name="cost" min="0" max= "{{max_protection}}" step="0.01" value="0" onchange="printCosts({{cost_factor}})">
+			<input id="numb" input type="range" name="cost" min="0" max= "{{max_protection}}" step="0.01" value="0" onchange="printCosts({{cost_factor}},{{prob_coeff}})">
 			<br></br>
 			<p>Cost of Protection:</p>
 			<p id="text_cost"></p>
@@ -225,10 +220,10 @@
 ** The initial cost value is set as half maximum protection
 ** The initial probabillity value is derived from this cost value 
 */
-document.onload = setDefaultProb({{max_protection}}, {{cost_factor}});
-function setDefaultProb(maxProtection, costFactor) {
+document.onload = setDefaultProb({{max_protection}}, {{cost_factor}}, {{prob_coeff}});
+function setDefaultProb(maxProtection, costFactor, prob_coeff) {
 	text_cost = 0;
-	text_prob = 0;
+	text_prob = prob_coeff * 100;
 	//set values in HTML
 	document.getElementById("text_cost").innerHTML = "$"+text_cost;
 	document.getElementById("text_prob").innerHTML = text_prob+ "%";
@@ -239,7 +234,7 @@ function setDefaultProb(maxProtection, costFactor) {
 ** The probabillity value is calculated using the cost value and is define as follows: 1-e^(-cost/cost_factor)
 */
 
-function printCosts(costFactor) {
+function printCosts(costFactor, prob_coeff) {
     var x, text1, text2;
 
     // Get the value of the input field with id="numb"

@@ -1,11 +1,6 @@
 {% extends "global/Base.html" %}
 {% load staticfiles otree_tags %}
 
-
-{% block title %}
-{% endblock %}
-
-
 {% block content %}
 
 	<div id="pagehead">
@@ -15,7 +10,7 @@
 
 	<div id="resultText">
 		<p>
-		Hello <strong>{{ name }}</strong>
+		<strong>Hello {{ name }}</strong>
 		</p>
 		<p>
 		The amount of protection you provided this round was ${{ player.cost }} <br/>

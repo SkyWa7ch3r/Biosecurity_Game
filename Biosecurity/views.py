@@ -65,7 +65,7 @@ class SoloRound(Page):
 			max_protection = self.session.config['max_protection']
 		else:
 			max_protection = Constants.maxProtection[self.subsession.round_number-1]
-		cost_factor = max_protection/-math.log(0.01)
+		cost_factor = self.session.config['max_protection']/-math.log(1 - Constants.max_probability + self.session.config["probability_coefficient"])
 		return {
 			'max_protection': max_protection,
 			'cost_factor': cost_factor,
@@ -95,36 +95,46 @@ class Round(Page):
 
 	#Output protection and cost_factor values to results
 	def vars_for_template(self):
+		#Lists to pass to the template
 		names = []
 		pledge_results = []
 		average = []
+		#If True, round number > contribution_looper
 		abovec = False
-		contribution = False
-		#Getting average approval p.participant.vars["approval_means"][p.id_in_group - 1]
+		#Check if a apprval by contribution has taken place
 		if(self.subsession.round_number > self.session.config["contribution_looper"]):
 			abovec = True
+		#Get the data for the lists to pass them to the template
 		for p in self.group.get_players():
+			#Get the Player's name
 			names.append(p.participant.vars["name"])
+			#Get their latest Individual pledge for display
 			pledge_results.append(p.participant.vars["Recent_Pledge"][1])
-			if(self.session.config["Papproval"]):
-				average.append(p.participant.vars["approval_means"][p.id_in_group - 1])
-			elif(self.session.config["Capproval"] and abovec):
-				average.append(p.participant.vars["approval_means"][p.id_in_group - 1])
+			#If Approval by Pledging or approval contribution on, get the approval data
+			if(self.session.config["Papproval"] or (self.session.config["Capproval"] and abovec)):
+				average.append(self.group.get_player_by_id(1).participant.vars["approval_means"][p.id_in_group - 1])
 			else:
 				average.append(None)
+		#Get the max protection for display
 		if(self.session.config['dynamic_finances'] == False):
 			max_protection = self.session.config['max_protection']
 		else:
 			max_protection = Constants.maxProtection[self.subsession.round_number-1]
-		if(self.group.get_player_by_id(1).participant.vars["pledge_round"] == True):
+		#This is the logic for the counters till the next contribution or pledge
+		if(self.group.pledge == True):
+			#Reset the counter if its a round where a pledge took place
 			if(self.subsession.round_number == 1):
+				#Special case for Round 1 as it happens in one less round than usual.
 				self.group.get_player_by_id(1).participant.vars["Rounds_Till_Pledge"] = self.session.config["pledge_looper"] - 1
 			else:
 				self.group.get_player_by_id(1).participant.vars["Rounds_Till_Pledge"] = self.session.config["pledge_looper"]
+		#Reset the counter if contribution taking place this round
 		if(self.group.get_player_by_id(1).participant.vars["Rounds_Till_Contribution"] == 0):
 			self.group.get_player_by_id(1).participant.vars["Rounds_Till_Contribution"] = self.session.config["contribution_looper"]
-			contribution = True
-		cost_factor = max_protection/-math.log(1 + 0.4 - 0.99)
+			#Tell the game a contribution is happening and to save it in the data
+			self.group.contribution = True
+		#Calculate the cost factor
+		cost_factor = self.session.config['max_protection']/-math.log(1 - Constants.max_probability + self.session.config["probability_coefficient"])
 		
 		return {
 			'max_protection': max_protection,
@@ -134,14 +144,14 @@ class Round(Page):
 			'list' : zip(names, pledge_results, average),
 			'pledge' : self.session.config['pledge'],
 			'Group_Target_Prob' : self.participant.vars["Group_Targets_Prob"][1],
-			'Group_Target_Cost' : self.participant.vars["Group_Targets_Cost"][1],
 			'next_pledge' : self.group.get_player_by_id(1).participant.vars["Rounds_Till_Pledge"],
 			'next_cont' : self.group.get_player_by_id(1).participant.vars["Rounds_Till_Contribution"],
-			'cont_TF' : contribution,
+			'cont_TF' : self.group.contribution,
 			'Capproval' : self.session.config["Capproval"],
 			'Papproval' : self.session.config["Papproval"],
 			'player_name' : self.player.participant.vars["name"],
 			'abovec' : abovec,
+			'prob_coeff' : self.session.config["probability_coefficient"],
 		}
 
 class OthersRound(Page):
@@ -169,7 +179,7 @@ class OthersRound(Page):
 			max_protection = self.session.config['max_protection']
 		else:
 			max_protection = Constants.maxProtection[self.subsession.round_number-1]
-		cost_factor = max_protection/-math.log(0.01)
+		cost_factor = self.session.config['max_protection']/-math.log(1 - Constants.max_probability + self.session.config["probability_coefficient"])
 		#print leader's contribution to html page
 		return {
 			'leader' : self.group.get_player_by_role('Leader').participant.vars['name'],
@@ -232,15 +242,18 @@ class Results(Page):
 		currentFunds = self.player.participant.vars['funds']
 		names = []
 		costs = []
+		#Grab all the necessary data
 		for p in self.group.get_players():
 			names.append(p.participant.vars["name"])
 			costs.append(p.cost)
+		#Get all the values for display
 		if(self.session.config['dynamic_finances'] == False):
 			revenue = self.session.config['revenue']
 			upkeep = self.session.config['upkeep']
 		else:
 			revenue = Constants.revenue[self.subsession.round_number-1]
 			upkeep = Constants.upkeep[self.subsession.round_number-1]
+		#Do a check so that the template knows to display negative currency properly
 		if(self.player.participant.vars['funds'] < 0.00):
 			negative = True
 			currentFunds = currentFunds * -1.00
@@ -261,7 +274,7 @@ class PledgeWait(WaitPage):
 		return self.session.config['pledge'] == True and (self.subsession.round_number % self.session.config["pledge_looper"] == 0 or self.subsession.round_number == 1)
 	def after_all_players_arrive(self):
 		#This will calculate the Group Target and save it inside a particxpant variable, Group Targets as the most recent in the list
-		self.group.get_player_by_id(1).participant.vars['pledge_round'] = True
+		self.group.pledge = True
 		self.group.calculate_group_target()
 
 class PledgeWaitCounter(WaitPage):
@@ -269,7 +282,6 @@ class PledgeWaitCounter(WaitPage):
 		return self.session.config['pledge'] == True
 	def after_all_players_arrive(self):
 		self.group.get_player_by_id(1).participant.vars["Rounds_Till_Pledge"] -= 1
-		self.group.get_player_by_id(1).participant.vars['pledge_round'] = False
 		if(self.session.config["Capproval"]):
 			self.group.get_player_by_id(1).participant.vars["Rounds_Till_Contribution"] -= 1
 class AopWait(WaitPage):
@@ -297,12 +309,13 @@ class IndiPledging(Page):
 		return self.session.config['pledge'] == True and (self.subsession.round_number % self.session.config["pledge_looper"] == 0 or self.subsession.round_number == 1)
 	def vars_for_template(self):
 		max_protection = self.session.config['max_protection']
-		cost_factor = max_protection/-math.log(0.01)
+		cost_factor = self.session.config['max_protection']/-math.log(1 - Constants.max_probability + self.session.config["probability_coefficient"])
 		return {
 			'Group_Target_Prob' : self.participant.vars["Group_Targets_Prob"][1],
-			'Group_Target_Cost' : self.participant.vars["Group_Targets_Cost"][1],
 			'max_protection' : max_protection,
 			'cost_factor' : cost_factor,
+			'prob_coeff' : self.session.config["probability_coefficient"],
+			'player_name' : self.player.participant.vars["name"],
 		}
 
 class IndiPledgingWait(WaitPage):
@@ -320,11 +333,15 @@ class GroupPledging(Page):
 	timeout_seconds = 60
 	form_model = models.Player
 	form_fields = ['groupTarget']
+	def before_next_page(self):
+		if self.timeout_happened:
+			self.player.groupTarget = self.session.config["probability_coefficient"] * 100
 	def is_displayed(self):
 		return self.session.config['pledge'] == True and (self.subsession.round_number % self.session.config["pledge_looper"] == 0 or self.subsession.round_number == 1)
 	def vars_for_template(self):
 		return {
 			'player_name' : self.player.participant.vars["name"],
+			'prob_coeff' : self.session.config['probability_coefficient'] * 100,
 		}
 		
 class PledgingApproval(Page):
@@ -349,7 +366,6 @@ class PledgingApproval(Page):
 		return {
 			'list' : zip(ids, names, pledge_results),
 			'Group_Target_Prob' : self.participant.vars["Group_Targets_Prob"][1],
-			'Group_Target_Cost' : self.participant.vars["Group_Targets_Cost"][1],
 			'player_name' : self.player.participant.vars["name"],
 			'pledge_looper' : self.session.config["pledge_looper"],
 		}
@@ -381,15 +397,36 @@ class ActionApproval(Page):
 		for p in self.group.get_players():
 			names.append(p.participant.vars['name'])
 			ids.append(p.id_in_group)
-			pledge_results.append(p.participant.vars["Recent_Pledge"][0])
+			'''
+			If the contribution_looper is not 1 and is same as pledge_looper then get previous pledge, as pledge and contribution happening on same round
+			ELSE
+			In the case that contribution_looper = pledge_looper and both are 1 then pledging and contribution is happening every round,
+			then each pledge will affect contribution for every round.
+			OR
+			In the case when contribution_looper < pledge_looper, then grab the most recent pledges
+			'''
+			if(self.session.config["contribution_looper"] == self.session.config["pledge_looper"] and self.session.config["contribution_looper"] != 1):
+				pledge_results.append(p.participant.vars["Recent_Pledge"][0])
+			elif((self.session.config["contribution_looper"] == 1 and self.session.config["contribution_looper"] == self.session.config["pledge_looper"]) or (self.session.config["contribution_looper"] < self.session.config["pledge_looper"])):
+				pledge_results.append(p.participant.vars["Recent_Pledge"][1])	
 			results.append(p.participant.vars["Protection_Provided"])
 		for i in range(self.subsession.round_number - self.session.config["contribution_looper"] + 1, self.subsession.round_number + 1):
 			round_numbers.append(i)
+		#Determine What Group_Target_Prob we need, exactly like getting the Recent Pledge
+		#By Default, it does when contribution_looper = pledge_looper when contribution_looper != 1, which will mean it chooses the previous pledge
+		gtp = self.participant.vars["Group_Targets_Prob"][0]
+		'''
+		In the case that contribution_looper = pledge_looper and both are 1 then pledging and contribution is happening every round,
+		then each pledge will affect contribution for every round.
+		OR
+		In the case when contribution_looper < pledge_looper, then grab the most recent pledges
+		'''
+		if((self.session.config["contribution_looper"] == 1 and self.session.config["contribution_looper"] == self.session.config["pledge_looper"]) or (self.session.config["contribution_looper"] < self.session.config["pledge_looper"])):
+			gtp = self.participant.vars["Group_Targets_Prob"][1]
 		return {
 			'list_for_table' : zip(names, ids, pledge_results, results),
 			'round_numbers' : round_numbers,
-			'Group_Target_Prob' : self.participant.vars["Group_Targets_Prob"][0],
-			'Group_Target_Cost' : self.participant.vars["Group_Targets_Cost"][0],
+			'Group_Target_Prob' : gtp,
 			'player_name': self.player.participant.vars['name'],
 			'contribution_looper' : self.session.config["contribution_looper"],
 		}	

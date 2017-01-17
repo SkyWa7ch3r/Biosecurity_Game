@@ -2,31 +2,35 @@
 {% load staticfiles otree_tags %}
 
 
-{% block title %}
-
-{% endblock %}
-
-
 {% block content %}
 	<div id="pagehead">
 		<img src="{% static "Biosecurity/uwalogo.png" %}"/>
 		<div class="title">Approval based on Contribution Stage {{ subsession.round_number }} of {{ Constants.num_rounds }}</div>
 	</div>
-	
-	<strong>Hello {{ player_name }}</strong> <br/>	
-	<p>The Group Target was <b>{{ Group_Target_Prob }}% or ${{ Group_Target_Cost }}</b></p>
-	Review the table Below and use the drop down box the right hand side of each row to decide<br>
-	your Approval of each players Contribution from the last {{ contribution_looper }} rounds.<br>
-	You Approval of Each Player will be on a scale of -6 (Strongly Disapprove) to +6 (Strongly Approve)<br>
-	From now on, when you decide your Protection against Biosecuirty Threats you will see the Group's Approval<br>
-	of yourself and other players. The closer the Group Approval is to +6, the more the Group Approves of that person.<br>
-	
+	<div id="roundText">
+		<strong>Hello {{ player_name }}</strong> <br/>	
+		<p>The Group Target was <b>{{ Group_Target_Prob }}%</b></p>
+		Review the table Below and use the drop down box the right hand side of each row to decide<br>
+		your Approval of each players Contribution from the 
+		{% if contribution_looper == 1 %}
+			last round.<br>
+		{% else %}
+			last {{ contribution_looper }} rounds.<br>
+		{% endif %}
+		You Approval of Each Player will be on a scale of -6 (Strongly Disapprove) to +6 (Strongly Approve)<br>
+		From now on, when you decide your Protection against Biosecurity Threats you will see the Group's Approval<br>
+		of yourself and other players. The closer the Group Approval is to +6, the more the Group Approves of that person.<br>
+	</div>
 	<br>
 	<div id="results">
 		<table border="5" cellspacing="5" cellpadding="5">
-			<caption>The Results from the last {{ contribution_looper }} rounds</caption>
+			{% if contribution_looper == 1 %}
+				<caption>The Results from the Last Round</caption>
+			{% else %}
+				<caption>The Results from the last {{ contribution_looper }} rounds</caption>
+			{% endif %}
 			<th>Name</th>
-			<th>Pledge from {{ contribution_looper }} rounds ago</th>
+			<th>Player's Pledge</th>
 			{% for n in round_numbers %}
 				<th>Round: {{ n }}</th>
 			{% endfor %}
@@ -99,6 +103,12 @@
 			text-align: center;
 			display: inline-block;
 			text-align: left;
+		}
+		#roundText
+		{
+			font-size: 1.25em;
+			margin-bottom: 1em;
+			display: block;
 		}		
 	</style>
 {% endblock %}
