@@ -68,6 +68,13 @@ class PlayerBot(Bot):
 														'approval_18' : random.randint(-6, 6), 
 														'approval_19' : random.randint(-6, 6), 
 														'approval_20' : random.randint(-6, 6)})
+						approval_for_testing = 0.0
+						approval_total = 0
+						number_of_players = len(self.group.get_players())
+						for p in self.group.get_players():
+							approval_total += p.approval_1
+						approval_for_testing = approval_total/number_of_players
+						assert self.group.get_player_by_id(1).participant.vars["approval_means"][0] == approval_for_testing
 				#Display the ChatBox 
 				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
 					yield (views.ChatBox)
@@ -121,7 +128,21 @@ class PlayerBot(Bot):
 												  'approval_18' : random.randint(-6, 6), 
 												  'approval_19' : random.randint(-6, 6), 
 												  'approval_20' : random.randint(-6, 6)})
-
+					approval_for_testing = 0.0
+					approval_total = 0
+					number_of_players = len(self.group.get_players())
+					for p in self.group.get_players():
+						approval_total += p.approval_1
+					approval_for_testing = approval_total/number_of_players
+					assert self.group.get_player_by_id(1).participant.vars["approval_means"][0] == approval_for_testing
+				print("Incursion Count: %d"%self.group.get_player_by_id(1).participant.vars['incursion_count'])
+				if(self.subsession.round_number == 5 or self.subsession.round_number == 15):
+					for p in self.group.get_players():
+						print("Player %d: Funds %f"%(p.id_in_group, p.participant.vars["funds"]))
+						print("Player %d: Cost %f"%(p.id_in_group, p.cost))
+				else:
+					for p in self.group.get_players():
+						print("Player %d: Cost %f"%(p.id_in_group, p.cost))
 			#Test with doing 1/4 of whatever the max protection is set to, protection equation tested, incursion unpredictable
 			elif self.case == 'quarter':
 				#Do the pledging pages if pledging is on
@@ -155,6 +176,8 @@ class PlayerBot(Bot):
 														'approval_18' : -6, 
 														'approval_19' : -6, 
 														'approval_20' : -6})
+						assert self.group.get_player_by_id(1).participant.vars["approval_means"][0] == -6								
+														
 				#Display the ChatBox 
 				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
 					yield (views.ChatBox)
@@ -204,7 +227,15 @@ class PlayerBot(Bot):
 												  'approval_18' : -6, 
 												  'approval_19' : -6, 
 												  'approval_20' : -6})
-
+					assert self.group.get_player_by_id(1).participant.vars["approval_means"][0] == -6							  
+				print("Incursion Count: %d"%self.group.get_player_by_id(1).participant.vars['incursion_count'])
+				if(self.subsession.round_number == 5 or self.subsession.round_number == 15):
+					for p in self.group.get_players():
+						print("Player %d: Funds %f"%(p.id_in_group, p.participant.vars["funds"]))
+						print("Player %d: Cost %f"%(p.id_in_group, p.cost))
+				else:
+					for p in self.group.get_players():
+						print("Player %d: Cost %f"%(p.id_in_group, p.cost))
 			#Test with doing 1/2 of whatever the max protection is set to, protection equation tested, incursion unpredictable
 			elif self.case == 'half':
 				#Do the pledging pages if pledging is on
@@ -238,6 +269,8 @@ class PlayerBot(Bot):
 														'approval_18' : 3, 
 														'approval_19' : 3, 
 														'approval_20' : 3})
+						assert self.group.get_player_by_id(1).participant.vars["approval_means"][0] == 3
+						
 				#Display the ChatBox 
 				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
 					yield (views.ChatBox)
@@ -287,7 +320,15 @@ class PlayerBot(Bot):
 												  'approval_18' : 3, 
 												  'approval_19' : 3, 
 												  'approval_20' : 3})
-
+					assert self.group.get_player_by_id(1).participant.vars["approval_means"][0] == 3							  
+				print("Incursion Count: %d"%self.group.get_player_by_id(1).participant.vars['incursion_count'])
+				if(self.subsession.round_number == 5 or self.subsession.round_number == 15):
+					for p in self.group.get_players():
+						print("Player %d: Funds %f"%(p.id_in_group, p.participant.vars["funds"]))
+						print("Player %d: Cost %f"%(p.id_in_group, p.cost))
+				else:
+					for p in self.group.get_players():
+						print("Player %d: Cost %f"%(p.id_in_group, p.cost))						
 			#Test with doing 3/4 of whatever the max protection is set to, protection equation tested, incursion somewhat predictable, entering point of diminishing returns for protection	  
 			elif self.case == 'threequarters':
 				#Do the pledging pages if pledging is on
@@ -321,6 +362,7 @@ class PlayerBot(Bot):
 														'approval_18' : 6, 
 														'approval_19' : 6, 
 														'approval_20' : 6})
+						assert self.group.get_player_by_id(1).participant.vars["approval_means"][0] == 6								
 				#Display the ChatBox 
 				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
 					yield (views.ChatBox)
@@ -370,7 +412,15 @@ class PlayerBot(Bot):
 												  'approval_18' : 6, 
 												  'approval_19' : 6, 
 												  'approval_20' : 6})
-
+					assert self.group.get_player_by_id(1).participant.vars["approval_means"][0] == 6
+				print("Incursion Count: %d"%self.group.get_player_by_id(1).participant.vars['incursion_count'])
+				if(self.subsession.round_number == 5 or self.subsession.round_number == 15):
+					for p in self.group.get_players():
+						print("Player %d: Funds %f"%(p.id_in_group, p.participant.vars["funds"]))
+						print("Player %d: Cost %f"%(p.id_in_group, p.cost))
+				else:
+					for p in self.group.get_players():
+						print("Player %d: Cost %f"%(p.id_in_group, p.cost))
 			#Test with doing whatever the max protection is set to, protection equation tested, incursion mostly predictable.
 			elif self.case == 'full':
 				#Do the pledging pages if pledging is on
@@ -404,6 +454,7 @@ class PlayerBot(Bot):
 														'approval_18' : 0, 
 														'approval_19' : 0, 
 														'approval_20' : 0})
+					assert self.group.get_player_by_id(1).participant.vars["approval_means"][0] == 0
 				#Display the ChatBox 
 				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
 					yield (views.ChatBox)
@@ -452,7 +503,16 @@ class PlayerBot(Bot):
 												  'approval_18' : 0, 
 												  'approval_19' : 0, 
 												  'approval_20' : 0})
-												  
+					assert self.group.get_player_by_id(1).participant.vars["approval_means"][0] == 0
+				print("Incursion Count: %d"%self.group.get_player_by_id(1).participant.vars['incursion_count'])
+				if(self.subsession.round_number == 5 or self.subsession.round_number == 15):
+					for p in self.group.get_players():
+						print("Player %d: Funds %f"%(p.id_in_group, p.participant.vars["funds"]))
+						print("Player %d: Cost %f"%(p.id_in_group, p.cost))
+				else:
+					for p in self.group.get_players():
+						print("Player %d: Cost %f"%(p.id_in_group, p.cost))
+						
 			#Test with any player's id that are even as 0 protection cost, odd are using full protection cost.
 			elif self.case == 'twoselfishtwogood':
 				#Do the pledging pages if pledging is on
@@ -544,7 +604,15 @@ class PlayerBot(Bot):
 												  'approval_18' : random.randint(-6, 6), 
 												  'approval_19' : random.randint(-6, 6), 
 												  'approval_20' : random.randint(-6, 6)})
-
+				print("Incursion Count: %d"%self.group.get_player_by_id(1).participant.vars['incursion_count'])
+				if(self.subsession.round_number == 5 or self.subsession.round_number == 15):
+					for p in self.group.get_players():
+						print("Player %d: Funds %f"%(p.id_in_group, p.participant.vars["funds"]))
+						print("Player %d: Cost %f"%(p.id_in_group, p.cost))
+				else:
+					for p in self.group.get_players():
+						print("Player %d: Cost %f"%(p.id_in_group, p.cost))
+						
 			#Test with doing 0 protection cost, protection equation tested, incursion completely predictable, guranteed incursion all the time
 			elif self.case == 'bankrupt':
 				#Do the pledging pages if pledging is on
@@ -626,7 +694,15 @@ class PlayerBot(Bot):
 												  'approval_18' : random.randint(-6, 6), 
 												  'approval_19' : random.randint(-6, 6), 
 												  'approval_20' : random.randint(-6, 6)})
-
+				print("Incursion Count: %d"%self.group.get_player_by_id(1).participant.vars['incursion_count'])
+				if(self.subsession.round_number == 5 or self.subsession.round_number == 15):
+					for p in self.group.get_players():
+						print("Player %d: Funds %f"%(p.id_in_group, p.participant.vars["funds"]))
+						print("Player %d: Cost %f"%(p.id_in_group, p.cost))
+				else:
+					for p in self.group.get_players():
+						print("Player %d: Cost %f"%(p.id_in_group, p.cost))
+						
 		#The set_leader option was set to true upon creating test session, now do scenario where one player does their protection first and everyone else gets to see it
 		else:
 			#It will go through the cases exactly as before with minor changes

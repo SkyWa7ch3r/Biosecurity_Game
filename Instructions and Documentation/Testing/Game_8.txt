@@ -1,0 +1,2334 @@
+============================= test session starts =============================
+platform win32 -- Python 3.6.0, pytest-2.9.2, py-1.4.31, pluggy-0.3.1
+Django settings: settings (from environment variable)
+rootdir: c:\program files\python36\lib\site-packages\otree\bots, inifile: 
+plugins: django-3.0.0
+collected 1 items
+
+c:\program files\python36\lib\site-packages\otree\bots\runner.py Incursion Count: 1
+Player 1: Cost 11.200000
+Player 2: Cost 8.290000
+Player 3: Cost 0.500000
+Player 4: Cost 9.890000
+Incursion Count: 1
+Player 1: Cost 11.200000
+Player 2: Cost 8.290000
+Player 3: Cost 0.500000
+Player 4: Cost 9.890000
+Incursion Count: 1
+Player 1: Cost 11.200000
+Player 2: Cost 8.290000
+Player 3: Cost 0.500000
+Player 4: Cost 9.890000
+Incursion Count: 1
+Player 1: Cost 11.200000
+Player 2: Cost 8.290000
+Player 3: Cost 0.500000
+Player 4: Cost 9.890000
+Incursion Count: 2
+Player 1: Cost 11.720000
+Player 2: Cost 4.150000
+Player 3: Cost 4.950000
+Player 4: Cost 2.230000
+Incursion Count: 2
+Player 1: Cost 11.720000
+Player 2: Cost 4.150000
+Player 3: Cost 4.950000
+Player 4: Cost 2.230000
+Incursion Count: 2
+Player 1: Cost 11.720000
+Player 2: Cost 4.150000
+Player 3: Cost 4.950000
+Player 4: Cost 2.230000
+Incursion Count: 2
+Player 1: Cost 11.720000
+Player 2: Cost 4.150000
+Player 3: Cost 4.950000
+Player 4: Cost 2.230000
+Incursion Count: 3
+Player 1: Cost 1.910000
+Player 2: Cost 5.860000
+Player 3: Cost 4.670000
+Player 4: Cost 1.790000
+Incursion Count: 3
+Player 1: Cost 1.910000
+Player 2: Cost 5.860000
+Player 3: Cost 4.670000
+Player 4: Cost 1.790000
+Incursion Count: 3
+Player 1: Cost 1.910000
+Player 2: Cost 5.860000
+Player 3: Cost 4.670000
+Player 4: Cost 1.790000
+Incursion Count: 3
+Player 1: Cost 1.910000
+Player 2: Cost 5.860000
+Player 3: Cost 4.670000
+Player 4: Cost 1.790000
+Incursion Count: 3
+Player 1: Cost 12.060000
+Player 2: Cost 14.940000
+Player 3: Cost 8.110000
+Player 4: Cost 12.300000
+Incursion Count: 3
+Player 1: Cost 12.060000
+Player 2: Cost 14.940000
+Player 3: Cost 8.110000
+Player 4: Cost 12.300000
+Incursion Count: 3
+Player 1: Cost 12.060000
+Player 2: Cost 14.940000
+Player 3: Cost 8.110000
+Player 4: Cost 12.300000
+Incursion Count: 3
+Player 1: Cost 12.060000
+Player 2: Cost 14.940000
+Player 3: Cost 8.110000
+Player 4: Cost 12.300000
+Incursion Count: 3
+Player 1: Funds 10.530000
+Player 1: Cost 2.580000
+Player 2: Funds 10.660000
+Player 2: Cost 6.100000
+Player 3: Funds 28.830000
+Player 3: Cost 2.940000
+Player 4: Funds 12.010000
+Player 4: Cost 11.780000
+Incursion Count: 3
+Player 1: Funds 10.530000
+Player 1: Cost 2.580000
+Player 2: Funds 10.660000
+Player 2: Cost 6.100000
+Player 3: Funds 28.830000
+Player 3: Cost 2.940000
+Player 4: Funds 12.010000
+Player 4: Cost 11.780000
+Incursion Count: 3
+Player 1: Funds 10.530000
+Player 1: Cost 2.580000
+Player 2: Funds 10.660000
+Player 2: Cost 6.100000
+Player 3: Funds 28.830000
+Player 3: Cost 2.940000
+Player 4: Funds 12.010000
+Player 4: Cost 11.780000
+Incursion Count: 3
+Player 1: Funds 10.530000
+Player 1: Cost 2.580000
+Player 2: Funds 10.660000
+Player 2: Cost 6.100000
+Player 3: Funds 28.830000
+Player 3: Cost 2.940000
+Player 4: Funds 12.010000
+Player 4: Cost 11.780000
+Incursion Count: 4
+Player 1: Cost 5.190000
+Player 2: Cost 0.100000
+Player 3: Cost 9.920000
+Player 4: Cost 12.510000
+Incursion Count: 4
+Player 1: Cost 5.190000
+Player 2: Cost 0.100000
+Player 3: Cost 9.920000
+Player 4: Cost 12.510000
+Incursion Count: 4
+Player 1: Cost 5.190000
+Player 2: Cost 0.100000
+Player 3: Cost 9.920000
+Player 4: Cost 12.510000
+Incursion Count: 4
+Player 1: Cost 5.190000
+Player 2: Cost 0.100000
+Player 3: Cost 9.920000
+Player 4: Cost 12.510000
+Incursion Count: 5
+Player 1: Cost 0.740000
+Player 2: Cost 6.780000
+Player 3: Cost 0.320000
+Player 4: Cost 1.780000
+Incursion Count: 5
+Player 1: Cost 0.740000
+Player 2: Cost 6.780000
+Player 3: Cost 0.320000
+Player 4: Cost 1.780000
+Incursion Count: 5
+Player 1: Cost 0.740000
+Player 2: Cost 6.780000
+Player 3: Cost 0.320000
+Player 4: Cost 1.780000
+Incursion Count: 5
+Player 1: Cost 0.740000
+Player 2: Cost 6.780000
+Player 3: Cost 0.320000
+Player 4: Cost 1.780000
+Incursion Count: 6
+Player 1: Cost 1.640000
+Player 2: Cost 2.570000
+Player 3: Cost 14.700000
+Player 4: Cost 3.460000
+Incursion Count: 6
+Player 1: Cost 1.640000
+Player 2: Cost 2.570000
+Player 3: Cost 14.700000
+Player 4: Cost 3.460000
+Incursion Count: 6
+Player 1: Cost 1.640000
+Player 2: Cost 2.570000
+Player 3: Cost 14.700000
+Player 4: Cost 3.460000
+Incursion Count: 6
+Player 1: Cost 1.640000
+Player 2: Cost 2.570000
+Player 3: Cost 14.700000
+Player 4: Cost 3.460000
+Incursion Count: 7
+Player 1: Cost 4.660000
+Player 2: Cost 0.990000
+Player 3: Cost 2.250000
+Player 4: Cost 6.450000
+Incursion Count: 7
+Player 1: Cost 4.660000
+Player 2: Cost 0.990000
+Player 3: Cost 2.250000
+Player 4: Cost 6.450000
+Incursion Count: 7
+Player 1: Cost 4.660000
+Player 2: Cost 0.990000
+Player 3: Cost 2.250000
+Player 4: Cost 6.450000
+Incursion Count: 7
+Player 1: Cost 4.660000
+Player 2: Cost 0.990000
+Player 3: Cost 2.250000
+Player 4: Cost 6.450000
+Incursion Count: 7
+Player 1: Cost 10.190000
+Player 2: Cost 3.580000
+Player 3: Cost 9.010000
+Player 4: Cost 7.210000
+Incursion Count: 7
+Player 1: Cost 10.190000
+Player 2: Cost 3.580000
+Player 3: Cost 9.010000
+Player 4: Cost 7.210000
+Incursion Count: 7
+Player 1: Cost 10.190000
+Player 2: Cost 3.580000
+Player 3: Cost 9.010000
+Player 4: Cost 7.210000
+Incursion Count: 7
+Player 1: Cost 10.190000
+Player 2: Cost 3.580000
+Player 3: Cost 9.010000
+Player 4: Cost 7.210000
+Incursion Count: 7
+Player 1: Cost 10.950000
+Player 2: Cost 9.280000
+Player 3: Cost 14.790000
+Player 4: Cost 8.990000
+Incursion Count: 7
+Player 1: Cost 10.950000
+Player 2: Cost 9.280000
+Player 3: Cost 14.790000
+Player 4: Cost 8.990000
+Incursion Count: 7
+Player 1: Cost 10.950000
+Player 2: Cost 9.280000
+Player 3: Cost 14.790000
+Player 4: Cost 8.990000
+Incursion Count: 7
+Player 1: Cost 10.950000
+Player 2: Cost 9.280000
+Player 3: Cost 14.790000
+Player 4: Cost 8.990000
+Incursion Count: 8
+Player 1: Cost 9.460000
+Player 2: Cost 11.190000
+Player 3: Cost 5.040000
+Player 4: Cost 2.380000
+Incursion Count: 8
+Player 1: Cost 9.460000
+Player 2: Cost 11.190000
+Player 3: Cost 5.040000
+Player 4: Cost 2.380000
+Incursion Count: 8
+Player 1: Cost 9.460000
+Player 2: Cost 11.190000
+Player 3: Cost 5.040000
+Player 4: Cost 2.380000
+Incursion Count: 8
+Player 1: Cost 9.460000
+Player 2: Cost 11.190000
+Player 3: Cost 5.040000
+Player 4: Cost 2.380000
+Incursion Count: 9
+Player 1: Cost 12.500000
+Player 2: Cost 7.490000
+Player 3: Cost 0.920000
+Player 4: Cost 13.490000
+Incursion Count: 9
+Player 1: Cost 12.500000
+Player 2: Cost 7.490000
+Player 3: Cost 0.920000
+Player 4: Cost 13.490000
+Incursion Count: 9
+Player 1: Cost 12.500000
+Player 2: Cost 7.490000
+Player 3: Cost 0.920000
+Player 4: Cost 13.490000
+Incursion Count: 9
+Player 1: Cost 12.500000
+Player 2: Cost 7.490000
+Player 3: Cost 0.920000
+Player 4: Cost 13.490000
+Incursion Count: 9
+Player 1: Cost 11.880000
+Player 2: Cost 10.190000
+Player 3: Cost 14.940000
+Player 4: Cost 13.570000
+Incursion Count: 9
+Player 1: Cost 11.880000
+Player 2: Cost 10.190000
+Player 3: Cost 14.940000
+Player 4: Cost 13.570000
+Incursion Count: 9
+Player 1: Cost 11.880000
+Player 2: Cost 10.190000
+Player 3: Cost 14.940000
+Player 4: Cost 13.570000
+Incursion Count: 9
+Player 1: Cost 11.880000
+Player 2: Cost 10.190000
+Player 3: Cost 14.940000
+Player 4: Cost 13.570000
+Incursion Count: 10
+Player 1: Funds -35.020000
+Player 1: Cost 3.340000
+Player 2: Funds -27.100000
+Player 2: Cost 10.590000
+Player 3: Funds -28.120000
+Player 3: Cost 10.060000
+Player 4: Funds -35.580000
+Player 4: Cost 2.750000
+Incursion Count: 10
+Player 1: Funds -35.020000
+Player 1: Cost 3.340000
+Player 2: Funds -27.100000
+Player 2: Cost 10.590000
+Player 3: Funds -28.120000
+Player 3: Cost 10.060000
+Player 4: Funds -35.580000
+Player 4: Cost 2.750000
+Incursion Count: 10
+Player 1: Funds -35.020000
+Player 1: Cost 3.340000
+Player 2: Funds -27.100000
+Player 2: Cost 10.590000
+Player 3: Funds -28.120000
+Player 3: Cost 10.060000
+Player 4: Funds -35.580000
+Player 4: Cost 2.750000
+Incursion Count: 10
+Player 1: Funds -35.020000
+Player 1: Cost 3.340000
+Player 2: Funds -27.100000
+Player 2: Cost 10.590000
+Player 3: Funds -28.120000
+Player 3: Cost 10.060000
+Player 4: Funds -35.580000
+Player 4: Cost 2.750000
+Incursion Count: 1
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 1
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 1
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 1
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 2
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 2
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 2
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 2
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 3
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 3
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 3
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 3
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 4
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 4
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 4
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 4
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 5
+Player 1: Funds -18.750000
+Player 1: Cost 3.750000
+Player 2: Funds -18.750000
+Player 2: Cost 3.750000
+Player 3: Funds -18.750000
+Player 3: Cost 3.750000
+Player 4: Funds -18.750000
+Player 4: Cost 3.750000
+Incursion Count: 5
+Player 1: Funds -18.750000
+Player 1: Cost 3.750000
+Player 2: Funds -18.750000
+Player 2: Cost 3.750000
+Player 3: Funds -18.750000
+Player 3: Cost 3.750000
+Player 4: Funds -18.750000
+Player 4: Cost 3.750000
+Incursion Count: 5
+Player 1: Funds -18.750000
+Player 1: Cost 3.750000
+Player 2: Funds -18.750000
+Player 2: Cost 3.750000
+Player 3: Funds -18.750000
+Player 3: Cost 3.750000
+Player 4: Funds -18.750000
+Player 4: Cost 3.750000
+Incursion Count: 5
+Player 1: Funds -18.750000
+Player 1: Cost 3.750000
+Player 2: Funds -18.750000
+Player 2: Cost 3.750000
+Player 3: Funds -18.750000
+Player 3: Cost 3.750000
+Player 4: Funds -18.750000
+Player 4: Cost 3.750000
+Incursion Count: 6
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 6
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 6
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 6
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 7
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 7
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 7
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 7
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 8
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 8
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 8
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 8
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 8
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 8
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 8
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 8
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 9
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 9
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 9
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 9
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 10
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 10
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 10
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 10
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 11
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 11
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 11
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 11
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 11
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 11
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 11
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 11
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 12
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 12
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 12
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 12
+Player 1: Cost 3.750000
+Player 2: Cost 3.750000
+Player 3: Cost 3.750000
+Player 4: Cost 3.750000
+Incursion Count: 13
+Player 1: Funds -56.250000
+Player 1: Cost 3.750000
+Player 2: Funds -56.250000
+Player 2: Cost 3.750000
+Player 3: Funds -56.250000
+Player 3: Cost 3.750000
+Player 4: Funds -56.250000
+Player 4: Cost 3.750000
+Incursion Count: 13
+Player 1: Funds -56.250000
+Player 1: Cost 3.750000
+Player 2: Funds -56.250000
+Player 2: Cost 3.750000
+Player 3: Funds -56.250000
+Player 3: Cost 3.750000
+Player 4: Funds -56.250000
+Player 4: Cost 3.750000
+Incursion Count: 13
+Player 1: Funds -56.250000
+Player 1: Cost 3.750000
+Player 2: Funds -56.250000
+Player 2: Cost 3.750000
+Player 3: Funds -56.250000
+Player 3: Cost 3.750000
+Player 4: Funds -56.250000
+Player 4: Cost 3.750000
+Incursion Count: 13
+Player 1: Funds -56.250000
+Player 1: Cost 3.750000
+Player 2: Funds -56.250000
+Player 2: Cost 3.750000
+Player 3: Funds -56.250000
+Player 3: Cost 3.750000
+Player 4: Funds -56.250000
+Player 4: Cost 3.750000
+Incursion Count: 0
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 0
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 0
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 0
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 1
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 1
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 1
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 1
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 2
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 2
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 2
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 2
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 2
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 2
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 2
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 2
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 3
+Player 1: Funds 12.500000
+Player 1: Cost 7.500000
+Player 2: Funds 12.500000
+Player 2: Cost 7.500000
+Player 3: Funds 12.500000
+Player 3: Cost 7.500000
+Player 4: Funds 12.500000
+Player 4: Cost 7.500000
+Incursion Count: 3
+Player 1: Funds 12.500000
+Player 1: Cost 7.500000
+Player 2: Funds 12.500000
+Player 2: Cost 7.500000
+Player 3: Funds 12.500000
+Player 3: Cost 7.500000
+Player 4: Funds 12.500000
+Player 4: Cost 7.500000
+Incursion Count: 3
+Player 1: Funds 12.500000
+Player 1: Cost 7.500000
+Player 2: Funds 12.500000
+Player 2: Cost 7.500000
+Player 3: Funds 12.500000
+Player 3: Cost 7.500000
+Player 4: Funds 12.500000
+Player 4: Cost 7.500000
+Incursion Count: 3
+Player 1: Funds 12.500000
+Player 1: Cost 7.500000
+Player 2: Funds 12.500000
+Player 2: Cost 7.500000
+Player 3: Funds 12.500000
+Player 3: Cost 7.500000
+Player 4: Funds 12.500000
+Player 4: Cost 7.500000
+Incursion Count: 4
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 4
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 4
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 4
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 5
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 5
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 5
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 5
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 6
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 6
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 6
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 6
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 7
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 7
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 7
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 7
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 8
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 8
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 8
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 8
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 8
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 8
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 8
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 8
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 9
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 9
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 9
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 9
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 10
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 10
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 10
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 10
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 10
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 10
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 10
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 10
+Player 1: Cost 7.500000
+Player 2: Cost 7.500000
+Player 3: Cost 7.500000
+Player 4: Cost 7.500000
+Incursion Count: 10
+Player 1: Funds -37.500000
+Player 1: Cost 7.500000
+Player 2: Funds -37.500000
+Player 2: Cost 7.500000
+Player 3: Funds -37.500000
+Player 3: Cost 7.500000
+Player 4: Funds -37.500000
+Player 4: Cost 7.500000
+Incursion Count: 10
+Player 1: Funds -37.500000
+Player 1: Cost 7.500000
+Player 2: Funds -37.500000
+Player 2: Cost 7.500000
+Player 3: Funds -37.500000
+Player 3: Cost 7.500000
+Player 4: Funds -37.500000
+Player 4: Cost 7.500000
+Incursion Count: 10
+Player 1: Funds -37.500000
+Player 1: Cost 7.500000
+Player 2: Funds -37.500000
+Player 2: Cost 7.500000
+Player 3: Funds -37.500000
+Player 3: Cost 7.500000
+Player 4: Funds -37.500000
+Player 4: Cost 7.500000
+Incursion Count: 10
+Player 1: Funds -37.500000
+Player 1: Cost 7.500000
+Player 2: Funds -37.500000
+Player 2: Cost 7.500000
+Player 3: Funds -37.500000
+Player 3: Cost 7.500000
+Player 4: Funds -37.500000
+Player 4: Cost 7.500000
+Incursion Count: 0
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 0
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 0
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 0
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 0
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 0
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 0
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 0
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 0
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 0
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 0
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 0
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 1
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 1
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 1
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 1
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 1
+Player 1: Funds 43.750000
+Player 1: Cost 11.250000
+Player 2: Funds 43.750000
+Player 2: Cost 11.250000
+Player 3: Funds 43.750000
+Player 3: Cost 11.250000
+Player 4: Funds 43.750000
+Player 4: Cost 11.250000
+Incursion Count: 1
+Player 1: Funds 43.750000
+Player 1: Cost 11.250000
+Player 2: Funds 43.750000
+Player 2: Cost 11.250000
+Player 3: Funds 43.750000
+Player 3: Cost 11.250000
+Player 4: Funds 43.750000
+Player 4: Cost 11.250000
+Incursion Count: 1
+Player 1: Funds 43.750000
+Player 1: Cost 11.250000
+Player 2: Funds 43.750000
+Player 2: Cost 11.250000
+Player 3: Funds 43.750000
+Player 3: Cost 11.250000
+Player 4: Funds 43.750000
+Player 4: Cost 11.250000
+Incursion Count: 1
+Player 1: Funds 43.750000
+Player 1: Cost 11.250000
+Player 2: Funds 43.750000
+Player 2: Cost 11.250000
+Player 3: Funds 43.750000
+Player 3: Cost 11.250000
+Player 4: Funds 43.750000
+Player 4: Cost 11.250000
+Incursion Count: 2
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 2
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 2
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 2
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 3
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 3
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 3
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 3
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 4
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 4
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 4
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 4
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 5
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 5
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 5
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 5
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 5
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 5
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 5
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 5
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 6
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 6
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 6
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 6
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 7
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 7
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 7
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 7
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 7
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 7
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 7
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 7
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 8
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 8
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 8
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 8
+Player 1: Cost 11.250000
+Player 2: Cost 11.250000
+Player 3: Cost 11.250000
+Player 4: Cost 11.250000
+Incursion Count: 9
+Player 1: Funds -68.750000
+Player 1: Cost 11.250000
+Player 2: Funds -68.750000
+Player 2: Cost 11.250000
+Player 3: Funds -68.750000
+Player 3: Cost 11.250000
+Player 4: Funds -68.750000
+Player 4: Cost 11.250000
+Incursion Count: 9
+Player 1: Funds -68.750000
+Player 1: Cost 11.250000
+Player 2: Funds -68.750000
+Player 2: Cost 11.250000
+Player 3: Funds -68.750000
+Player 3: Cost 11.250000
+Player 4: Funds -68.750000
+Player 4: Cost 11.250000
+Incursion Count: 9
+Player 1: Funds -68.750000
+Player 1: Cost 11.250000
+Player 2: Funds -68.750000
+Player 2: Cost 11.250000
+Player 3: Funds -68.750000
+Player 3: Cost 11.250000
+Player 4: Funds -68.750000
+Player 4: Cost 11.250000
+Incursion Count: 9
+Player 1: Funds -68.750000
+Player 1: Cost 11.250000
+Player 2: Funds -68.750000
+Player 2: Cost 11.250000
+Player 3: Funds -68.750000
+Player 3: Cost 11.250000
+Player 4: Funds -68.750000
+Player 4: Cost 11.250000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Funds 50.000000
+Player 1: Cost 15.000000
+Player 2: Funds 50.000000
+Player 2: Cost 15.000000
+Player 3: Funds 50.000000
+Player 3: Cost 15.000000
+Player 4: Funds 50.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Funds 50.000000
+Player 1: Cost 15.000000
+Player 2: Funds 50.000000
+Player 2: Cost 15.000000
+Player 3: Funds 50.000000
+Player 3: Cost 15.000000
+Player 4: Funds 50.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Funds 50.000000
+Player 1: Cost 15.000000
+Player 2: Funds 50.000000
+Player 2: Cost 15.000000
+Player 3: Funds 50.000000
+Player 3: Cost 15.000000
+Player 4: Funds 50.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Funds 50.000000
+Player 1: Cost 15.000000
+Player 2: Funds 50.000000
+Player 2: Cost 15.000000
+Player 3: Funds 50.000000
+Player 3: Cost 15.000000
+Player 4: Funds 50.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Cost 15.000000
+Player 2: Cost 15.000000
+Player 3: Cost 15.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Funds 100.000000
+Player 1: Cost 15.000000
+Player 2: Funds 100.000000
+Player 2: Cost 15.000000
+Player 3: Funds 100.000000
+Player 3: Cost 15.000000
+Player 4: Funds 100.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Funds 100.000000
+Player 1: Cost 15.000000
+Player 2: Funds 100.000000
+Player 2: Cost 15.000000
+Player 3: Funds 100.000000
+Player 3: Cost 15.000000
+Player 4: Funds 100.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Funds 100.000000
+Player 1: Cost 15.000000
+Player 2: Funds 100.000000
+Player 2: Cost 15.000000
+Player 3: Funds 100.000000
+Player 3: Cost 15.000000
+Player 4: Funds 100.000000
+Player 4: Cost 15.000000
+Incursion Count: 0
+Player 1: Funds 100.000000
+Player 1: Cost 15.000000
+Player 2: Funds 100.000000
+Player 2: Cost 15.000000
+Player 3: Funds 100.000000
+Player 3: Cost 15.000000
+Player 4: Funds 100.000000
+Player 4: Cost 15.000000
+Incursion Count: 1
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 1
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 1
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 1
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 1
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 1
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 1
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 1
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 1
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 1
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 1
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 1
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 1
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 1
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 1
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 1
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 1
+Player 1: Funds 25.000000
+Player 1: Cost 15.000000
+Player 2: Funds 100.000000
+Player 2: Cost 0.000000
+Player 3: Funds 25.000000
+Player 3: Cost 15.000000
+Player 4: Funds 100.000000
+Player 4: Cost 0.000000
+Incursion Count: 1
+Player 1: Funds 25.000000
+Player 1: Cost 15.000000
+Player 2: Funds 100.000000
+Player 2: Cost 0.000000
+Player 3: Funds 25.000000
+Player 3: Cost 15.000000
+Player 4: Funds 100.000000
+Player 4: Cost 0.000000
+Incursion Count: 1
+Player 1: Funds 25.000000
+Player 1: Cost 15.000000
+Player 2: Funds 100.000000
+Player 2: Cost 0.000000
+Player 3: Funds 25.000000
+Player 3: Cost 15.000000
+Player 4: Funds 100.000000
+Player 4: Cost 0.000000
+Incursion Count: 1
+Player 1: Funds 25.000000
+Player 1: Cost 15.000000
+Player 2: Funds 100.000000
+Player 2: Cost 0.000000
+Player 3: Funds 25.000000
+Player 3: Cost 15.000000
+Player 4: Funds 100.000000
+Player 4: Cost 0.000000
+Incursion Count: 2
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 2
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 2
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 2
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 3
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 3
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 3
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 3
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 4
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 4
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 4
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 4
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 5
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 5
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 5
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 5
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 6
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 6
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 6
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 6
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 7
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 7
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 7
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 7
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 8
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 8
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 8
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 8
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 9
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 9
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 9
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 9
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 10
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 10
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 10
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 10
+Player 1: Cost 15.000000
+Player 2: Cost 0.000000
+Player 3: Cost 15.000000
+Player 4: Cost 0.000000
+Incursion Count: 11
+Player 1: Funds -175.000000
+Player 1: Cost 15.000000
+Player 2: Funds 50.000000
+Player 2: Cost 0.000000
+Player 3: Funds -175.000000
+Player 3: Cost 15.000000
+Player 4: Funds 50.000000
+Player 4: Cost 0.000000
+Incursion Count: 11
+Player 1: Funds -175.000000
+Player 1: Cost 15.000000
+Player 2: Funds 50.000000
+Player 2: Cost 0.000000
+Player 3: Funds -175.000000
+Player 3: Cost 15.000000
+Player 4: Funds 50.000000
+Player 4: Cost 0.000000
+Incursion Count: 11
+Player 1: Funds -175.000000
+Player 1: Cost 15.000000
+Player 2: Funds 50.000000
+Player 2: Cost 0.000000
+Player 3: Funds -175.000000
+Player 3: Cost 15.000000
+Player 4: Funds 50.000000
+Player 4: Cost 0.000000
+Incursion Count: 11
+Player 1: Funds -175.000000
+Player 1: Cost 15.000000
+Player 2: Funds 50.000000
+Player 2: Cost 0.000000
+Player 3: Funds -175.000000
+Player 3: Cost 15.000000
+Player 4: Funds 50.000000
+Player 4: Cost 0.000000
+Incursion Count: 1
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 1
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 1
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 1
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 2
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 2
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 2
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 2
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 3
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 3
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 3
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 3
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 4
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 4
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 4
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 4
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 5
+Player 1: Funds 0.000000
+Player 1: Cost 0.000000
+Player 2: Funds 0.000000
+Player 2: Cost 0.000000
+Player 3: Funds 0.000000
+Player 3: Cost 0.000000
+Player 4: Funds 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 5
+Player 1: Funds 0.000000
+Player 1: Cost 0.000000
+Player 2: Funds 0.000000
+Player 2: Cost 0.000000
+Player 3: Funds 0.000000
+Player 3: Cost 0.000000
+Player 4: Funds 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 5
+Player 1: Funds 0.000000
+Player 1: Cost 0.000000
+Player 2: Funds 0.000000
+Player 2: Cost 0.000000
+Player 3: Funds 0.000000
+Player 3: Cost 0.000000
+Player 4: Funds 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 5
+Player 1: Funds 0.000000
+Player 1: Cost 0.000000
+Player 2: Funds 0.000000
+Player 2: Cost 0.000000
+Player 3: Funds 0.000000
+Player 3: Cost 0.000000
+Player 4: Funds 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 6
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 6
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 6
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 6
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 7
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 7
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 7
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 7
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 8
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 8
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 8
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 8
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 9
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 9
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 9
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 9
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 10
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 10
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 10
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 10
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 11
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 11
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 11
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 11
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 12
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 12
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 12
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 12
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 13
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 13
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 13
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 13
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 14
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 14
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 14
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 14
+Player 1: Cost 0.000000
+Player 2: Cost 0.000000
+Player 3: Cost 0.000000
+Player 4: Cost 0.000000
+Incursion Count: 15
+Player 1: Funds -50.000000
+Player 1: Cost 0.000000
+Player 2: Funds -50.000000
+Player 2: Cost 0.000000
+Player 3: Funds -50.000000
+Player 3: Cost 0.000000
+Player 4: Funds -50.000000
+Player 4: Cost 0.000000
+Incursion Count: 15
+Player 1: Funds -50.000000
+Player 1: Cost 0.000000
+Player 2: Funds -50.000000
+Player 2: Cost 0.000000
+Player 3: Funds -50.000000
+Player 3: Cost 0.000000
+Player 4: Funds -50.000000
+Player 4: Cost 0.000000
+Incursion Count: 15
+Player 1: Funds -50.000000
+Player 1: Cost 0.000000
+Player 2: Funds -50.000000
+Player 2: Cost 0.000000
+Player 3: Funds -50.000000
+Player 3: Cost 0.000000
+Player 4: Funds -50.000000
+Player 4: Cost 0.000000
+Incursion Count: 15
+Player 1: Funds -50.000000
+Player 1: Cost 0.000000
+Player 2: Funds -50.000000
+Player 2: Cost 0.000000
+Player 3: Funds -50.000000
+Player 3: Cost 0.000000
+Player 4: Funds -50.000000
+Player 4: Cost 0.000000
+.
+
+========================= 1 passed in 182.94 seconds ==========================
