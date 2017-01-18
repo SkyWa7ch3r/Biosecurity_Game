@@ -167,9 +167,6 @@ class Group(BaseGroup):
 	
 	#When the resusts page loads, this function finds net incoms of players
 	def calculate_profits(self):
-		if(self.session.config['player_communication']):
-			#communication is enabled
-			self.communication = True
 		#Calucate the protection each player provides (0-0.99) representing a percentage (0 = 100% chance of incursion etc.)
 		for p in self.get_players():
 				p.participant.vars["Protection_Provided"].append(Decimal(p.cost))

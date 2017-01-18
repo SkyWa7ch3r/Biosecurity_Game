@@ -5,447 +5,858 @@ from .models import Constants
 import random
 import csv
 import math
+from statistics import median
+from decimal import Decimal
 
 #Dynamic value arrays
 revenue = []
 upkeep = []
 protection_array = []
 with open('CSV/dynamic_finances.csv') as filestream:
-    file = csv.DictReader(filestream)
-    for row in file:
-        revenue.append(float(row['revenue']))
-        upkeep.append(float(row['upkeep']))
-        protection_array.append(float(row['protection']))
+	file = csv.DictReader(filestream)
+	for row in file:
+		revenue.append(float(row['revenue']))
+		upkeep.append(float(row['upkeep']))
+		protection_array.append(float(row['protection']))
 
 class PlayerBot(Bot):
-    cases = ['random', 'quarter', 'half' , 'threequarters', 'full', 'twoselfishtwogood', 'bankrupt']
-    def play_round(self):
-        #Get the max participants 
-        max_p = self.session.config['max_protection']
-        #Get the cost factor
-        cost_factor = self.session.config['max_protection']/-math.log(0.01)
-        #Display the Instructions
-        if self.subsession.round_number == 1:
-            yield(views.BioInstructions)
-        #Display the ChatBox 
-        if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
-            yield (views.ChatBox)
+	cases = ['random', 'quarter', 'half' , 'threequarters', 'full', 'twoselfishtwogood', 'bankrupt']
+	def calculate_protection_for_test(self, max_protection, cost):
+		cost_factor = max_protection/-math.log(1 - Constants.max_probability + self.session.config["probability_coefficient"])
+		return round(Decimal(1 + self.session.config["probability_coefficient"] - math.exp(-cost/cost_factor)),2)
+	def play_round(self):
+		#Get the max participants 
+		max_p = self.session.config['max_protection']
+		min_prob = int(self.session.config['probability_coefficient'] * 100)
+		#Display the Instructions
+		if self.subsession.round_number == 1:
+			yield(views.BioInstructions)
 
-        #Check if the One Player Feature has been enabled, so one player goes before all the others
-        if self.session.config['set_leader'] == False:
+		#Check if the One Player Feature has been enabled, so one player goes before all the others
+		if self.session.config['set_leader'] == False:
 
-            #Test with random variable protection, protection equation is tested, incursion unpredictable
-            if self.case == 'random':
-                #Get the revenue
-                revenue_value = self.session.config['revenue']
-                #Get the upkeep
-                upkeep_value = self.session.config['upkeep']
-                #Check if the dynamic finances has been applied and adjust the revenue and upkeep values accordingly
-                if self.session.config['dynamic_finances'] == True:
-                    revenue_value = revenue[self.subsession.round_number - 1]
-                    upkeep_value = upkeep[self.subsession.round_number - 1]
-                    max_p = protection_array[self.subsession.round_number - 1]
-                    cost_factor = max_p/-math.log(0.01)
-                #Get the current funds in the players disposal
-                current_funds = self.player.participant.vars['funds']
-                #Assign random protection cost    
-                yield (views.Round, {'cost': round(random.uniform(0.0, max_p),2)})
-                #Goto the Results Page
-                yield (views.Results)
-                cost_for_test = self.player.cost
-                #Test the profit equation
-                assert self.player.protection == c(1-math.exp(-cost_for_test/cost_factor))
+			#Test with random variable protection, protection equation is tested, incursion unpredictable
+			if self.case == 'random':
+				#Do the pledging pages if pledging is on
+				if(self.session.config['pledge'] == True and (self.subsession.round_number % self.session.config["pledge_looper"] == 0 or self.subsession.round_number == 1)):
+					
+					yield (views.GroupPledging, {'groupTarget' : random.randint(min_prob, 100)})
+					targets = []
+					for p in self.group.get_players():
+						targets.append(p.groupTarget)
+					targets.sort()
+					assert self.group.GroupTargetProbability == median(targets)
+					yield (views.IndiPledging, {'individualPledge' : round(random.uniform(0.0, max_p),2)})
+					if(self.session.config["Papproval"] == True):
+						yield(views.PledgingApproval , {'approval_1' : random.randint(-6, 6), 
+														'approval_2' : random.randint(-6, 6), 
+														'approval_3' : random.randint(-6, 6), 
+														'approval_4' : random.randint(-6, 6), 
+														'approval_5' : random.randint(-6, 6), 
+														'approval_6' : random.randint(-6, 6), 
+														'approval_7' : random.randint(-6, 6), 
+														'approval_8' : random.randint(-6, 6), 
+														'approval_9' : random.randint(-6, 6), 
+														'approval_10' : random.randint(-6, 6), 
+														'approval_11' : random.randint(-6, 6), 
+														'approval_12' : random.randint(-6, 6), 
+														'approval_13' : random.randint(-6, 6), 
+														'approval_14' : random.randint(-6, 6), 
+														'approval_15' : random.randint(-6, 6), 
+														'approval_16' : random.randint(-6, 6), 
+														'approval_17' : random.randint(-6, 6), 
+														'approval_18' : random.randint(-6, 6), 
+														'approval_19' : random.randint(-6, 6), 
+														'approval_20' : random.randint(-6, 6)})
+				#Display the ChatBox 
+				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
+					yield (views.ChatBox)
+					
+				#Get the revenue
+				revenue_value = self.session.config['revenue']
+				#Get the upkeep
+				upkeep_value = self.session.config['upkeep']
+				#Check if the dynamic finances has been applied and adjust the revenue and upkeep values accordingly
+				if self.session.config['dynamic_finances'] == True:
+					revenue_value = revenue[self.subsession.round_number - 1]
+					upkeep_value = upkeep[self.subsession.round_number - 1]
+					max_p = protection_array[self.subsession.round_number - 1]
+				#Get the current funds in the players disposal
+				current_funds = self.player.participant.vars['funds']
+				#Assign random protection cost	  
+				yield (views.Round, {'cost': round(random.uniform(0.0, max_p),2)})
 
-                #If there was an incursion
-                if self.group.incursion:
-                    #Then assert that it just took off the cost of protection and the upkeep
-                    assert self.player.participant.vars['funds'] == current_funds - cost_for_test - upkeep_value
-                else:
-                    #Else if no incursion ,then assert that it just took off the cost of protection and the upkeep and ADD on the revenue to give profit
-                    assert self.player.participant.vars['funds'] == current_funds + revenue_value - cost_for_test - upkeep_value
+				cost_for_test = self.player.cost
+				#Goto the Results Page
+				yield (views.Results)
+				#Test the profit equation
+				assert self.player.protection == self.calculate_protection_for_test(max_p, cost_for_test)
 
-            #Test with doing 1/4 of whatever the max protection is set to, protection equation tested, incursion unpredictable
-            elif self.case == 'quarter':
-                #Get the revenue
-                revenue_value = self.session.config['revenue']
-                #Get the upkeep
-                upkeep_value = self.session.config['upkeep']
-                #Check if the dynamic finances has been applied and adjust the revenue and upkeep values accordingly
-                if self.session.config['dynamic_finances'] == True:
-                    revenue_value = revenue[self.subsession.round_number - 1]
-                    upkeep_value = upkeep[self.subsession.round_number - 1]
-                    max_p = protection_array[self.subsession.round_number - 1]
-                    cost_factor = max_p/-math.log(0.01)
-                #Get the current funds in the players disposal
-                current_funds = self.player.participant.vars['funds']
-                yield (views.Round, {'cost': round(0.25*max_p, 2)})
-                yield (views.Results)
-                cost_for_test = self.player.cost
-                assert self.player.protection == c(1-math.exp(-cost_for_test/cost_factor))
+				#If there was an incursion
+				if self.group.incursion:
+					#Then assert that it just took off the cost of protection and the upkeep
+					assert self.player.participant.vars['funds'] == current_funds - cost_for_test - upkeep_value
+				else:
+					#Else if no incursion ,then assert that it just took off the cost of protection and the upkeep and ADD on the revenue to give profit
+					assert self.player.participant.vars['funds'] == current_funds + revenue_value - cost_for_test - upkeep_value
+				
+				if(self.session.config["Capproval"] == True and self.subsession.round_number % self.session.config["contribution_looper"] == 0):
+					yield(views.ActionApproval , {'approval_1' : random.randint(-6, 6), 
+												  'approval_2' : random.randint(-6, 6), 
+												  'approval_3' : random.randint(-6, 6), 
+												  'approval_4' : random.randint(-6, 6), 
+												  'approval_5' : random.randint(-6, 6), 
+												  'approval_6' : random.randint(-6, 6), 
+												  'approval_7' : random.randint(-6, 6), 
+												  'approval_8' : random.randint(-6, 6), 
+												  'approval_9' : random.randint(-6, 6), 
+												  'approval_10' : random.randint(-6, 6), 
+												  'approval_11' : random.randint(-6, 6), 
+												  'approval_12' : random.randint(-6, 6), 
+												  'approval_13' : random.randint(-6, 6), 
+												  'approval_14' : random.randint(-6, 6), 
+												  'approval_15' : random.randint(-6, 6), 
+												  'approval_16' : random.randint(-6, 6), 
+												  'approval_17' : random.randint(-6, 6), 
+												  'approval_18' : random.randint(-6, 6), 
+												  'approval_19' : random.randint(-6, 6), 
+												  'approval_20' : random.randint(-6, 6)})
 
-                #If there was an incursion
-                if self.group.incursion:
-                    #Then assert that it just took off the cost of protection and the upkeep
-                    assert self.player.participant.vars['funds'] == current_funds - cost_for_test - upkeep_value
-                else:
-                    #Else if no incursion ,then assert that it just took off the cost of protection and the upkeep and ADD on the revenue to give profit
-                    assert self.player.participant.vars['funds'] == current_funds + revenue_value - cost_for_test - upkeep_value
+			#Test with doing 1/4 of whatever the max protection is set to, protection equation tested, incursion unpredictable
+			elif self.case == 'quarter':
+				#Do the pledging pages if pledging is on
+				if(self.session.config['pledge'] == True and (self.subsession.round_number % self.session.config["pledge_looper"] == 0 or self.subsession.round_number == 1)):
+					
+					yield (views.GroupPledging, {'groupTarget' : random.randint(min_prob, 100)})
+					targets = []
+					for p in self.group.get_players():
+						targets.append(p.groupTarget)
+					targets.sort()
+					assert self.group.GroupTargetProbability == median(targets)
+					yield (views.IndiPledging, {'individualPledge' : round(random.uniform(0.0, max_p),2)})
+					if(self.session.config["Papproval"] == True):
+						yield(views.PledgingApproval , {'approval_1' : -6, 
+														'approval_2' : -6, 
+														'approval_3' : -6, 
+														'approval_4' : -6, 
+														'approval_5' : -6, 
+														'approval_6' : -6, 
+														'approval_7' : -6, 
+														'approval_8' : -6, 
+														'approval_9' : -6, 
+														'approval_10' : -6, 
+														'approval_11' : -6, 
+														'approval_12' : -6, 
+														'approval_13' : -6, 
+														'approval_14' : -6, 
+														'approval_15' : -6, 
+														'approval_16' : -6, 
+														'approval_17' : -6, 
+														'approval_18' : -6, 
+														'approval_19' : -6, 
+														'approval_20' : -6})
+				#Display the ChatBox 
+				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
+					yield (views.ChatBox)
+				#Get the revenue
+				revenue_value = self.session.config['revenue']
+				#Get the upkeep
+				upkeep_value = self.session.config['upkeep']
+				#Check if the dynamic finances has been applied and adjust the revenue and upkeep values accordingly
+				if self.session.config['dynamic_finances'] == True:
+					revenue_value = revenue[self.subsession.round_number - 1]
+					upkeep_value = upkeep[self.subsession.round_number - 1]
+					max_p = protection_array[self.subsession.round_number - 1]
+					cost_factor = max_p//-math.log(1 - Constants.max_probability + self.session.config["probability_coefficient"])
+				#Get the current funds in the players disposal
+				current_funds = self.player.participant.vars['funds']
+				yield (views.Round, {'cost': round(0.25*max_p, 2)})
+				yield (views.Results)
+				cost_for_test = self.player.cost
+				assert self.player.protection == self.calculate_protection_for_test(max_p, cost_for_test)
 
-            #Test with doing 1/2 of whatever the max protection is set to, protection equation tested, incursion unpredictable
-            elif self.case == 'half':
-                #Get the revenue
-                revenue_value = self.session.config['revenue']
-                #Get the upkeep
-                upkeep_value = self.session.config['upkeep']
-                #Check if the dynamic finances has been applied and adjust the revenue and upkeep values accordingly
-                if self.session.config['dynamic_finances'] == True:
-                    revenue_value = revenue[self.subsession.round_number - 1]
-                    upkeep_value = upkeep[self.subsession.round_number - 1]
-                    max_p = protection_array[self.subsession.round_number - 1]
-                    cost_factor = max_p/-math.log(0.01)
-                #Get the current funds in the players disposal
-                current_funds = self.player.participant.vars['funds']
-                yield (views.Round, {'cost': round(0.5*max_p, 2)})
-                yield (views.Results)
-                cost_for_test = self.player.cost
-                assert self.player.protection == c(1-math.exp(-cost_for_test/cost_factor))
-                
-                #If there was an incursion
-                if self.group.incursion:
-                    #Then assert that it just took off the cost of protection and the upkeep
-                    assert self.player.participant.vars['funds'] == current_funds - cost_for_test - upkeep_value
-                else:
-                    #Else if no incursion ,then assert that it just took off the cost of protection and the upkeep and ADD on the revenue to give profit
-                    assert self.player.participant.vars['funds'] == current_funds + revenue_value - cost_for_test - upkeep_value
+				#If there was an incursion
+				if self.group.incursion:
+					#Then assert that it just took off the cost of protection and the upkeep
+					assert self.player.participant.vars['funds'] == current_funds - cost_for_test - upkeep_value
+				else:
+					#Else if no incursion ,then assert that it just took off the cost of protection and the upkeep and ADD on the revenue to give profit
+					assert self.player.participant.vars['funds'] == current_funds + revenue_value - cost_for_test - upkeep_value
+					
+				if(self.session.config["Capproval"] == True and self.subsession.round_number % self.session.config["contribution_looper"] == 0):
+					yield(views.ActionApproval , {'approval_1' : -6, 
+												  'approval_2' : -6, 
+												  'approval_3' : -6, 
+												  'approval_4' : -6, 
+												  'approval_5' : -6, 
+												  'approval_6' : -6, 
+												  'approval_7' : -6, 
+												  'approval_8' : -6, 
+												  'approval_9' : -6, 
+												  'approval_10' : -6, 
+												  'approval_11' : -6, 
+												  'approval_12' : -6, 
+												  'approval_13' : -6, 
+												  'approval_14' : -6, 
+												  'approval_15' : -6, 
+												  'approval_16' : -6, 
+												  'approval_17' : -6, 
+												  'approval_18' : -6, 
+												  'approval_19' : -6, 
+												  'approval_20' : -6})
 
-            #Test with doing 3/4 of whatever the max protection is set to, protection equation tested, incursion somewhat predictable, entering point of diminishing returns for protection   
-            elif self.case == 'threequarters':
-                #Get the revenue
-                revenue_value = self.session.config['revenue']
-                #Get the upkeep
-                upkeep_value = self.session.config['upkeep']
-                #Check if the dynamic finances has been applied and adjust the revenue and upkeep values accordingly
-                if self.session.config['dynamic_finances'] == True:
-                    revenue_value = revenue[self.subsession.round_number - 1]
-                    upkeep_value = upkeep[self.subsession.round_number - 1]
-                    max_p = protection_array[self.subsession.round_number - 1]
-                    cost_factor = max_p/-math.log(0.01)
-                #Get the current funds in the players disposal
-                current_funds = self.player.participant.vars['funds']
-                yield (views.Round, {'cost': round(0.75*max_p, 2)})
-                yield (views.Results)
-                cost_for_test = self.player.cost
-                assert self.player.protection == c(1-math.exp(-0.75*max_p/cost_factor))
+			#Test with doing 1/2 of whatever the max protection is set to, protection equation tested, incursion unpredictable
+			elif self.case == 'half':
+				#Do the pledging pages if pledging is on
+				if(self.session.config['pledge'] == True and (self.subsession.round_number % self.session.config["pledge_looper"] == 0 or self.subsession.round_number == 1)):
+					
+					yield (views.GroupPledging, {'groupTarget' : random.randint(min_prob, 100)})
+					targets = []
+					for p in self.group.get_players():
+						targets.append(p.groupTarget)
+					targets.sort()
+					assert self.group.GroupTargetProbability == median(targets)
+					yield (views.IndiPledging, {'individualPledge' : round(random.uniform(0.0, max_p),2)})
+					if(self.session.config["Papproval"] == True):
+						yield(views.PledgingApproval , {'approval_1' : 3, 
+														'approval_2' : 3, 
+														'approval_3' : 3, 
+														'approval_4' : 3, 
+														'approval_5' : 3, 
+														'approval_6' : 3, 
+														'approval_7' : 3, 
+														'approval_8' : 3, 
+														'approval_9' : 3, 
+														'approval_10' : 3, 
+														'approval_11' : 3, 
+														'approval_12' : 3, 
+														'approval_13' : 3, 
+														'approval_14' : 3, 
+														'approval_15' : 3, 
+														'approval_16' : 3, 
+														'approval_17' : 3, 
+														'approval_18' : 3, 
+														'approval_19' : 3, 
+														'approval_20' : 3})
+				#Display the ChatBox 
+				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
+					yield (views.ChatBox)
+				#Get the revenue
+				revenue_value = self.session.config['revenue']
+				#Get the upkeep
+				upkeep_value = self.session.config['upkeep']
+				#Check if the dynamic finances has been applied and adjust the revenue and upkeep values accordingly
+				if self.session.config['dynamic_finances'] == True:
+					revenue_value = revenue[self.subsession.round_number - 1]
+					upkeep_value = upkeep[self.subsession.round_number - 1]
+					max_p = protection_array[self.subsession.round_number - 1]
+					cost_factor = max_p//-math.log(1 - Constants.max_probability + self.session.config["probability_coefficient"])
+				#Get the current funds in the players disposal
+				current_funds = self.player.participant.vars['funds']
+				yield (views.Round, {'cost': round(0.5*max_p, 2)})
+				yield (views.Results)
+				cost_for_test = self.player.cost
+				assert self.player.protection == self.calculate_protection_for_test(max_p, cost_for_test)
+				
+				#If there was an incursion
+				if self.group.incursion:
+					#Then assert that it just took off the cost of protection and the upkeep
+					assert self.player.participant.vars['funds'] == current_funds - cost_for_test - upkeep_value
+				else:
+					#Else if no incursion ,then assert that it just took off the cost of protection and the upkeep and ADD on the revenue to give profit
+					assert self.player.participant.vars['funds'] == current_funds + revenue_value - cost_for_test - upkeep_value
+				
+				if(self.session.config["Capproval"] == True and self.subsession.round_number % self.session.config["contribution_looper"] == 0):
+					yield(views.ActionApproval , {'approval_1' : 3, 
+												  'approval_2' : 3, 
+												  'approval_3' : 3, 
+												  'approval_4' : 3, 
+												  'approval_5' : 3, 
+												  'approval_6' : 3, 
+												  'approval_7' : 3, 
+												  'approval_8' : 3, 
+												  'approval_9' : 3, 
+												  'approval_10' : 3, 
+												  'approval_11' : 3, 
+												  'approval_12' : 3, 
+												  'approval_13' : 3, 
+												  'approval_14' : 3, 
+												  'approval_15' : 3, 
+												  'approval_16' : 3, 
+												  'approval_17' : 3, 
+												  'approval_18' : 3, 
+												  'approval_19' : 3, 
+												  'approval_20' : 3})
 
-                #If there was an incursion
-                if self.group.incursion:
-                    #Then assert that it just took off the cost of protection and the upkeep
-                    assert self.player.participant.vars['funds'] == current_funds - cost_for_test - upkeep_value
-                else:
-                    #Else if no incursion ,then assert that it just took off the cost of protection and the upkeep and ADD on the revenue to give profit
-                    assert self.player.participant.vars['funds'] == current_funds + revenue_value - cost_for_test - upkeep_value
+			#Test with doing 3/4 of whatever the max protection is set to, protection equation tested, incursion somewhat predictable, entering point of diminishing returns for protection	  
+			elif self.case == 'threequarters':
+				#Do the pledging pages if pledging is on
+				if(self.session.config['pledge'] == True and (self.subsession.round_number % self.session.config["pledge_looper"] == 0 or self.subsession.round_number == 1)):
+					
+					yield (views.GroupPledging, {'groupTarget' : random.randint(min_prob, 100)})
+					targets = []
+					for p in self.group.get_players():
+						targets.append(p.groupTarget)
+					targets.sort()
+					assert self.group.GroupTargetProbability == median(targets)
+					yield (views.IndiPledging, {'individualPledge' : round(random.uniform(0.0, max_p),2)})
+					if(self.session.config["Papproval"] == True):
+						yield(views.PledgingApproval , {'approval_1' : 6, 
+														'approval_2' : 6, 
+														'approval_3' : 6, 
+														'approval_4' : 6, 
+														'approval_5' : 6, 
+														'approval_6' : 6, 
+														'approval_7' : 6, 
+														'approval_8' : 6, 
+														'approval_9' : 6, 
+														'approval_10' : 6, 
+														'approval_11' : 6, 
+														'approval_12' : 6, 
+														'approval_13' : 6, 
+														'approval_14' : 6, 
+														'approval_15' : 6, 
+														'approval_16' : 6, 
+														'approval_17' : 6, 
+														'approval_18' : 6, 
+														'approval_19' : 6, 
+														'approval_20' : 6})
+				#Display the ChatBox 
+				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
+					yield (views.ChatBox)
+				#Get the revenue
+				revenue_value = self.session.config['revenue']
+				#Get the upkeep
+				upkeep_value = self.session.config['upkeep']
+				#Check if the dynamic finances has been applied and adjust the revenue and upkeep values accordingly
+				if self.session.config['dynamic_finances'] == True:
+					revenue_value = revenue[self.subsession.round_number - 1]
+					upkeep_value = upkeep[self.subsession.round_number - 1]
+					max_p = protection_array[self.subsession.round_number - 1]
+					cost_factor = max_p//-math.log(1 - Constants.max_probability + self.session.config["probability_coefficient"])
+				#Get the current funds in the players disposal
+				current_funds = self.player.participant.vars['funds']
+				yield (views.Round, {'cost': round(0.75*max_p, 2)})
+				yield (views.Results)
+				cost_for_test = self.player.cost
+				assert self.player.protection == self.calculate_protection_for_test(max_p, cost_for_test)
 
-            #Test with doing whatever the max protection is set to, protection equation tested, incursion mostly predictable.
-            elif self.case == 'full':
-                #Get the revenue
-                revenue_value = self.session.config['revenue']
-                #Get the upkeep
-                upkeep_value = self.session.config['upkeep']
-                #Check if the dynamic finances has been applied and adjust the revenue and upkeep values accordingly
-                if self.session.config['dynamic_finances'] == True:
-                    revenue_value = revenue[self.subsession.round_number - 1]
-                    upkeep_value = upkeep[self.subsession.round_number - 1]
-                    max_p = protection_array[self.subsession.round_number - 1]
-                    cost_factor = max_p/-math.log(0.01)
-                #Get the current funds in the players disposal
-                current_funds = self.player.participant.vars['funds']
-                yield (views.Round, {'cost': round(max_p, 2)})
-                yield (views.Results)
-                cost_for_test = self.player.cost
-                assert self.player.protection == c(1-math.exp(-cost_for_test/cost_factor))
+				#If there was an incursion
+				if self.group.incursion:
+					#Then assert that it just took off the cost of protection and the upkeep
+					assert self.player.participant.vars['funds'] == current_funds - cost_for_test - upkeep_value
+				else:
+					#Else if no incursion ,then assert that it just took off the cost of protection and the upkeep and ADD on the revenue to give profit
+					assert self.player.participant.vars['funds'] == current_funds + revenue_value - cost_for_test - upkeep_value
+				
+				if(self.session.config["Capproval"] == True and self.subsession.round_number % self.session.config["contribution_looper"] == 0):
+					yield(views.ActionApproval , {'approval_1' : 6, 
+												  'approval_2' : 6, 
+												  'approval_3' : 6, 
+												  'approval_4' : 6, 
+												  'approval_5' : 6, 
+												  'approval_6' : 6, 
+												  'approval_7' : 6, 
+												  'approval_8' : 6, 
+												  'approval_9' : 6, 
+												  'approval_10' : 6, 
+												  'approval_11' : 6, 
+												  'approval_12' : 6, 
+												  'approval_13' : 6, 
+												  'approval_14' : 6, 
+												  'approval_15' : 6, 
+												  'approval_16' : 6, 
+												  'approval_17' : 6, 
+												  'approval_18' : 6, 
+												  'approval_19' : 6, 
+												  'approval_20' : 6})
 
-                #If there was an incursion
-                if self.group.incursion:
-                    #Then assert that it just took off the cost of protection and the upkeep
-                    assert self.player.participant.vars['funds'] == current_funds - cost_for_test - upkeep_value
-                else:
-                    #Else if no incursion ,then assert that it just took off the cost of protection and the upkeep and ADD on the revenue to give profit
-                    assert self.player.participant.vars['funds'] == current_funds + revenue_value - cost_for_test - upkeep_value
+			#Test with doing whatever the max protection is set to, protection equation tested, incursion mostly predictable.
+			elif self.case == 'full':
+				#Do the pledging pages if pledging is on
+				if(self.session.config['pledge'] == True and (self.subsession.round_number % self.session.config["pledge_looper"] == 0 or self.subsession.round_number == 1)):
+					
+					yield (views.GroupPledging, {'groupTarget' : random.randint(min_prob, 100)})
+					targets = []
+					for p in self.group.get_players():
+						targets.append(p.groupTarget)
+					targets.sort()
+					assert self.group.GroupTargetProbability == median(targets)
+					yield (views.IndiPledging, {'individualPledge' : round(random.uniform(0.0, max_p),2)})
+					if(self.session.config["Papproval"] == True):
+						yield(views.PledgingApproval , {'approval_1' : 0, 
+														'approval_2' : 0, 
+														'approval_3' : 0, 
+														'approval_4' : 0, 
+														'approval_5' : 0, 
+														'approval_6' : 0, 
+														'approval_7' : 0, 
+														'approval_8' : 0, 
+														'approval_9' : 0, 
+														'approval_10' : 0, 
+														'approval_11' : 0, 
+														'approval_12' : 0, 
+														'approval_13' : 0, 
+														'approval_14' : 0, 
+														'approval_15' : 0, 
+														'approval_16' : 0, 
+														'approval_17' : 0, 
+														'approval_18' : 0, 
+														'approval_19' : 0, 
+														'approval_20' : 0})
+				#Display the ChatBox 
+				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
+					yield (views.ChatBox)
+				#Get the revenue
+				revenue_value = self.session.config['revenue']
+				#Get the upkeep
+				upkeep_value = self.session.config['upkeep']
+				#Check if the dynamic finances has been applied and adjust the revenue and upkeep values accordingly
+				if self.session.config['dynamic_finances'] == True:
+					revenue_value = revenue[self.subsession.round_number - 1]
+					upkeep_value = upkeep[self.subsession.round_number - 1]
+					max_p = protection_array[self.subsession.round_number - 1]
+				#Get the current funds in the players disposal
+				current_funds = self.player.participant.vars['funds']
+				yield (views.Round, {'cost': round(max_p, 2)})
+				yield (views.Results)
+				cost_for_test = self.player.cost
+				assert self.player.protection == self.calculate_protection_for_test(max_p, max_p)
 
-            #Test with any player's id that are even as 0 protection cost, odd are using full protection cost.
-            elif self.case == 'twoselfishtwogood':
-                #Get the revenue
-                revenue_value = self.session.config['revenue']
-                #Get the upkeep
-                upkeep_value = self.session.config['upkeep']
-                #Check if the dynamic finances has been applied and adjust the revenue and upkeep values accordingly
-                if self.session.config['dynamic_finances'] == True:
-                    revenue_value = revenue[self.subsession.round_number - 1]
-                    upkeep_value = upkeep[self.subsession.round_number - 1]
-                    max_p = protection_array[self.subsession.round_number - 1]
-                    cost_factor = max_p/-math.log(0.01)
-                #Get the current funds in the players disposal
-                current_funds = self.player.participant.vars['funds']
-                #If Player ID is even
-                if self.player.id % 2 == 0:
-                    yield (views.Round, {'cost': round(0,2)})
-                #If Player ID is odd
-                else:
-                    yield (views.Round, {'cost': round(max_p,2)})
-                yield (views.Results)
-                cost_for_test = 0
-                #The protection equation will be tested based on the raw value for the cost, based on the Player ID being odd or even
-                if self.player.id % 2 == 0:
-                    assert self.player.protection == c(1-math.exp(0/cost_factor))
-                else:
-                    assert self.player.protection == c(1-math.exp(-max_p/cost_factor))
-                    cost_for_test = max_p
+				#If there was an incursion
+				if self.group.incursion:
+					#Then assert that it just took off the cost of protection and the upkeep
+					assert self.player.participant.vars['funds'] == current_funds - cost_for_test - upkeep_value
+				else:
+					#Else if no incursion ,then assert that it just took off the cost of protection and the upkeep and ADD on the revenue to give profit
+					assert self.player.participant.vars['funds'] == current_funds + revenue_value - cost_for_test - upkeep_value
+				
+				if(self.session.config["Capproval"] == True and self.subsession.round_number % self.session.config["contribution_looper"] == 0):
+					yield(views.ActionApproval , {'approval_1' : 0, 
+												  'approval_2' : 0, 
+												  'approval_3' : 0, 
+												  'approval_4' : 0, 
+												  'approval_5' : 0, 
+												  'approval_6' : 0, 
+												  'approval_7' : 0, 
+												  'approval_8' : 0, 
+												  'approval_9' : 0, 
+												  'approval_10' : 0, 
+												  'approval_11' : 0, 
+												  'approval_12' : 0, 
+												  'approval_13' : 0, 
+												  'approval_14' : 0, 
+												  'approval_15' : 0, 
+												  'approval_16' : 0, 
+												  'approval_17' : 0, 
+												  'approval_18' : 0, 
+												  'approval_19' : 0, 
+												  'approval_20' : 0})
+												  
+			#Test with any player's id that are even as 0 protection cost, odd are using full protection cost.
+			elif self.case == 'twoselfishtwogood':
+				#Do the pledging pages if pledging is on
+				if(self.session.config['pledge'] == True and (self.subsession.round_number % self.session.config["pledge_looper"] == 0 or self.subsession.round_number == 1)):
+					
+					yield (views.GroupPledging, {'groupTarget' : random.randint(min_prob, 100)})
+					targets = []
+					for p in self.group.get_players():
+						targets.append(p.groupTarget)
+					targets.sort()
+					assert self.group.GroupTargetProbability == median(targets)
+					yield (views.IndiPledging, {'individualPledge' : round(random.uniform(0.0, max_p),2)})
+					if(self.session.config["Papproval"] == True):
+						yield(views.PledgingApproval , {'approval_1' : random.randint(-6, 6), 
+														'approval_2' : random.randint(-6, 6), 
+														'approval_3' : random.randint(-6, 6), 
+														'approval_4' : random.randint(-6, 6), 
+														'approval_5' : random.randint(-6, 6), 
+														'approval_6' : random.randint(-6, 6), 
+														'approval_7' : random.randint(-6, 6), 
+														'approval_8' : random.randint(-6, 6), 
+														'approval_9' : random.randint(-6, 6), 
+														'approval_10' : random.randint(-6, 6), 
+														'approval_11' : random.randint(-6, 6), 
+														'approval_12' : random.randint(-6, 6), 
+														'approval_13' : random.randint(-6, 6), 
+														'approval_14' : random.randint(-6, 6), 
+														'approval_15' : random.randint(-6, 6), 
+														'approval_16' : random.randint(-6, 6), 
+														'approval_17' : random.randint(-6, 6), 
+														'approval_18' : random.randint(-6, 6), 
+														'approval_19' : random.randint(-6, 6), 
+														'approval_20' : random.randint(-6, 6)})
+				#Display the ChatBox 
+				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
+					yield (views.ChatBox)
+				#Get the revenue
+				revenue_value = self.session.config['revenue']
+				#Get the upkeep
+				upkeep_value = self.session.config['upkeep']
+				#Check if the dynamic finances has been applied and adjust the revenue and upkeep values accordingly
+				if self.session.config['dynamic_finances'] == True:
+					revenue_value = revenue[self.subsession.round_number - 1]
+					upkeep_value = upkeep[self.subsession.round_number - 1]
+					max_p = protection_array[self.subsession.round_number - 1]
+				#Get the current funds in the players disposal
+				current_funds = self.player.participant.vars['funds']
+				#If Player ID is even
+				if self.player.id % 2 == 0:
+					yield (views.Round, {'cost': round(0,2)})
+				#If Player ID is odd
+				else:
+					yield (views.Round, {'cost': round(max_p,2)})
+				yield (views.Results)
+				cost_for_test = 0
+				#The protection equation will be tested based on the raw value for the cost, based on the Player ID being odd or even
+				if self.player.id % 2 == 0:
+					assert self.player.protection == self.calculate_protection_for_test(max_p, 0)
+				else:
+					assert self.player.protection == self.calculate_protection_for_test(max_p, max_p)
+					cost_for_test = max_p
 
-                #If there was an incursion
-                if self.group.incursion:
-                    #Then assert that it just took off the cost of protection and the upkeep
-                    assert self.player.participant.vars['funds'] == current_funds - cost_for_test - upkeep_value
-                else:
-                    #Else if no incursion ,then assert that it just took off the cost of protection and the upkeep and ADD on the revenue to give profit
-                    assert self.player.participant.vars['funds'] == current_funds + revenue_value - cost_for_test - upkeep_value
+				#If there was an incursion
+				if self.group.incursion:
+					#Then assert that it just took off the cost of protection and the upkeep
+					assert self.player.participant.vars['funds'] == current_funds - cost_for_test - upkeep_value
+				else:
+					#Else if no incursion ,then assert that it just took off the cost of protection and the upkeep and ADD on the revenue to give profit
+					assert self.player.participant.vars['funds'] == current_funds + revenue_value - cost_for_test - upkeep_value
+				
+				if(self.session.config["Capproval"] == True and self.subsession.round_number % self.session.config["contribution_looper"] == 0):
+					yield(views.ActionApproval , {'approval_1' : random.randint(-6, 6), 
+												  'approval_2' : random.randint(-6, 6), 
+												  'approval_3' : random.randint(-6, 6), 
+												  'approval_4' : random.randint(-6, 6), 
+												  'approval_5' : random.randint(-6, 6), 
+												  'approval_6' : random.randint(-6, 6), 
+												  'approval_7' : random.randint(-6, 6), 
+												  'approval_8' : random.randint(-6, 6), 
+												  'approval_9' : random.randint(-6, 6), 
+												  'approval_10' : random.randint(-6, 6), 
+												  'approval_11' : random.randint(-6, 6), 
+												  'approval_12' : random.randint(-6, 6), 
+												  'approval_13' : random.randint(-6, 6), 
+												  'approval_14' : random.randint(-6, 6), 
+												  'approval_15' : random.randint(-6, 6), 
+												  'approval_16' : random.randint(-6, 6), 
+												  'approval_17' : random.randint(-6, 6), 
+												  'approval_18' : random.randint(-6, 6), 
+												  'approval_19' : random.randint(-6, 6), 
+												  'approval_20' : random.randint(-6, 6)})
 
-            #Test with doing 0 protection cost, protection equation tested, incursion completely predictable, guranteed incursion all the time
-            elif self.case == 'bankrupt':
-                #Get the revenue
-                revenue_value = self.session.config['revenue']
-                #Get the upkeep
-                upkeep_value = self.session.config['upkeep']
-                #Check if the dynamic finances has been applied and adjust the revenue and upkeep values accordingly
-                if self.session.config['dynamic_finances'] == True:
-                    revenue_value = revenue[self.subsession.round_number - 1]
-                    upkeep_value = upkeep[self.subsession.round_number - 1]
-                    max_p = protection_array[self.subsession.round_number - 1]
-                    cost_factor = max_p/-math.log(0.01)
-                #Get the current funds in the players disposal
-                current_funds = self.player.participant.vars['funds']
-                yield (views.Round, {'cost': round(0, 2)})
-                yield (views.Results)
-                #Should return 0 == 0 == True
-                assert self.player.protection == c(1-math.exp(0/cost_factor))
-                #Incursion is ALWAYS TRUE
-                assert self.group.incursion == True
-                cost_for_test = self.player.cost
-                #Since there's always an incursion it will never add the revenue, ensure that it doesn't
-                assert self.player.participant.vars['funds'] == current_funds - cost_for_test - upkeep_value
+			#Test with doing 0 protection cost, protection equation tested, incursion completely predictable, guranteed incursion all the time
+			elif self.case == 'bankrupt':
+				#Do the pledging pages if pledging is on
+				if(self.session.config['pledge'] == True and (self.subsession.round_number % self.session.config["pledge_looper"] == 0 or self.subsession.round_number == 1)):
+					
+					yield (views.GroupPledging, {'groupTarget' : random.randint(min_prob, 100)})
+					targets = []
+					for p in self.group.get_players():
+						targets.append(p.groupTarget)
+					targets.sort()
+					assert self.group.GroupTargetProbability == median(targets)
+					yield (views.IndiPledging, {'individualPledge' : round(random.uniform(0.0, max_p),2)})
+					if(self.session.config["Papproval"] == True):
+						yield(views.PledgingApproval , {'approval_1' : random.randint(-6, 6), 
+														'approval_2' : random.randint(-6, 6), 
+														'approval_3' : random.randint(-6, 6), 
+														'approval_4' : random.randint(-6, 6), 
+														'approval_5' : random.randint(-6, 6), 
+														'approval_6' : random.randint(-6, 6), 
+														'approval_7' : random.randint(-6, 6), 
+														'approval_8' : random.randint(-6, 6), 
+														'approval_9' : random.randint(-6, 6), 
+														'approval_10' : random.randint(-6, 6), 
+														'approval_11' : random.randint(-6, 6), 
+														'approval_12' : random.randint(-6, 6), 
+														'approval_13' : random.randint(-6, 6), 
+														'approval_14' : random.randint(-6, 6), 
+														'approval_15' : random.randint(-6, 6), 
+														'approval_16' : random.randint(-6, 6), 
+														'approval_17' : random.randint(-6, 6), 
+														'approval_18' : random.randint(-6, 6), 
+														'approval_19' : random.randint(-6, 6), 
+														'approval_20' : random.randint(-6, 6)})
+				#Display the ChatBox 
+				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
+					yield (views.ChatBox)
+				#Get the revenue
+				revenue_value = self.session.config['revenue']
+				#Get the upkeep
+				upkeep_value = self.session.config['upkeep']
+				#Check if the dynamic finances has been applied and adjust the revenue and upkeep values accordingly
+				if self.session.config['dynamic_finances'] == True:
+					revenue_value = revenue[self.subsession.round_number - 1]
+					upkeep_value = upkeep[self.subsession.round_number - 1]
+					max_p = protection_array[self.subsession.round_number - 1]
+				#Get the current funds in the players disposal
+				current_funds = self.player.participant.vars['funds']
+				yield (views.Round, {'cost': round(0, 2)})
+				yield (views.Results)
+				#Should return 0 == 0 == True
+				assert self.player.protection == self.calculate_protection_for_test(max_p, 0)
+				cost_for_test = self.player.cost
+				#If there was an incursion
+				if self.group.incursion:
+					#Then assert that it just took off the cost of protection and the upkeep
+					assert self.player.participant.vars['funds'] == current_funds - cost_for_test - upkeep_value
+				else:
+					#Else if no incursion ,then assert that it just took off the cost of protection and the upkeep and ADD on the revenue to give profit
+					assert self.player.participant.vars['funds'] == current_funds + revenue_value - cost_for_test - upkeep_value
+					
+				if(self.session.config["Capproval"] == True and self.subsession.round_number % self.session.config["contribution_looper"] == 0):
+					yield(views.ActionApproval , {'approval_1' : random.randint(-6, 6), 
+												  'approval_2' : random.randint(-6, 6), 
+												  'approval_3' : random.randint(-6, 6), 
+												  'approval_4' : random.randint(-6, 6), 
+												  'approval_5' : random.randint(-6, 6), 
+												  'approval_6' : random.randint(-6, 6), 
+												  'approval_7' : random.randint(-6, 6), 
+												  'approval_8' : random.randint(-6, 6), 
+												  'approval_9' : random.randint(-6, 6), 
+												  'approval_10' : random.randint(-6, 6), 
+												  'approval_11' : random.randint(-6, 6), 
+												  'approval_12' : random.randint(-6, 6), 
+												  'approval_13' : random.randint(-6, 6), 
+												  'approval_14' : random.randint(-6, 6), 
+												  'approval_15' : random.randint(-6, 6), 
+												  'approval_16' : random.randint(-6, 6), 
+												  'approval_17' : random.randint(-6, 6), 
+												  'approval_18' : random.randint(-6, 6), 
+												  'approval_19' : random.randint(-6, 6), 
+												  'approval_20' : random.randint(-6, 6)})
 
-        #The set_leader option was set to true upon creating test session, now do scenario where one player does their protection first and everyone else gets to see it
-        else:
-            #It will go through the cases exactly as before with minor changes
-            if self.case == 'random':
-                #Get the revenue
-                revenue_value = self.session.config['revenue']
-                #Get the upkeep
-                upkeep_value = self.session.config['upkeep']
-                #Check if the dynamic finances has been applied and adjust the revenue and upkeep values accordingly
-                if self.session.config['dynamic_finances'] == True:
-                    revenue_value = revenue[self.subsession.round_number - 1]
-                    upkeep_value = upkeep[self.subsession.round_number - 1]
-                    max_p = protection_array[self.subsession.round_number - 1]
-                    cost_factor = max_p/-math.log(0.01)
-                #Get the current funds in the players disposal
-                current_funds = self.player.participant.vars['funds']
-                #It will need to check for the leader, if it is the leader then...
-                if self.player.id_in_group == self.group.get_player_by_role('Leader').id_in_group:
-                    yield(views.SoloRound, {'cost': round(random.uniform(0.0, max_p),2)})
-                #If it isn't the leader then...
-                else:
-                    yield(views.OthersRound, {'cost': round(random.uniform(0.0, max_p),2)})
-                #Display Results
-                yield(views.Results)
-                
-                cost_for_test = self.player.cost
-                #If there was an incursion, the functions should be the same, we have tested the protection equation completely works quite well, not testing here
-                if self.group.incursion:
-                    #Then assert that it just took off the cost of protection and the upkeep
-                    assert self.player.participant.vars['funds'] == current_funds - cost_for_test - upkeep_value
-                else:
-                    #Else if no incursion ,then assert that it just took off the cost of protection and the upkeep and ADD on the revenue to give profit
-                    assert self.player.participant.vars['funds'] == current_funds + revenue_value - cost_for_test - upkeep_value
+		#The set_leader option was set to true upon creating test session, now do scenario where one player does their protection first and everyone else gets to see it
+		else:
+			#It will go through the cases exactly as before with minor changes
+			if self.case == 'random':
+				#Display the ChatBox 
+				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
+					yield (views.ChatBox)
+				#Get the revenue
+				revenue_value = self.session.config['revenue']
+				#Get the upkeep
+				upkeep_value = self.session.config['upkeep']
+				#Check if the dynamic finances has been applied and adjust the revenue and upkeep values accordingly
+				if self.session.config['dynamic_finances'] == True:
+					revenue_value = revenue[self.subsession.round_number - 1]
+					upkeep_value = upkeep[self.subsession.round_number - 1]
+					max_p = protection_array[self.subsession.round_number - 1]
+				#Get the current funds in the players disposal
+				current_funds = self.player.participant.vars['funds']
+				#It will need to check for the leader, if it is the leader then...
+				if self.player.id_in_group == self.group.get_player_by_role('Leader').id_in_group:
+					yield(views.SoloRound, {'cost': round(random.uniform(0.0, max_p),2)})
+				#If it isn't the leader then...
+				else:
+					yield(views.OthersRound, {'cost': round(random.uniform(0.0, max_p),2)})
+				#Display Results
+				yield(views.Results)
+				
+				cost_for_test = self.player.cost
+				#If there was an incursion, the functions should be the same, we have tested the protection equation completely works quite well, not testing here
+				if self.group.incursion:
+					#Then assert that it just took off the cost of protection and the upkeep
+					assert self.player.participant.vars['funds'] == current_funds - cost_for_test - upkeep_value
+				else:
+					#Else if no incursion ,then assert that it just took off the cost of protection and the upkeep and ADD on the revenue to give profit
+					assert self.player.participant.vars['funds'] == current_funds + revenue_value - cost_for_test - upkeep_value
 
-            elif self.case == 'quarter':
-                #Get the revenue
-                revenue_value = self.session.config['revenue']
-                #Get the upkeep
-                upkeep_value = self.session.config['upkeep']
-                #Check if the dynamic finances has been applied and adjust the revenue and upkeep values accordingly
-                if self.session.config['dynamic_finances'] == True:
-                    revenue_value = revenue[self.subsession.round_number - 1]
-                    upkeep_value = upkeep[self.subsession.round_number - 1]
-                    max_p = protection_array[self.subsession.round_number - 1]
-                    cost_factor = max_p/-math.log(0.01)
-                #Get the current funds in the players disposal
-                current_funds = self.player.participant.vars['funds']
-                #It will need to check for the leader, if it is the leader then...
-                if self.player.id_in_group == self.group.get_player_by_role('Leader').id_in_group:
-                    yield (views.SoloRound, {'cost': round(0.25*max_p, 2)})
-                #If it isn't the leader then...
-                else:
-                    yield (views.OthersRound, {'cost': round(0.25*max_p, 2)})
-                yield(views.Results)
+			elif self.case == 'quarter':
+				#Display the ChatBox 
+				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
+					yield (views.ChatBox)
+				#Get the revenue
+				revenue_value = self.session.config['revenue']
+				#Get the upkeep
+				upkeep_value = self.session.config['upkeep']
+				#Check if the dynamic finances has been applied and adjust the revenue and upkeep values accordingly
+				if self.session.config['dynamic_finances'] == True:
+					revenue_value = revenue[self.subsession.round_number - 1]
+					upkeep_value = upkeep[self.subsession.round_number - 1]
+					max_p = protection_array[self.subsession.round_number - 1]
+				#Get the current funds in the players disposal
+				current_funds = self.player.participant.vars['funds']
+				#It will need to check for the leader, if it is the leader then...
+				if self.player.id_in_group == self.group.get_player_by_role('Leader').id_in_group:
+					yield (views.SoloRound, {'cost': round(0.25*max_p, 2)})
+				#If it isn't the leader then...
+				else:
+					yield (views.OthersRound, {'cost': round(0.25*max_p, 2)})
+				yield(views.Results)
 
-                cost_for_test = self.player.cost
-                #If there was an incursion, the functions should be the same, we have tested the protection equation completely works quite well, not testing here
-                if self.group.incursion:
-                    #Then assert that it just took off the cost of protection and the upkeep
-                    assert self.player.participant.vars['funds'] == current_funds - cost_for_test - upkeep_value
-                else:
-                    #Else if no incursion ,then assert that it just took off the cost of protection and the upkeep and ADD on the revenue to give profit
-                    assert self.player.participant.vars['funds'] == current_funds + revenue_value - cost_for_test - upkeep_value
+				cost_for_test = self.player.cost
+				#If there was an incursion, the functions should be the same, we have tested the protection equation completely works quite well, not testing here
+				if self.group.incursion:
+					#Then assert that it just took off the cost of protection and the upkeep
+					assert self.player.participant.vars['funds'] == current_funds - cost_for_test - upkeep_value
+				else:
+					#Else if no incursion ,then assert that it just took off the cost of protection and the upkeep and ADD on the revenue to give profit
+					assert self.player.participant.vars['funds'] == current_funds + revenue_value - cost_for_test - upkeep_value
 
-            elif self.case == 'half':
-                #Get the revenue
-                revenue_value = self.session.config['revenue']
-                #Get the upkeep
-                upkeep_value = self.session.config['upkeep']
-                #Check if the dynamic finances has been applied and adjust the revenue and upkeep values accordingly
-                if self.session.config['dynamic_finances'] == True:
-                    revenue_value = revenue[self.subsession.round_number - 1]
-                    upkeep_value = upkeep[self.subsession.round_number - 1]
-                    max_p = protection_array[self.subsession.round_number - 1]
-                    cost_factor = max_p/-math.log(0.01)
-                #Get the current funds in the players disposal
-                current_funds = self.player.participant.vars['funds']
-                #It will need to check for the leader, if it is the leader then...
-                if self.player.id_in_group == self.group.get_player_by_role('Leader').id_in_group:
-                    yield (views.SoloRound, {'cost': round(0.5*max_p,2)})
-                #If it isn't the leader then...
-                else:
-                    yield (views.OthersRound, {'cost': round(0.5*max_p,2)})
-                yield(views.Results)
+			elif self.case == 'half':
+				#Display the ChatBox 
+				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
+					yield (views.ChatBox)
+				#Get the revenue
+				revenue_value = self.session.config['revenue']
+				#Get the upkeep
+				upkeep_value = self.session.config['upkeep']
+				#Check if the dynamic finances has been applied and adjust the revenue and upkeep values accordingly
+				if self.session.config['dynamic_finances'] == True:
+					revenue_value = revenue[self.subsession.round_number - 1]
+					upkeep_value = upkeep[self.subsession.round_number - 1]
+					max_p = protection_array[self.subsession.round_number - 1]
+				#Get the current funds in the players disposal
+				current_funds = self.player.participant.vars['funds']
+				#It will need to check for the leader, if it is the leader then...
+				if self.player.id_in_group == self.group.get_player_by_role('Leader').id_in_group:
+					yield (views.SoloRound, {'cost': round(0.5*max_p,2)})
+				#If it isn't the leader then...
+				else:
+					yield (views.OthersRound, {'cost': round(0.5*max_p,2)})
+				yield(views.Results)
 
-                cost_for_test = self.player.cost
-                #If there was an incursion, the functions should be the same, we have tested the protection equation completely works quite well, not testing here
-                if self.group.incursion:
-                    #Then assert that it just took off the cost of protection and the upkeep
-                    assert self.player.participant.vars['funds'] == current_funds - cost_for_test - upkeep_value
-                else:
-                    #Else if no incursion ,then assert that it just took off the cost of protection and the upkeep and ADD on the revenue to give profit
-                    assert self.player.participant.vars['funds'] == current_funds + revenue_value - cost_for_test - upkeep_value
+				cost_for_test = self.player.cost
+				#If there was an incursion, the functions should be the same, we have tested the protection equation completely works quite well, not testing here
+				if self.group.incursion:
+					#Then assert that it just took off the cost of protection and the upkeep
+					assert self.player.participant.vars['funds'] == current_funds - cost_for_test - upkeep_value
+				else:
+					#Else if no incursion ,then assert that it just took off the cost of protection and the upkeep and ADD on the revenue to give profit
+					assert self.player.participant.vars['funds'] == current_funds + revenue_value - cost_for_test - upkeep_value
 
-            elif self.case == 'threequarters':
-                #Get the revenue
-                revenue_value = self.session.config['revenue']
-                #Get the upkeep
-                upkeep_value = self.session.config['upkeep']
-                #Check if the dynamic finances has been applied and adjust the revenue and upkeep values accordingly
-                if self.session.config['dynamic_finances'] == True:
-                    revenue_value = revenue[self.subsession.round_number - 1]
-                    upkeep_value = upkeep[self.subsession.round_number - 1]
-                    max_p = protection_array[self.subsession.round_number - 1]
-                    cost_factor = max_p/-math.log(0.01)
-                #Get the current funds in the players disposal
-                current_funds = self.player.participant.vars['funds']
-                #It will need to check for the leader, if it is the leader then...
-                if self.player.id_in_group == self.group.get_player_by_role('Leader').id_in_group:
-                    yield (views.SoloRound, {'cost': round(0.75*max_p,2)})
-                #If it isn't the leader then...
-                else:
-                    yield (views.OthersRound, {'cost': round(0.75*max_p,2)})
-                yield(views.Results)
+			elif self.case == 'threequarters':
+				#Display the ChatBox 
+				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
+					yield (views.ChatBox)
+				#Get the revenue
+				revenue_value = self.session.config['revenue']
+				#Get the upkeep
+				upkeep_value = self.session.config['upkeep']
+				#Check if the dynamic finances has been applied and adjust the revenue and upkeep values accordingly
+				if self.session.config['dynamic_finances'] == True:
+					revenue_value = revenue[self.subsession.round_number - 1]
+					upkeep_value = upkeep[self.subsession.round_number - 1]
+					max_p = protection_array[self.subsession.round_number - 1]
+				#Get the current funds in the players disposal
+				current_funds = self.player.participant.vars['funds']
+				#It will need to check for the leader, if it is the leader then...
+				if self.player.id_in_group == self.group.get_player_by_role('Leader').id_in_group:
+					yield (views.SoloRound, {'cost': round(0.75*max_p,2)})
+				#If it isn't the leader then...
+				else:
+					yield (views.OthersRound, {'cost': round(0.75*max_p,2)})
+				yield(views.Results)
 
-                cost_for_test = self.player.cost
-                #If there was an incursion, the functions should be the same, we have tested the protection equation completely works quite well, not testing here
-                if self.group.incursion:
-                    #Then assert that it just took off the cost of protection and the upkeep
-                    assert self.player.participant.vars['funds'] == current_funds - cost_for_test - upkeep_value
-                else:
-                    #Else if no incursion ,then assert that it just took off the cost of protection and the upkeep and ADD on the revenue to give profit
-                    assert self.player.participant.vars['funds'] == current_funds + revenue_value - cost_for_test - upkeep_value
+				cost_for_test = self.player.cost
+				#If there was an incursion, the functions should be the same, we have tested the protection equation completely works quite well, not testing here
+				if self.group.incursion:
+					#Then assert that it just took off the cost of protection and the upkeep
+					assert self.player.participant.vars['funds'] == current_funds - cost_for_test - upkeep_value
+				else:
+					#Else if no incursion ,then assert that it just took off the cost of protection and the upkeep and ADD on the revenue to give profit
+					assert self.player.participant.vars['funds'] == current_funds + revenue_value - cost_for_test - upkeep_value
 
-            elif self.case == 'full':
-                #Get the revenue
-                revenue_value = self.session.config['revenue']
-                #Get the upkeep
-                upkeep_value = self.session.config['upkeep']
-                #Check if the dynamic finances has been applied and adjust the revenue and upkeep values accordingly
-                if self.session.config['dynamic_finances'] == True:
-                    revenue_value = revenue[self.subsession.round_number - 1]
-                    upkeep_value = upkeep[self.subsession.round_number - 1]
-                    max_p = protection_array[self.subsession.round_number - 1]
-                    cost_factor = max_p/-math.log(0.01)
-                #Get the current funds in the players disposal
-                current_funds = self.player.participant.vars['funds']
-                #It will need to check for the leader, if it is the leader then...
-                if self.player.id_in_group == self.group.get_player_by_role('Leader').id_in_group:
-                    yield (views.SoloRound, {'cost': round(max_p, 2)})
-                #If it isn't the leader then...
-                else:
-                    yield (views.OthersRound, {'cost': round(max_p, 2)})
-                yield(views.Results)
+			elif self.case == 'full':
+				#Display the ChatBox 
+				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
+					yield (views.ChatBox)
+				#Get the revenue
+				revenue_value = self.session.config['revenue']
+				#Get the upkeep
+				upkeep_value = self.session.config['upkeep']
+				#Check if the dynamic finances has been applied and adjust the revenue and upkeep values accordingly
+				if self.session.config['dynamic_finances'] == True:
+					revenue_value = revenue[self.subsession.round_number - 1]
+					upkeep_value = upkeep[self.subsession.round_number - 1]
+					max_p = protection_array[self.subsession.round_number - 1]
+				#Get the current funds in the players disposal
+				current_funds = self.player.participant.vars['funds']
+				#It will need to check for the leader, if it is the leader then...
+				if self.player.id_in_group == self.group.get_player_by_role('Leader').id_in_group:
+					yield (views.SoloRound, {'cost': round(max_p, 2)})
+				#If it isn't the leader then...
+				else:
+					yield (views.OthersRound, {'cost': round(max_p, 2)})
+				yield(views.Results)
 
-                cost_for_test = self.player.cost
-                #If there was an incursion, the functions should be the same, we have tested the protection equation completely works quite well, not testing here
-                if self.group.incursion:
-                    #Then assert that it just took off the cost of protection and the upkeep
-                    assert self.player.participant.vars['funds'] == current_funds - cost_for_test - upkeep_value
-                else:
-                    #Else if no incursion ,then assert that it just took off the cost of protection and the upkeep and ADD on the revenue to give profit
-                    assert self.player.participant.vars['funds'] == current_funds + revenue_value - cost_for_test - upkeep_value
+				cost_for_test = self.player.cost
+				#If there was an incursion, the functions should be the same, we have tested the protection equation completely works quite well, not testing here
+				if self.group.incursion:
+					#Then assert that it just took off the cost of protection and the upkeep
+					assert self.player.participant.vars['funds'] == current_funds - cost_for_test - upkeep_value
+				else:
+					#Else if no incursion ,then assert that it just took off the cost of protection and the upkeep and ADD on the revenue to give profit
+					assert self.player.participant.vars['funds'] == current_funds + revenue_value - cost_for_test - upkeep_value
 
-            elif self.case == 'twoselfishtwogood':
-                #Get the revenue
-                revenue_value = self.session.config['revenue']
-                #Get the upkeep
-                upkeep_value = self.session.config['upkeep']
-                #Check if the dynamic finances has been applied and adjust the revenue and upkeep values accordingly
-                if self.session.config['dynamic_finances'] == True:
-                    revenue_value = revenue[self.subsession.round_number - 1]
-                    upkeep_value = upkeep[self.subsession.round_number - 1]
-                    max_p = protection_array[self.subsession.round_number - 1]
-                    cost_factor = max_p/-math.log(0.01)
-                #Get the current funds in the players disposal
-                current_funds = self.player.participant.vars['funds']
-                #Check if the player is the leader first
-                if self.player.id_in_group == self.group.get_player_by_role('Leader').id_in_group:
-                    #Then check the player's ID to apply which cost they do, same as before even = 0, odd = max_p
-                    if self.player.id % 2 == 0:
-                        yield (views.SoloRound, {'cost': round(0,2)})
-                    else:
-                        yield (views.SoloRound, {'cost': round(max_p,2)})
-                #If the Player isn't the Leader
-                else:
-                    if self.player.id % 2 == 0:
-                        yield (views.OthersRound, {'cost': round(0,2)})
-                    else:
-                        yield (views.OthersRound, {'cost': round(max_p,2)})
-                yield(views.Results)
-                
-                cost_for_test = self.player.cost
-                #If there was an incursion, the functions should be the same, we have tested the protection equation completely works quite well, not testing here
-                if self.group.incursion:
-                    #Then assert that it just took off the cost of protection and the upkeep
-                    assert self.player.participant.vars['funds'] == current_funds - cost_for_test - upkeep_value
-                else:
-                    #Else if no incursion ,then assert that it just took off the cost of protection and the upkeep and ADD on the revenue to give profit
-                    assert self.player.participant.vars['funds'] == current_funds + revenue_value - cost_for_test - upkeep_value
+			elif self.case == 'twoselfishtwogood':
+				#Display the ChatBox 
+				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
+					yield (views.ChatBox)
+				#Get the revenue
+				revenue_value = self.session.config['revenue']
+				#Get the upkeep
+				upkeep_value = self.session.config['upkeep']
+				#Check if the dynamic finances has been applied and adjust the revenue and upkeep values accordingly
+				if self.session.config['dynamic_finances'] == True:
+					revenue_value = revenue[self.subsession.round_number - 1]
+					upkeep_value = upkeep[self.subsession.round_number - 1]
+					max_p = protection_array[self.subsession.round_number - 1]
+				#Get the current funds in the players disposal
+				current_funds = self.player.participant.vars['funds']
+				#Check if the player is the leader first
+				if self.player.id_in_group == self.group.get_player_by_role('Leader').id_in_group:
+					#Then check the player's ID to apply which cost they do, same as before even = 0, odd = max_p
+					if self.player.id % 2 == 0:
+						yield (views.SoloRound, {'cost': round(0,2)})
+					else:
+						yield (views.SoloRound, {'cost': round(max_p,2)})
+				#If the Player isn't the Leader
+				else:
+					if self.player.id % 2 == 0:
+						yield (views.OthersRound, {'cost': round(0,2)})
+					else:
+						yield (views.OthersRound, {'cost': round(max_p,2)})
+				yield(views.Results)
+				
+				cost_for_test = self.player.cost
+				#If there was an incursion, the functions should be the same, we have tested the protection equation completely works quite well, not testing here
+				if self.group.incursion:
+					#Then assert that it just took off the cost of protection and the upkeep
+					assert self.player.participant.vars['funds'] == current_funds - cost_for_test - upkeep_value
+				else:
+					#Else if no incursion ,then assert that it just took off the cost of protection and the upkeep and ADD on the revenue to give profit
+					assert self.player.participant.vars['funds'] == current_funds + revenue_value - cost_for_test - upkeep_value
 
-            elif self.case == 'bankrupt':
-                #Get the revenue
-                revenue_value = self.session.config['revenue']
-                #Get the upkeep
-                upkeep_value = self.session.config['upkeep']
-                #Check if the dynamic finances has been applied and adjust the revenue and upkeep values accordingly
-                if self.session.config['dynamic_finances'] == True:
-                    revenue_value = revenue[self.subsession.round_number - 1]
-                    upkeep_value = upkeep[self.subsession.round_number - 1]
-                    max_p = protection_array[self.subsession.round_number - 1]
-                    cost_factor = max_p/-math.log(0.01)
-                #Get the current funds in the players disposal
-                current_funds = self.player.participant.vars['funds']
-                #It will need to check for the leader, if it is the leader then...
-                if self.player.id_in_group == self.group.get_player_by_role('Leader').id_in_group:
-                    yield (views.SoloRound, {'cost': round(0, 2)})
-                #If it isn't the leader then...
-                else:
-                    yield (views.OthersRound, {'cost': round(0, 2)})
-                yield(views.Results)
-                #Incursion is ALWAYS TRUE
-                assert self.group.incursion == True
-                cost_for_test = self.player.cost
-                #Since there's always an incursion it will never add the revenue, ensure that it doesn't
-                assert self.player.participant.vars['funds'] == current_funds - cost_for_test - upkeep_value
+			elif self.case == 'bankrupt':
+				#Display the ChatBox 
+				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
+					yield (views.ChatBox)
+				#Get the revenue
+				revenue_value = self.session.config['revenue']
+				#Get the upkeep
+				upkeep_value = self.session.config['upkeep']
+				#Check if the dynamic finances has been applied and adjust the revenue and upkeep values accordingly
+				if self.session.config['dynamic_finances'] == True:
+					revenue_value = revenue[self.subsession.round_number - 1]
+					upkeep_value = upkeep[self.subsession.round_number - 1]
+					max_p = protection_array[self.subsession.round_number - 1]
+				#Get the current funds in the players disposal
+				current_funds = self.player.participant.vars['funds']
+				#It will need to check for the leader, if it is the leader then...
+				if self.player.id_in_group == self.group.get_player_by_role('Leader').id_in_group:
+					yield (views.SoloRound, {'cost': round(0, 2)})
+				#If it isn't the leader then...
+				else:
+					yield (views.OthersRound, {'cost': round(0, 2)})
+				yield(views.Results)
+				cost_for_test = self.player.cost
+				#If there was an incursion
+				if self.group.incursion:
+					#Then assert that it just took off the cost of protection and the upkeep
+					assert self.player.participant.vars['funds'] == current_funds - cost_for_test - upkeep_value
+				else:
+					#Else if no incursion ,then assert that it just took off the cost of protection and the upkeep and ADD on the revenue to give profit
+					assert self.player.participant.vars['funds'] == current_funds + revenue_value - cost_for_test - upkeep_value

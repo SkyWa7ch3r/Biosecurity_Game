@@ -214,7 +214,7 @@ class ResultsWaitPage(WaitPage):
 	wait page as well as calculate the profits for its respective round.
 	"""
 	def after_all_players_arrive(self):
-		 self.group.calculate_profits()
+		self.group.calculate_profits()
 
 
 class WaitforEveryone(WaitPage):
@@ -282,18 +282,15 @@ class PledgeWaitCounter(WaitPage):
 		return self.session.config['pledge'] == True
 	def after_all_players_arrive(self):
 		self.group.get_player_by_id(1).participant.vars["Rounds_Till_Pledge"] -= 1
+		#If contribution is on, take 1 off the counter and calculate the mean approvals if its a contribution round
 		if(self.session.config["Capproval"]):
 			self.group.get_player_by_id(1).participant.vars["Rounds_Till_Contribution"] -= 1
+			if(self.subsession.round_number % self.session.config["contribution_looper"] == 0):
+				self.group.calculate_mean_approval()
+		
 class AopWait(WaitPage):
 	def is_displayed(self):
 		return self.session.config['pledge'] == True and self.session.config['Papproval'] == True and (self.subsession.round_number % self.session.config["pledge_looper"] == 0 or self.subsession.round_number == 1)
-	def after_all_players_arrive(self):
-		#Calculates the approval averages for each player and stores them in a participant list, with the index matching the id_in_group for each player
-		self.group.calculate_mean_approval()
-		
-class AocWait(WaitPage):
-	def is_displayed(self):
-		return self.session.config['pledge'] == True and self.session.config['Capproval'] == True and self.subsession.round_number % self.session.config["contribution_looper"] == 0
 	def after_all_players_arrive(self):
 		#Calculates the approval averages for each player and stores them in a participant list, with the index matching the id_in_group for each player
 		self.group.calculate_mean_approval()
@@ -429,31 +426,44 @@ class ActionApproval(Page):
 			'Group_Target_Prob' : gtp,
 			'player_name': self.player.participant.vars['name'],
 			'contribution_looper' : self.session.config["contribution_looper"],
-		}	
+		}
+'''
+The Below Wait Pages are specifically there to reduce the amount of wait pages
+'''
+class WaitforChat(WaitPage):
+	def is_displayed(self):
+		return self.session.config['player_communication']
+		
+class WaitforInstructions(WaitPage):
+	def is_displayed(self):
+		return self.subsession.round_number == 1
+		
+class NoPledgeResultWaitPage(WaitPage):
+	def is_displayed(self):
+		return self.session.config['pledge'] == False or (self.session.config['Capproval'] and self.session.config['pledge'] == True and self.subsession.round_number % self.session.config['contribution_looper'] == 0)
 """
 	page_sequence determines the order in which pages are displayed.
 """
 
 page_sequence = [
 	BioInstructions,
-	WaitforEveryone,
+	WaitforInstructions,
 	GroupPledging,
 	PledgeWait,
 	IndiPledging,
 	IndiPledgingWait,
-	ChatBox,
-	WaitforEveryone,
 	PledgingApproval,
 	AopWait,
+	ChatBox,
+	WaitforChat,
 	SoloRound,
 	WaitforEveryone,
 	OthersRound,
 	Round,
 	ResultsWaitPage,
 	Results,
-	WaitforEveryone,
+	NoPledgeResultWaitPage,
 	ActionApproval,
-	AocWait,
 	PledgeWaitCounter,
 ]
 
