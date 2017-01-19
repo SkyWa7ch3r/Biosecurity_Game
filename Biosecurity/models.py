@@ -123,6 +123,7 @@ class Subsession(BaseSubsession):
 				p.participant.vars["Protection_Provided"] = []
 			for _ in range(21 - self.session.config['players_per_group']):
 				namesChosen.append(None)
+		#Set the names each of every single subsession (or round)
 		for p in self.get_players():
 			if(self.round_number == 1):
 				p.participant.vars['namesChosen'] = list(namesChosen)

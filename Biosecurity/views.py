@@ -219,7 +219,7 @@ class ResultsWaitPage(WaitPage):
 
 class WaitforEveryone(WaitPage):
 	"""
-	The WaitforEveryone class is responsible for displaying a wait page. 
+	The WaitforEveryone class is responsible for displaying a basic wait page. 
 	"""
 	pass
 
@@ -273,14 +273,16 @@ class PledgeWait(WaitPage):
 	def is_displayed(self):
 		return self.session.config['pledge'] == True and (self.subsession.round_number % self.session.config["pledge_looper"] == 0 or self.subsession.round_number == 1)
 	def after_all_players_arrive(self):
-		#This will calculate the Group Target and save it inside a particxpant variable, Group Targets as the most recent in the list
+		#Put in the data that it was a pledging round
 		self.group.pledge = True
+		#This will calculate the Group Target and save it inside a participant variable, Group Targets as the most recent in the list
 		self.group.calculate_group_target()
 
 class PledgeWaitCounter(WaitPage):
 	def is_displayed(self):
 		return self.session.config['pledge'] == True
 	def after_all_players_arrive(self):
+		#Take 1 off the pledge counter to adjust its display
 		self.group.get_player_by_id(1).participant.vars["Rounds_Till_Pledge"] -= 1
 		#If contribution is on, take 1 off the counter and calculate the mean approvals if its a contribution round
 		if(self.session.config["Capproval"]):
@@ -302,9 +304,11 @@ class IndiPledging(Page):
 	form_model = models.Player
 	form_fields = ['individualPledge']
 	timeout_seconds = 60
+	#Displays on a pledging round
 	def is_displayed(self):
 		return self.session.config['pledge'] == True and (self.subsession.round_number % self.session.config["pledge_looper"] == 0 or self.subsession.round_number == 1)
 	def vars_for_template(self):
+		#Get the max protection and cost factor the slider calculations
 		max_protection = self.session.config['max_protection']
 		cost_factor = self.session.config['max_protection']/-math.log(1 - Constants.max_probability + self.session.config["probability_coefficient"])
 		return {
@@ -318,6 +322,7 @@ class IndiPledging(Page):
 class IndiPledgingWait(WaitPage):
 	def after_all_players_arrive(self):
 		for p in self.group.get_players():
+			#Adjust the Most Recent Pledge by each player accordingly
 			p.participant.vars["Recent_Pledge"][0] = p.participant.vars["Recent_Pledge"][1]
 			p.participant.vars["Recent_Pledge"][1] = p.individualPledge
 	def is_displayed(self):
@@ -330,6 +335,7 @@ class GroupPledging(Page):
 	timeout_seconds = 60
 	form_model = models.Player
 	form_fields = ['groupTarget']
+	#Set the minimum for minimum amount of chance that someone is not the source of incursion in the case of timeout
 	def before_next_page(self):
 		if self.timeout_happened:
 			self.player.groupTarget = self.session.config["probability_coefficient"] * 100
@@ -347,19 +353,23 @@ class PledgingApproval(Page):
 	"""
 	timeout_seconds = 90
 	form_model= models.Player
+	#Upto 20 players for 20 approvals, gets sent to the Player class
 	def get_form_fields(self):
 		approval = ['approval_{}'.format(i) for i in range(1, self.session.config["players_per_group"] + 1)]
 		return approval
+	#Display if its a pledging round and Approval of Pledges is on
 	def is_displayed(self):
 		return self.session.config['pledge'] == True and self.session.config['Papproval'] == True and (self.subsession.round_number % self.session.config["pledge_looper"] == 0 or self.subsession.round_number == 1)
 	def vars_for_template(self):
 		names = []
 		ids = []
 		pledge_results = []
+		#Get the names, ids and individual pledges of each player and store them in the respective lists above
 		for p in self.group.get_players():
 			names.append(p.participant.vars['name'])
 			ids.append(p.id_in_group)
 			pledge_results.append(p.participant.vars["Recent_Pledge"][1])
+		#Zip the 3 lists together so you have {(Player 1 Name, 1, Player 1 Pledge), (Player 2 Name, 2, Player 2 Pledge), ...,(Player n Name, n, Player n Pledge)}
 		return {
 			'list' : zip(ids, names, pledge_results),
 			'Group_Target_Prob' : self.participant.vars["Group_Targets_Prob"][1],
@@ -375,9 +385,11 @@ class ActionApproval(Page):
 	"""
 	timeout_seconds = 90
 	form_model= models.Player
+	#Upto 20 players for 20 approvals, gets sent to the Player class
 	def get_form_fields(self):
 		approval = ['approval_{}'.format(i) for i in range(1, self.session.config["players_per_group"] + 1)]
 		return approval
+	#Display if its a contribution round and Approval of Contribution is on is on
 	def is_displayed(self):
 		return self.session.config['pledge'] == True and self.session.config['Capproval'] == True and self.subsession.round_number % self.session.config["contribution_looper"] == 0
 	def vars_for_template(self):

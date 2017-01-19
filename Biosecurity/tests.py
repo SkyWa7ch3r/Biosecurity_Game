@@ -18,7 +18,10 @@ with open('CSV/dynamic_finances.csv') as filestream:
 		revenue.append(float(row['revenue']))
 		upkeep.append(float(row['upkeep']))
 		protection_array.append(float(row['protection']))
-
+'''
+There is more details in the first random case, the rest of the cases follow the same format
+just with changes to the cost and assert checks
+'''
 class PlayerBot(Bot):
 	cases = ['random', 'quarter', 'half' , 'threequarters', 'full', 'twoselfishtwogood', 'bankrupt']
 	def calculate_protection_for_test(self, max_protection, cost):
@@ -27,6 +30,7 @@ class PlayerBot(Bot):
 	def play_round(self):
 		#Get the max participants 
 		max_p = self.session.config['max_protection']
+		#Calculate the minimum probability of a person not being the source of the incursion
 		min_prob = int(self.session.config['probability_coefficient'] * 100)
 		#Display the Instructions
 		if self.subsession.round_number == 1:
@@ -39,15 +43,20 @@ class PlayerBot(Bot):
 			if self.case == 'random':
 				#Do the pledging pages if pledging is on
 				if(self.session.config['pledge'] == True and (self.subsession.round_number % self.session.config["pledge_looper"] == 0 or self.subsession.round_number == 1)):
-					
+					#Start the Group Pledging, choses a random Target
 					yield (views.GroupPledging, {'groupTarget' : random.randint(min_prob, 100)})
+					#Work out the Group Target
 					targets = []
 					for p in self.group.get_players():
 						targets.append(p.groupTarget)
 					targets.sort()
+					#Assert that the Group Target is indeed what it should be
 					assert self.group.GroupTargetProbability == median(targets)
+					#Does a random Individual Pledging, no assert tests associated with this its there for user benefit rather than for use by the program
 					yield (views.IndiPledging, {'individualPledge' : round(random.uniform(0.0, max_p),2)})
+					#If Approval of Pledges is on then do a random value between -6 and 6 as an integer
 					if(self.session.config["Papproval"] == True):
+						#We will check approval_1
 						yield(views.PledgingApproval , {'approval_1' : random.randint(-6, 6), 
 														'approval_2' : random.randint(-6, 6), 
 														'approval_3' : random.randint(-6, 6), 
@@ -68,13 +77,17 @@ class PlayerBot(Bot):
 														'approval_18' : random.randint(-6, 6), 
 														'approval_19' : random.randint(-6, 6), 
 														'approval_20' : random.randint(-6, 6)})
+						#Check the value of approval_1								
 						approval_for_testing = 0.0
 						approval_total = 0
 						number_of_players = len(self.group.get_players())
+						#Get the average approval of player 1
 						for p in self.group.get_players():
 							approval_total += p.approval_1
 						approval_for_testing = approval_total/number_of_players
+						#Assert that the value calculated here for the group approval of player 1 is indeed the approval of player 1
 						assert self.group.get_player_by_id(1).participant.vars["approval_means"][0] == approval_for_testing
+				
 				#Display the ChatBox 
 				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
 					yield (views.ChatBox)
@@ -106,7 +119,7 @@ class PlayerBot(Bot):
 				else:
 					#Else if no incursion ,then assert that it just took off the cost of protection and the upkeep and ADD on the revenue to give profit
 					assert self.player.participant.vars['funds'] == current_funds + revenue_value - cost_for_test - upkeep_value
-				
+				#If Approval on Contribution is on then choose a random value for approval of each player, just like approval by pledging we check the group approval of player 1
 				if(self.session.config["Capproval"] == True and self.subsession.round_number % self.session.config["contribution_looper"] == 0):
 					yield(views.ActionApproval , {'approval_1' : random.randint(-6, 6), 
 												  'approval_2' : random.randint(-6, 6), 
@@ -128,20 +141,29 @@ class PlayerBot(Bot):
 												  'approval_18' : random.randint(-6, 6), 
 												  'approval_19' : random.randint(-6, 6), 
 												  'approval_20' : random.randint(-6, 6)})
+					#Check the value of approval_1								
 					approval_for_testing = 0.0
 					approval_total = 0
 					number_of_players = len(self.group.get_players())
+					#Get the average approval of player 1
 					for p in self.group.get_players():
 						approval_total += p.approval_1
 					approval_for_testing = approval_total/number_of_players
+					#Assert that the value calculated here for the group approval of player 1 is indeed the approval of player 1
 					assert self.group.get_player_by_id(1).participant.vars["approval_means"][0] == approval_for_testing
+				#Show the incursion count for testing and recording purposes
 				print("Incursion Count: %d"%self.group.get_player_by_id(1).participant.vars['incursion_count'])
+				#Show the funds of each player at round 5 and round 15 for reecording purposes
 				if(self.subsession.round_number == 5 or self.subsession.round_number == 15):
 					for p in self.group.get_players():
+						#Show the funds
 						print("Player %d: Funds %f"%(p.id_in_group, p.participant.vars["funds"]))
+						#Show the cost
 						print("Player %d: Cost %f"%(p.id_in_group, p.cost))
+				#It always shows the cost each player put in
 				else:
 					for p in self.group.get_players():
+						#Show the cost
 						print("Player %d: Cost %f"%(p.id_in_group, p.cost))
 			#Test with doing 1/4 of whatever the max protection is set to, protection equation tested, incursion unpredictable
 			elif self.case == 'quarter':
