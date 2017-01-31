@@ -35,6 +35,8 @@ class PlayerBot(Bot):
 		#Display the Instructions
 		if self.subsession.round_number == 1:
 			yield(views.BioInstructions)
+			if(self.player.id_in_group == 1):
+				print("Beginning test for %s"%self.session.config["display_name"])
 
 		#Check if the One Player Feature has been enabled, so one player goes before all the others
 		if self.session.config['set_leader'] == False:
@@ -165,6 +167,8 @@ class PlayerBot(Bot):
 					for p in self.group.get_players():
 						#Show the cost
 						print("Player %d: Cost %f"%(p.id_in_group, p.cost))
+				if(self.subsession.round_number == 15):
+					print("Completed %s"%self.case)
 			#Test with doing 1/4 of whatever the max protection is set to, protection equation tested, incursion unpredictable
 			elif self.case == 'quarter':
 				#Do the pledging pages if pledging is on
@@ -258,6 +262,8 @@ class PlayerBot(Bot):
 				else:
 					for p in self.group.get_players():
 						print("Player %d: Cost %f"%(p.id_in_group, p.cost))
+				if(self.subsession.round_number == 15):
+					print("Completed %s"%self.case)
 			#Test with doing 1/2 of whatever the max protection is set to, protection equation tested, incursion unpredictable
 			elif self.case == 'half':
 				#Do the pledging pages if pledging is on
@@ -350,7 +356,9 @@ class PlayerBot(Bot):
 						print("Player %d: Cost %f"%(p.id_in_group, p.cost))
 				else:
 					for p in self.group.get_players():
-						print("Player %d: Cost %f"%(p.id_in_group, p.cost))						
+						print("Player %d: Cost %f"%(p.id_in_group, p.cost))
+				if(self.subsession.round_number == 15):
+					print("Completed %s"%self.case)
 			#Test with doing 3/4 of whatever the max protection is set to, protection equation tested, incursion somewhat predictable, entering point of diminishing returns for protection	  
 			elif self.case == 'threequarters':
 				#Do the pledging pages if pledging is on
@@ -443,6 +451,8 @@ class PlayerBot(Bot):
 				else:
 					for p in self.group.get_players():
 						print("Player %d: Cost %f"%(p.id_in_group, p.cost))
+				if(self.subsession.round_number == 15):
+					print("Completed %s"%self.case)
 			#Test with doing whatever the max protection is set to, protection equation tested, incursion mostly predictable.
 			elif self.case == 'full':
 				#Do the pledging pages if pledging is on
@@ -534,7 +544,8 @@ class PlayerBot(Bot):
 				else:
 					for p in self.group.get_players():
 						print("Player %d: Cost %f"%(p.id_in_group, p.cost))
-						
+				if(self.subsession.round_number == 15):
+					print("Completed %s"%self.case)		
 			#Test with any player's id that are even as 0 protection cost, odd are using full protection cost.
 			elif self.case == 'twoselfishtwogood':
 				#Do the pledging pages if pledging is on
@@ -634,7 +645,8 @@ class PlayerBot(Bot):
 				else:
 					for p in self.group.get_players():
 						print("Player %d: Cost %f"%(p.id_in_group, p.cost))
-						
+				if(self.subsession.round_number == 15):
+					print("Completed %s"%self.case)		
 			#Test with doing 0 protection cost, protection equation tested, incursion completely predictable, guranteed incursion all the time
 			elif self.case == 'bankrupt':
 				#Do the pledging pages if pledging is on
@@ -724,7 +736,8 @@ class PlayerBot(Bot):
 				else:
 					for p in self.group.get_players():
 						print("Player %d: Cost %f"%(p.id_in_group, p.cost))
-						
+				if(self.subsession.round_number == 15):
+					print("Completed %s"%self.case)		
 		#The set_leader option was set to true upon creating test session, now do scenario where one player does their protection first and everyone else gets to see it
 		else:
 			#It will go through the cases exactly as before with minor changes
@@ -760,7 +773,8 @@ class PlayerBot(Bot):
 				else:
 					#Else if no incursion ,then assert that it just took off the cost of protection and the upkeep and ADD on the revenue to give profit
 					assert self.player.participant.vars['funds'] == current_funds + revenue_value - cost_for_test - upkeep_value
-
+				if(self.subsession.round_number == 15):
+					print("Completed %s"%self.case)
 			elif self.case == 'quarter':
 				#Display the ChatBox 
 				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
@@ -792,7 +806,8 @@ class PlayerBot(Bot):
 				else:
 					#Else if no incursion ,then assert that it just took off the cost of protection and the upkeep and ADD on the revenue to give profit
 					assert self.player.participant.vars['funds'] == current_funds + revenue_value - cost_for_test - upkeep_value
-
+				if(self.subsession.round_number == 15):
+					print("Completed %s"%self.case)
 			elif self.case == 'half':
 				#Display the ChatBox 
 				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
@@ -824,7 +839,8 @@ class PlayerBot(Bot):
 				else:
 					#Else if no incursion ,then assert that it just took off the cost of protection and the upkeep and ADD on the revenue to give profit
 					assert self.player.participant.vars['funds'] == current_funds + revenue_value - cost_for_test - upkeep_value
-
+				if(self.subsession.round_number == 15):
+					print("Completed %s"%self.case)
 			elif self.case == 'threequarters':
 				#Display the ChatBox 
 				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
@@ -856,7 +872,8 @@ class PlayerBot(Bot):
 				else:
 					#Else if no incursion ,then assert that it just took off the cost of protection and the upkeep and ADD on the revenue to give profit
 					assert self.player.participant.vars['funds'] == current_funds + revenue_value - cost_for_test - upkeep_value
-
+				if(self.subsession.round_number == 15):
+					print("Completed %s"%self.case)
 			elif self.case == 'full':
 				#Display the ChatBox 
 				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
@@ -888,7 +905,8 @@ class PlayerBot(Bot):
 				else:
 					#Else if no incursion ,then assert that it just took off the cost of protection and the upkeep and ADD on the revenue to give profit
 					assert self.player.participant.vars['funds'] == current_funds + revenue_value - cost_for_test - upkeep_value
-
+				if(self.subsession.round_number == 15):
+					print("Completed %s"%self.case)
 			elif self.case == 'twoselfishtwogood':
 				#Display the ChatBox 
 				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
@@ -927,7 +945,8 @@ class PlayerBot(Bot):
 				else:
 					#Else if no incursion ,then assert that it just took off the cost of protection and the upkeep and ADD on the revenue to give profit
 					assert self.player.participant.vars['funds'] == current_funds + revenue_value - cost_for_test - upkeep_value
-
+				if(self.subsession.round_number == 15):
+					print("Completed %s"%self.case)
 			elif self.case == 'bankrupt':
 				#Display the ChatBox 
 				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
@@ -958,3 +977,5 @@ class PlayerBot(Bot):
 				else:
 					#Else if no incursion ,then assert that it just took off the cost of protection and the upkeep and ADD on the revenue to give profit
 					assert self.player.participant.vars['funds'] == current_funds + revenue_value - cost_for_test - upkeep_value
+				if(self.subsession.round_number == 15):
+					print("Completed %s"%self.case)
