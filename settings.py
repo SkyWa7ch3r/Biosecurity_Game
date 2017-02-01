@@ -154,6 +154,8 @@ SESSION_CONFIGS = [
 		'pledge_looper' : 0,
 		'contribution_looper' : 0,
 		'probability_coefficient' : 0.5,
+		'case' : 'bankrupt',
+		'controlling_the_cases_for_bots' : True,
     },
 	{
         'name': 'freeform_biosecurity_game_browser_bots',
@@ -177,6 +179,8 @@ SESSION_CONFIGS = [
 		'pledge_looper' : 0,
 		'contribution_looper' : 0,
 		'probability_coefficient' : 0.5,
+		'case' : 'bankrupt',
+		'controlling_the_cases_for_bots' : True,
     },
 	{
         'name': 'monitoring_biosecurity_game_browser_bots',
@@ -200,6 +204,8 @@ SESSION_CONFIGS = [
 		'pledge_looper' : 0,
 		'contribution_looper' : 0,
 		'probability_coefficient' : 0.5,
+		'case' : 'bankrupt',
+		'controlling_the_cases_for_bots' : True,
     },
 	{
         'name': 'pledging_biosecurity_game_browser_bots',
@@ -223,6 +229,8 @@ SESSION_CONFIGS = [
 		'pledge_looper' : 3,
 		'contribution_looper' : 0,
 		'probability_coefficient' : 0.5,
+		'case' : 'bankrupt',
+		'controlling_the_cases_for_bots' : True,
     },
 	{
         'name': 'mon_pledging_biosecurity_game_browser_bots',
@@ -246,6 +254,8 @@ SESSION_CONFIGS = [
 		'pledge_looper' : 3,
 		'contribution_looper' : 0,
 		'probability_coefficient' : 0.5,
+		'case' : 'bankrupt',
+		'controlling_the_cases_for_bots' : True,
     },
 		{
         'name': 'aop_biosecurity_game_browser_bots',
@@ -269,6 +279,8 @@ SESSION_CONFIGS = [
 		'pledge_looper' : 3,
 		'contribution_looper' : 0,
 		'probability_coefficient' : 0.5,
+		'case' : 'bankrupt',
+		'controlling_the_cases_for_bots' : True,
     },
 	{
         'name': 'aoc_biosecurity_game_browser_bots',
@@ -292,6 +304,8 @@ SESSION_CONFIGS = [
 		'pledge_looper' : 3,
 		'contribution_looper' : 1,
 		'probability_coefficient' : 0.5,
+		'case' : 'bankrupt',
+		'controlling_the_cases_for_bots' : True,
     },
 	{
         'name': 'custom_biosecurity_game_browser_bots',
@@ -315,6 +329,8 @@ SESSION_CONFIGS = [
 		'pledge_looper' : 0,
 		'contribution_looper' : 0,
 		'probability_coefficient' : 0.5,
+		'case' : 'bankrupt',
+		'controlling_the_cases_for_bots' : True,
     },
 	#Start of Biosecurity Test Treatments
 	{

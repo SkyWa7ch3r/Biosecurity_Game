@@ -23,11 +23,13 @@ There is more details in the first random case, the rest of the cases follow the
 just with changes to the cost and assert checks
 '''
 class PlayerBot(Bot):
-	cases = ['random', 'quarter', 'half' , 'threequarters', 'full', 'twoselfishtwogood', 'bankrupt']
+	cases = ['random', 'quarter', 'half' , 'threequarters', 'full', 'half0halffull', 'bankrupt']
 	def calculate_protection_for_test(self, max_protection, cost):
 		cost_factor = max_protection/-math.log(1 - Constants.max_probability + self.session.config["probability_coefficient"])
 		return round(Decimal(1 + self.session.config["probability_coefficient"] - math.exp(-cost/cost_factor)),2)
 	def play_round(self):
+		if self.session.config["controlling_the_cases_for_bots"]:
+			self.case = self.session.config["case"]
 		#Get the max participants 
 		max_p = self.session.config['max_protection']
 		#Calculate the minimum probability of a person not being the source of the incursion
@@ -37,7 +39,6 @@ class PlayerBot(Bot):
 			yield(views.BioInstructions)
 			if(self.player.id_in_group == 1):
 				print("Beginning test for %s"%self.session.config["display_name"])
-
 		#Check if the One Player Feature has been enabled, so one player goes before all the others
 		if self.session.config['set_leader'] == False:
 
@@ -547,7 +548,7 @@ class PlayerBot(Bot):
 				if(self.subsession.round_number == 15):
 					print("Completed %s"%self.case)		
 			#Test with any player's id that are even as 0 protection cost, odd are using full protection cost.
-			elif self.case == 'twoselfishtwogood':
+			elif self.case == 'half0halffull':
 				#Do the pledging pages if pledging is on
 				if(self.session.config['pledge'] == True and (self.subsession.round_number % self.session.config["pledge_looper"] == 0 or self.subsession.round_number == 1)):
 					
@@ -907,7 +908,7 @@ class PlayerBot(Bot):
 					assert self.player.participant.vars['funds'] == current_funds + revenue_value - cost_for_test - upkeep_value
 				if(self.subsession.round_number == 15):
 					print("Completed %s"%self.case)
-			elif self.case == 'twoselfishtwogood':
+			elif self.case == 'half0halffull':
 				#Display the ChatBox 
 				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
 					yield (views.ChatBox)

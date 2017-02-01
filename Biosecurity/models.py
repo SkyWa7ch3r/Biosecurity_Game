@@ -121,7 +121,7 @@ class Subsession(BaseSubsession):
 				p.participant.vars["Group_Targets_Prob"] = [0, 0]
 				#For Approval By Contribution may come in handy later, a list for costs done by every player per ["pledge_looper"] rounds
 				p.participant.vars["Protection_Provided"] = []
-			for _ in range(21 - self.session.config['players_per_group']):
+			for _ in range(21):
 				namesChosen.append(None)
 		#Set the names each of every single subsession (or round)
 		for p in self.get_players():
