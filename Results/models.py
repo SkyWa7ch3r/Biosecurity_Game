@@ -114,8 +114,4 @@ class Player(BasePlayer):
 	questioner_15 = returnFormField(14)
 	questioner_16 = returnFormField(15)
 	questioner_17 = returnFormField(16)
-	questioner_18 = returnFormField(17)
-	questioner_19 = returnFormField(18)
-	questioner_20 = returnFormField(19)
-
 	
