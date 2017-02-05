@@ -8,9 +8,6 @@ class Results(Page):
     pass
 
 class ResultsSummary(Page):
-    def is_displayed(self):
-        return self.subsession.round_number == Constants.num_rounds
-
     def vars_for_template(self):
         return {
             'total_payoff': self.participant.vars['lotPayoff'],
