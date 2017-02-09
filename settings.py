@@ -583,6 +583,7 @@ SESSION_CONFIGS = [
 		'probability_coefficient' : 0.6,
 		'controlling_the_cases_for_bots' : False,
 		'case' : 'bankrupt',
+	},
 	{
         'name': 'monitoring_biosecurity_game',
         'display_name': 'Monitoring Biosecurity Game',
