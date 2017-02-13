@@ -22,6 +22,7 @@ class BioInstructions(Page):
 	def is_displayed(self):
 		return self.subsession.round_number == 1
 	def vars_for_template(self):
+		loss = -self.session.config["upkeep"] - self.session.config["max_protection"]
 		return {
 		'name' : self.player.participant.vars['name'],
 		'monitoring' : self.session.config["monitoring"],
@@ -38,6 +39,7 @@ class BioInstructions(Page):
 		'upkeep' : self.session.config["upkeep"],
 		'revenue' : self.session.config["revenue"],
 		'starting_funds' : self.session.config["starting_funds"],
+		'loss' : abs(loss),
 		}
 
 class SoloRound(Page):
@@ -152,6 +154,8 @@ class Round(Page):
 			'player_name' : self.player.participant.vars["name"],
 			'abovec' : abovec,
 			'prob_coeff' : self.session.config["probability_coefficient"],
+			'revenue' : self.session.config["revenue"],
+			'upkeep' : self.session.config["upkeep"],
 		}
 
 class OthersRound(Page):
@@ -257,6 +261,9 @@ class Results(Page):
 		if(self.player.participant.vars['funds'] < 0.00):
 			negative = True
 			currentFunds = currentFunds * -1.00
+		payoff = abs(self.player.payoff)
+		if(self.subsession.round_number == 1):
+			payoff -= 25
 		return {
 			'results': zip(names, costs),
 			'funds': currentFunds,
@@ -266,6 +273,7 @@ class Results(Page):
 			'total_cost': self.player.cost + c(self.session.config['upkeep']),
 			'monitoring' : self.session.config['monitoring'],
 			'neg' : negative,
+			'payoff' : payoff,
 		}
 
 #PLEDGING CLASSES BEGIN HERE

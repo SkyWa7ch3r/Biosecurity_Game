@@ -11,25 +11,25 @@
 
 	<div id="pagehead">
 		<img src="{% static "Lottery/uwalogo.png" %}"/>
-		<div class="title">Lottery Questions Period {{ subsession.round_number }} of {{ Constants.num_rounds }}</div>
+		<div class="title">Virtual Lottery Game Panel {{ subsession.round_number }} of {{ Constants.num_rounds }}</div>
 	</div>
 	
 	<div id="main">
 		<div class="top">
 			<div class="headings_row">
 				<div class="number_col">Game</div>
-				<div class="values_col">Balls:</div>
-				<div class="values_col">Balls:</div>
 				<div class="option_col">Prize:</div>
+				<div class="values_col">Balls:</div>
+				<div class="values_col">Balls:</div>
 				<div class="option_col">Prize:</div>
 				<div class="values_col">Balls:</div>
 				<div class="values_col">Balls:</div>
 			</div>
 			<div class="headings_row">
 				<div class="number_col">Number</div>
+				<div class="option_col"> A </div>
 				<div class="values_col"> {{ balls_a_r }} </div>
 				<div class="values_col"> {{ balls_a_w }} </div>
-				<div class="option_col"> A </div>
 				<div class="option_col"> B </div>
 				<div class="values_col"> {{ balls_b_r }} </div>
 				<div class="values_col"> {{ balls_b_w }} </div>
@@ -40,15 +40,15 @@
 				<div class="number_col">
 					{{ game_number|get_list_val:number }}
 				</div>
+				<div class="option_col">
+		        	<input id="submitted_answer_{{ number }}" type="radio" name="submitted_answer_{{ number }}" value="A" required>
+		        </div>
 			 	<div class="values_col"> ${{ a_values_r|get_list_val:number }} </div>
 				{% if subsession.round_number == 3 %}
 					<div class="values_col"> -${{ a_values_w|get_list_val:number }} </div>
 				{% else %}
 					<div class="values_col"> ${{ a_values_w|get_list_val:number }} </div>
 				{% endif %}
-			 	<div class="option_col">
-		        	<input id="submitted_answer_{{ number }}" type="radio" name="submitted_answer_{{ number }}" value="A" required>
-		        </div>
 		        <div class="option_col">
 		        	<input id="submitted_answer_{{ number }}" type="radio" name="submitted_answer_{{ number }}" value="B" required>
 		        </div>
@@ -138,7 +138,7 @@
     }
     #main .game_row .number_col, #main .headings_row .number_col
     {
-    	width: 33%;
+    	width: 20%;
     }
     #main .game_row .values_col, #main .headings_row .values_col
     {
@@ -146,7 +146,7 @@
     }
     #main .game_row .option_col, #main .headings_row .option_col
     {
-    	width:15%;
+    	width:20%;
     }
 	
     </style>

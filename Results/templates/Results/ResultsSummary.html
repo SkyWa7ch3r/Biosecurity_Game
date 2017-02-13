@@ -12,25 +12,41 @@
 	
 	<div id="resultBox">
 		<div id="resultText">
-			<p> Results for <strong> {{ name }} </strong>
-			<h2><strong> Lottery Summary </strong></h2>
+			<strong> {{ name }} </strong><br>
+			<i><b>Congratulations you have finished the experiment, Thank You for your participation!</b></i><br>
+			Your Results from both games are below, only the Biosecurity Game is subject to a conversion rate.<br>
+			<h3><strong> Virtual Lottery Game </strong></h3>
 			<p>
-				The paying round was {{ paying_round }}. <br>
-				The paying line was {{paying_line}}. <br>
-				The ball number was {{ ball_number }}. <br>
-				<br>
-				Your total pay-off for the Lottery Game is therefore {{ total_payoff }}.
+				<table border="5" cellpadding="5" cellspacing="5">
+					<tr>
+						<td><b>The Paying Game Panel</td></b>
+						<td>{{ paying_round }}</td>
+					</tr>
+					<tr>
+						<td><b>The Paying Game</td></b>
+						<td>{{paying_line}}</td>
+					</tr>
+					<tr>
+						<td><b>The Ball Number</td></b>
+						<td>{{ ball_number }}</td>
+					</tr>
+					<tr>
+						<td><b>Your Total winnings</td></b>
+						<td>${{ total_payoff }}</td>
+					</tr>
+				</table>
 			</p>
-			<h2><strong> Biosecurity Summary </strong></h2>
+			<h3><strong> Biosecurity Game </strong></h3>
 			<p>
-				Your total pay-off for the Biosecurity Game is {{ bio_funds }}
+				{% if neg %}
+					Your total pay-off for the Biosecurity Game is -${{ bio_funds }}
+				{% else %}
+					Your total pay-off for the Biosecurity Game is ${{ bio_funds }}
+				{% endif %}
 			</p>
 		</div>
 	<div>
 
-	<div id="nxtBtn">
-		{% next_button %}
-	</div>
 {% endblock %}
 
 {% block styles %}
@@ -72,12 +88,6 @@
 		margin-bottom: 1em;
 		margin: 2% 5% 2% 5%;
 	}
-	#nxtBtn
-	{
-		float:right;
-		margin-bottom: 100px;
-	}
 
-	
 </style>
 {% endblock %}

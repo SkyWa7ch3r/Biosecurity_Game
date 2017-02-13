@@ -5,43 +5,79 @@
 {% block content %}
 	<div id="pagehead">
 		<img src="{% static "Biosecurity/uwalogo.png" %}"/>
-		<div class="title">Biosecurity Instructions</div>
+		<div class="title">Biosecurity Game Instructions</div>
 	</div>
 
 	<div id="instructions">
 		<div id="instructText">
-			<h2><strong>Introduction</strong></h2>
-			<p> <strong>Hi, your name throughout the game will be <i>{{ name }}.</i></strong></p>
-			<p> Please read through these instructions carefully. If you have any questions please contact one of the administrators.
-				You are about to take part in an experiment about collective decision-making related to risky choices. This experiment gives you an opportunity to earn money. How much you earn depends partly on your decisions, partly on the decisions of others, and partly on chance. 	
-			<p>	
-				<strong>The Basics</strong> </br>
-				<p>
-				The game will consist of 15 rounds with multiple stages per round. You will start the game with ${{ starting_funds }}, each round you will need to pay
-				${{ upkeep }} for the production of the crops. In the case of there being no incursions from Biosecurity Threats, everyone will have a revenue of ${{ revenue }}
-				and the amount of protection you put towards Biosecurity Threats will be taken away from the revenue.</p>
-				The maximum amount of protection you can put towards Biosecurity Threats in each round is ${{ max_protection }}. In the case where an incursion occurs, everyone will lose the rounds crops and all revenue is lost,
-				resulting in a loss for that round. The loss will come from the production of crops and the amount of protection you provided those crops against the threat.
-				The chance of incursion will be decided from the amount of protection every group member decides to provide. Even if a majority of the group members provide
-				a relatively high amount of protection against biosecurity threats, an incursion may still occur due to the way the joint probability of incursion is calculated.
-				</p>
-				<p>
-				<i>How the Joint Probability is calculated:</i><br>
-				In a round where there are 2 players and each player contributes an effort of 90% towards protection against Biosecurity Threats 
-				to give a 90% chance that they're not the source of the incursion.<br>
-				Then<br>
-				Probability of Incursion = 1 - Player 1's Probability x Player 2's Probability<br>
-				Probability of Incursion = 1 - (0.9) x (0.9)<br>
-				Probability of Incursion = 1 - 0.81<br>
-				Probability of Incursion = 0.19 or 19%<br>
-				<br>
-				In another scenario, again with 2 players, 1 player contributes 90% and another player contributes 10%<br>
-				Probability of Incursion = 1 - (0.9) x (0.1)<br>
-				Probability of Incursion = 0.91 or 91%<br>
-				</p>
+			<p>
+				<u><h3><strong>Part 2: The Biosecurity Game</strong></h3></u>
 			</p>
 			<p>
-				<Strong>The Stages</strong>
+				Please read through these instructions carefully. If you have any questions please contact one of the experimenters. 
+				You are about to take part in an experiment about collective decision-making related to risky choices. This experiment gives you an opportunity to earn money. How much you earn depends partly on your decisions, partly on the decisions of others, and partly on chance. 
+			</p>
+			<p>
+				<u><i><strong>Your Anonymity</strong></i></u>
+			</p>
+			<p>
+				All decisions you make in the game are anonymous. To ensure this, a pseudonym is assigned to you by the computer. The pseudonym you have been assigned is <b>{{ name }}.</b>
+			</p>
+			<p>
+				<u><strong><i>Background Context</i></strong></u>
+			</p>
+			<p>
+				In this experiment, you are a farmer in a region with three other farmers (viz. your co-players in the game). Each season, your crop will generate revenue. You will receive this revenue in the seasons where there is no pest outbreak . When a pest outbreak occurs, the pest spreads quickly and infects all neighbouring farms, resulting in the loss of that season’s crop. You will generate no revenue in a season where a pest outbreak occurs.
+			</p>
+			<p>
+				At the start of each season, you must decide how much effort you will invest in protecting your crop against a pest outbreak. There is a financial cost associated with this effort—as the amount of effort you invest increases, so too does the cost of protection. You do not have to pay any cost if you choose to invest zero effort in protection. 
+			</p>
+			<p>		
+				The probability of a pest outbreak occurring is variable and depends on the amount of effort both you and your co-players invest in protection.  
+			</p>
+			<p>
+				<u><i><strong>The Game</i></strong></u>
+			</p>
+			<p>
+				The game consists of 15 playing rounds, with each round corresponding to a growing season. On each round, your crop will generate you potential revenue of ${{ revenue }}. You must also pay a ${{ upkeep }} production cost. This is the labour cost of producing your crop, which you have no control over. You can also choose the amount of effort and money that you wish to invest in protecting your crops against a pest outbreak. The amount of effort you may invest in protection varies between 0% (with a cost of $0) and 100% (with a cost of ${{ max_protection }}). 
+			</p>
+			<p>
+				If there is no pest outbreak you will receive your revenue of ${{ revenue }}, minus the ${{ upkeep }} cost of production and the cost of protection . For example, if you chose to invest 100% effort in protecting your crops then your cost of protection would be ${{ max_protection }}. Accordingly, your income for the round would be ${{ max_protection }}—viz.
+				<p>${{ revenue }} (revenue from crop) - ${{ upkeep }} (cost of production) - ${{ max_protection }} (cost of protection) = ${{ max_protection }}.</p>
+			</p>
+			<p>
+				If there is a pest outbreak each player’s crop revenue will be lost. Based on the above example, your income for the round would be -$15—viz.  
+				<p>$0 (revenue from crop) - ${{ upkeep }} (cost of production) - ${{ max_protection }} (cost of protection) = -${{ loss }}.</p>
+				<p>If you had contributed 0% effort in protecting your crops, with an associated cost of $0, then your income for the round would be -${{ upkeep }}—viz.</p>
+				<p>$0 (revenue from crops) - ${{ upkeep }} (cost of production) - $0 (cost of protection) = -${{ upkeep }}.</p>
+				As you can see, when there is a pest outbreak your income for the round will necessarily be negative, with the extent of your losses increasing with the amount of effort you invested in protection. 
+			</p>
+			<p>
+				Whether or not there is a pest outbreak on a round is based on a joint probability calculated on the amount of protection you and each of your group members decide to provide. How the joint probability is calculated  is illustrated in the following two examples:
+			</p>
+			<p>
+				Example 1: Imagine a round where there are 4 players and each player contributes an effort of 90% towards protection to give a 90% chance that each player is not the source of a pest outbreak. The joint probability of an outbreak is:
+			</p>
+			<p>
+				Probability of Outbreak = 1 - Player 1's Probability × Player 2's Probability × Player 3’s Probability × Player 4’s Probability<br>
+				Probability of Outbreak = 1 - (0.9) × (0.9) × (0.9) × (0.9)<br>
+				Probability of Outbreak = 1 - 0.66<br>
+				Probability of Outbreak = 0.34 or 34%
+			</p>
+			<p>
+				Example 2: Imagine another round, again with 4 players, where players 1, 2, and 3 contribute 90% and player 4 contributes 10%.  The joint probability of an outbreak is:
+			</p>
+			<p>
+				Probability of Outbreak = 1 - Player 1's Probability × Player 2's Probability × Player 3’s Probability × Player 4’s Probability<br>
+				Probability of Outbreak = 1 - (0.9) × (0.9) × (0.9) × (0.1)<br>
+				Probability of Outbreak = 1 – 0.07 <br>
+				Probability of Outbreak = 0.93 or 93%
+			</p>
+			<p>
+				As can be seen from these examples, the chance of a pest outbreak is determined based upon the amount of protection each group member provides. Even if all players provide a relatively high amount of effort toward protection, there is still a relatively high risk of a pest outbreak (e.g., Example 1). If most players provide a relatively high amount of effort toward protection, but just a single player provides a relatively low amount of effort toward protection, then there is a very high risk of a pest outbreak (e.g., Example 2). 
+			</p>
+			<p>
+				<Strong><i><u>The Stages</strong></i></u>
 			</p>
 				{% if dynamic_finances %}
 					<p>
@@ -50,14 +86,14 @@
 				{% endif %}
 				{% if pledge %}
 					<p>
-					<b><i>Group Pledging</b></i></br>
+					<b><i><u>Group Pledging</u></b></i></br>
 					In this stage, you will use a slider to decide an ideal target the group should strive for. This target is done on a scale of 0 - 100%, and represents
 					the chance of not having an incursion that the group should strive for. Once you and your group members have individually decided what you believe to
 					be an ideal target (the chance of no incursion as a group), everyone's ideal target will be taken into an equation, which will result in an overall
 					Group Target, the chance of no incursion that your group as a whole has decided to strive for.</br>
 					</p>
 					<p>
-					<b><i>Individual Pledging</b></i></br>
+					<b><i><u>Individual Pledging</u></b></i></br>
 					In this stage, you and your group members will see the Group Target. Using the slider you will pledge how much you will spend on protection against
 					Biosecurity Threats for the next {{ plooper }} rounds. This individual pledge will be shown in currency, below this will be a calculation
 					of probability that you will not be the source of the incursion based upon the amount of protection you are willing to provide.
@@ -68,21 +104,17 @@
 				{% endif %}
 				{% if Papproval %}
 					<p>
-					<b><i>Approval Based on Individual Pledges</b></i></br>
+					<b><i><u>Approval Based on Individual Pledges</u></b></i></br>
 					In this stage you will have the opportunity to show your approval of your group member's individual pledges as well as your own. The approval is done based
 					on a scale of -6 to 6.</br>-6 being Strongly Dissaprove</br>6 being Strongly Approve</br> The closer the number is to 6, the more you approve of that player's individual
 					pledge. On this page you will also be reminded of the Group Target to compare that with everybody's individual pledge.
 					</p>
 				{% endif %}
 				<p>
-					<b><i>Deciding Your Protection</b></i></br>
-					In this stage, using the slider, you will decide how much protection to provide against Biosecurity Threats.
-					Below the slider, it will show the cost of protection you're providing.
-					{% if calc %}
-						Below the cost of protection it will show the chance of you not being the source of incursion in accordance to how much
-						protection you are providing. To remind you, this game is based on <i>joint probability</i>, your individual probability is not an indicator of the
-						group's probability of incursion, even if other players do the same amount of protection.
-					{% endif %}
+					<b><i><u>Protection Decision Stage</u></b></i></br>
+					 In this stage, you will use a slider to indicate how much effort you want to invest in protecting your crops.
+					 For a given effort level, indicated by the position of the slider, you will be able to see the cost of protection and the associated probability that you will not be the source of a pest outbreak. 
+					 Remember, this game is based on joint probability—your individual probability is not an indicator of the group's probability of a pest outbreak, even if other players provide the same amount of protection. 
 					{% if dynamic_finances %}
 						The maximum amount of protection you can provide per round will be different. The revenue and the cost of production will also differ.
 					{% else %}
@@ -103,16 +135,15 @@
 					{% endif %}	
 				</p>
 				<p>
-					<b><i>The Results</b></i></br>
-					In this stage you will be reminded of the revenue, cost of production and the amount of protection you provided and whether an incursion occured.
+					<b><i><u>Outcome Feedback Stage</u></b></i></br>
+					In this stage you will receive feedback about whether or not there was an outbreak of pests, and your income for the round.
 					{% if monitoring %}
-						Alongside your own protection, you will also be shown how much protection everybody else provided. Pay attention to this carefully as it
-						will allow you to possibly figure out who was the source of the incursion, which could be helpful in other stages of the game.
+						You shall also receive feedback on how much protection other players provided.
 					{% endif %}
 				</p>
 					{% if Capproval %}
 						<p>
-						<b><i>Approval based On Contribution</b></i></br>
+						<b><i><u>Approval based On Contribution</u></b></i></br>
 						This stage will show up every {{ clooper }} rounds. It will show the results from the last {{ clooper }} rounds, the results will include
 						the Group Target, everybody's individual pledges and the amount protection they provided from the last {{ clooper }} rounds. With this information, you will
 						decide your approval of that player on a scale of -6 to 6.</br>
@@ -122,14 +153,15 @@
 						of everyone's approval of that player, and the Group's Approval of each player will be displayed in the Deciding Your Protection Stage.
 						</p>
 					{% endif %}
-			<br>
-			<h2><strong>Other Notes</strong></h2>
-			<p>
-				<strong>Your Payout</strong> </br>
-				At the end of the experiment, you will be paid any revenue generated during the biosecurity game, subject to a conversion rate. The conversion rate is decided by the facilitator.
-			</p>
-			<strong>Anonymity</strong><br>
-			<p><i>Please do not communicate to any of your group members during the game unless the game specifically allows it. This game needs to be played anonymously</i></p>
+				<p>
+					<i><u><strong>Your Payout</strong></i></u>
+				</p>
+				<p>
+					At the end of the experiment, you will be paid your show-up fee of $10, in addition to any revenue generated during the biosecurity game, subject to a conversion rate. The conversion rate is your revenue earned × 0.1. For example, if your revenue earned was $300 then you would be paid 300 × 0.1 = $30 in addition to your show-up fee, taking your total earnings to $40.
+				</p>
+				<p>
+					<i>Important note</i>: any losses incurred in the game will be deducted from your show-up fee. For example, if your total account balance at the end of the game was -$60 then you would be paid 10 – (60 × 0.10) = $4. If the losses incurred in the game are equal to or greater than the show-up fee then you will leave the experiment empty handed.
+				</p>
 		</div>
 	</div>
 	<div id="nxtBtn">

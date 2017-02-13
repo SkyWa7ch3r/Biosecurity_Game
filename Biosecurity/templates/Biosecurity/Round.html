@@ -4,14 +4,14 @@
 {% block content %}
 	<div id="pagehead">
 		<img src="{% static "Biosecurity/uwalogo.png" %}"/>
-		<div class="title">Biosecurity Game Round {{ subsession.round_number }} of {{ Constants.num_rounds }}</div>
+		<div class="title">Protection Decision Stage Round: {{ subsession.round_number }} of {{ Constants.num_rounds }}</div>
 	</div>
 	
 	<div class="farm_pic"><img src="{% static "Biosecurity/farm_back.png" %}"/></div>
 	
 	<br></br>
 	<div id="roundText">
-		<p><strong>Hello {{ player_name }}</strong></p>
+		<p><strong>{{ player_name }}</strong></p>
 		{% if pledge %}
 			<p>Rounds till the next pledge: <b>{{ next_pledge }}</b></p>
 			{% if Capproval and not cont_TF %}
@@ -51,12 +51,16 @@
 		{% endif %}
 		<p>
 		Your current funds are: ${{ funds }} </br>
-		How much would you like to spend to protect your crops?
+		Revenue from crop: ${{ revenue }} <br>
+		Cost of production: ${{ upkeep }} <br>
+		</p>
+		<p>
+		How much effort do you want to invest in protecting your crops?
 		</p>
 	
 		<div id="Calculator">
 			
-			<p>Please drag the slider to adjust the amount of money you wish to spend:</p>
+			<p>Please adjust the slider to indicate the amount of money you want to spend on protection:</p>
 		
 			<!--Slider with a range from 0 to a value set by an admin (max_protection). When the value is altered by the player, the cost and probabillity values are recalculated and displayed-->
 			<input id="numb" input type="range" name="cost" min="0" max= "{{max_protection}}" step="0.01" value="0" onchange="printCosts({{cost_factor}},{{prob_coeff}})">

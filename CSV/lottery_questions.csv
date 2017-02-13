@@ -1,6 +1,6 @@
 id,question,#choices,#correct,choice1,choice2,choice3,choice4,choice5
-1,How many balls are randomly selected for each game?,3,1,1,2,3,,
-2,How many games are paid out on in the end?,4,2,0,1,2,3,
-3,Imagine you have selected A for games 1-5 in a round and then select B for round 6. What must you select for the rest of the remaining rounds?,3,2,Select A or B for all the remaining games,Only select B for the remaining games,Only select A for the remaining games,,
-4,How is the paying round and ball selected?,3,2,It's set the same every time,It is random,The experiment coordinator chooses it,,
-5,"If you select Prize A and Balls 1-3 will earn you $40, what is the chance you win $40 if this game is the paying game.",4,4,50%,25%,10%,33%,
+1,How many balls will be randomly picked to determine which of the 35 games will be played? ,3,1,1,2,3,,
+2,How many paying games will there be (viz. games in which you can earn money)? ,3,1,1,2,3,,
+3,Imagine you have selected A for games 1-5 in a play panel and then select B for game 6 in the same play panel. What must you select for the rest of the games within this play panel? ,3,2,Select A or B for all the remaining games,Only select B for the remaining games,Only select A for the remaining games,,
+4,How is the paying game and ball selected? ,3,2,They are set the same every time,They are chosen at random,The experimenter chooses them,,
+5,"If you select Prize A and Balls 1-3 will earn you $40, what is the chance you win $40 if this game is the paying game?",4,4,50%,25%,10%,33%,

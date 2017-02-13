@@ -28,7 +28,7 @@ class Constants(BaseConstants):
 		values = list(csv.DictReader(f))
 	with open('CSV/lottery_questions.csv') as f:
 		lottery_questions = list(csv.DictReader(f))
-	with open('CSV/questioner_data.csv') as f:
+	with open('CSV/questioner_data_grace.csv') as f:
 		questioner_list = list(csv.DictReader(f))
 
 	# lottery_rounds defines how many lottery rounds there are
@@ -112,6 +112,4 @@ class Player(BasePlayer):
 	questioner_13 = returnFormField(12)
 	questioner_14 = returnFormField(13)
 	questioner_15 = returnFormField(14)
-	questioner_16 = returnFormField(15)
-	questioner_17 = returnFormField(16)
 	
