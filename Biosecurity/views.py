@@ -241,6 +241,7 @@ class Results(Page):
 	independant of outcome.
 	"""
 	def vars_for_template(self):
+		timeout_seconds = 60
 		results = []
 		negative = False
 		currentFunds = self.player.participant.vars['funds']

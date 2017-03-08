@@ -83,7 +83,7 @@ class ResultsWaitPage(WaitPage):
 	# A wait page displayed when required 
 class EndGame(WaitPage):
 	def is_displayed(self):
-		return self.subession.round_number == Constants.num_rounds
+		return self.subsession.round_number == Constants.num_rounds
 
 # Specify the sequence of the app
 page_sequence = [

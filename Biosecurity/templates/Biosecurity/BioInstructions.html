@@ -21,7 +21,7 @@
 				<u><i><strong>Your Anonymity</strong></i></u>
 			</p>
 			<p>
-				All decisions you make in the game are anonymous. To ensure this, a pseudonym is assigned to you by the computer. The pseudonym you have been assigned is <b>{{ name }}.</b>
+				All decisions you make in the game are anonymous. To ensure this, a pseudonym is assigned to you by the computer. The anonymous name you have been assigned is <b>{{ name }}.</b>
 			</p>
 			<p>
 				<u><strong><i>Background Context</i></strong></u>
@@ -74,7 +74,13 @@
 				Probability of Outbreak = 0.93 or 93%
 			</p>
 			<p>
-				As can be seen from these examples, the chance of a pest outbreak is determined based upon the amount of protection each group member provides. Even if all players provide a relatively high amount of effort toward protection, there is still a relatively high risk of a pest outbreak (e.g., Example 1). If most players provide a relatively high amount of effort toward protection, but just a single player provides a relatively low amount of effort toward protection, then there is a very high risk of a pest outbreak (e.g., Example 2). 
+				As can be seen from these examples, the chance of a pest outbreak is determined based upon the amount of protection each group member provides. 
+				Even if all players provide a relatively high amount of effort toward protection, there is still a relatively high risk of a pest outbreak (e.g., Example 1). 
+				If most players provide a relatively high amount of effort toward protection, but just a single player provides a relatively low amount of effort toward protection, 
+				then there is a very high risk of a pest outbreak (e.g., Example 2).<br>
+				<b>In Summary:<br>
+				The weakest link of the group will dramatically increase the group's chance of a pest outbreak (e.g., Example 2).<br>
+				The chance of a pest outbreak is completely determined by you and your group's actions.</b>
 			</p>
 			<p>
 				<Strong><i><u>The Stages</strong></i></u>
@@ -138,7 +144,9 @@
 					<b><i><u>Outcome Feedback Stage</u></b></i></br>
 					In this stage you will receive feedback about whether or not there was an outbreak of pests, and your income for the round.
 					{% if monitoring %}
-						You shall also receive feedback on how much protection other players provided.
+						<b>You shall also receive feedback on how much protection other players provided.</b>
+					{% else %}
+						<b>You will not receive feedback on how much protection other players provided, only whether there was an outbreak of pests or not.</b>
 					{% endif %}
 				</p>
 					{% if Capproval %}
