@@ -13,17 +13,26 @@
 		<img src="{% static "Lottery/uwalogo.png" %}"/>
 		<div class="title">Virtual Lottery Game Panel {{ subsession.round_number }} of {{ Constants.num_rounds }}</div>
 	</div>
-	
+	<div id="Instructions">
+		<p>
+			This is <b>PLAY PANEL {{ subsession.round_number }}</b> containing games <b>{{ start_game }} to {{end_game}}</b>.<br>
+			You can now select Option A again, regardless of what you did in the Previous PLAY PANEL<br>
+			Once you have selected Option B, you must select B for the rest of the PLAY PANEL.<br>
+			The instructions on how to play the game are below the options for your convenience.<br>
+			The Game Number is displayed on the left.<br>
+			Each Option's Chance of Winning is displayed to the right of the Option.<br>
+			The Chances apply to the entire column underneath it.
+	</div>
 	<div id="main">
 		<div class="top">
 			<div class="headings_row">
 				<div class="number_col">Game</div>
-				<div class="option_col">Prize:</div>
-				<div class="values_col">Balls:</div>
-				<div class="values_col">Balls:</div>
-				<div class="option_col">Prize:</div>
-				<div class="values_col">Balls:</div>
-				<div class="values_col">Balls:</div>
+				<div class="option_col">Option:</div>
+				<div class="values_col">Chance:</div>
+				<div class="values_col">Chance:</div>
+				<div class="option_col">Option:</div>
+				<div class="values_col">Chance:</div>
+				<div class="values_col">Chance:</div>
 			</div>
 			<div class="headings_row">
 				<div class="number_col">Number</div>
@@ -117,9 +126,11 @@
     	display: inline-block;
     	float: left;
     	width: 100%;
+		padding-top: 1em;
     	padding-bottom: 1em;
     	margin-bottom: 1em;
     	border-bottom: 1px solid black;
+		border-top: 1px solid black;
     }
     #main .game_row, #main .headings_row
     {
@@ -148,7 +159,10 @@
     {
     	width:20%;
     }
-	
+	#Instructions
+	{
+		font-size: 1.25em;
+	}
     </style>
 {% endblock %}
 

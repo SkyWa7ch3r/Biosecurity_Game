@@ -1,6 +1,6 @@
 from otree.api import (
-    models, widgets, BaseConstants, BaseSubsession, BaseGroup, BasePlayer,
-    Currency as c, currency_range, safe_json
+	models, widgets, BaseConstants, BaseSubsession, BaseGroup, BasePlayer,
+	Currency as c, currency_range, safe_json
 )
 from django.core.exceptions import ValidationError
 
@@ -87,188 +87,188 @@ get_form_fields methods pass the form specifications to be displayed
 
 
 class Constants(BaseConstants):
-    name_in_url = 'lottery'
-    players_per_group = None
-    lottery_instructions_template = 'lottery/LotteryInstructionsShort.html'
+	name_in_url = 'lottery'
+	players_per_group = None
+	lottery_instructions_template = 'lottery/LotteryInstructionsShort.html'
 
-    # open the csv files
-    with open('CSV/lottery_data.csv') as f:
-        values = list(csv.DictReader(f))
-    with open('CSV/lottery_questions.csv') as f:
-        lottery_questions = list(csv.DictReader(f))
+	# open the csv files
+	with open('CSV/lottery_data.csv') as f:
+		values = list(csv.DictReader(f))
+	with open('CSV/lottery_questions.csv') as f:
+		lottery_questions = list(csv.DictReader(f))
 
-    # lottery_rounds defines how many lottery rounds there are
-    lottery_rounds = 1
+	# lottery_rounds defines how many lottery rounds there are
+	lottery_rounds = 1
 
-    # round_lengths defines how many games there are in each lottery round
-    round_lengths = [0]
+	# round_lengths defines how many games there are in each lottery round
+	round_lengths = [0]
 
-    # read the csv file to find lottery_rounds and round_lengths
-    size = 0
-    for i in range(0, len(values)):
-        if lottery_rounds != int(values[i]['lottery_round']):
-            round_lengths.append(size)
-            lottery_rounds += 1
-        size += 1
-    round_lengths.append(size)
+	# read the csv file to find lottery_rounds and round_lengths
+	size = 0
+	for i in range(0, len(values)):
+		if lottery_rounds != int(values[i]['lottery_round']):
+			round_lengths.append(size)
+			lottery_rounds += 1
+		size += 1
+	round_lengths.append(size)
 
-    # how many lottery rounds there are
-    num_rounds = lottery_rounds
-    
-    # automatically determines the number of questions in the lottery_questions.csv
-    num_lotery_questions = len(lottery_questions)
+	# how many lottery rounds there are
+	num_rounds = lottery_rounds
+	
+	# automatically determines the number of questions in the lottery_questions.csv
+	num_lotery_questions = len(lottery_questions)
 
-    # questioner_rounds = int(len(questioner_list) / 10)
-    # last_questioner_number = len(questioner_list) % 10
+	# questioner_rounds = int(len(questioner_list) / 10)
+	# last_questioner_number = len(questioner_list) % 10
 
 
 class Subsession(BaseSubsession):
-    def before_session_starts(self):
-        if self.round_number == 1:
-            # Select a random round
-            paying_round = random.randint(1, Constants.num_rounds)
-            #n must be in the range of 1 to 3
-            #paying_round = n
-            self.session.vars['paying_round'] = paying_round
+	def before_session_starts(self):
+		if self.round_number == 1:
+			# Select a random round
+			paying_round = random.randint(1, Constants.num_rounds)
+			#n must be in the range of 1 to 3
+			#paying_round = n
+			self.session.vars['paying_round'] = paying_round
 
-            # Select a random ball
-            ball_number = random.randint(1, 10)
-            #n must be in the range of 1 to 10
-            #ball_number = n
-            self.session.vars['ball_number'] = ball_number
+			# Select a random ball
+			ball_number = random.randint(1, 10)
+			#n must be in the range of 1 to 10
+			#ball_number = n
+			self.session.vars['ball_number'] = ball_number
 
-            # GROUP LOGIC STARTS HERE
-            # ppg = player_per_group
-            ppg = self.session.config['players_per_group']
-            # list_of_groups is the the list of each group list e.g. [ [p1, p2], [p3, p4] ] if ppg == 2 and np == 4
-            list_of_groups = []
-            # The list of players is list of all the player ID's in the session
-            list_of_players = []
-            for p in self.get_players():
-                list_of_players.append(p.id_in_group)
-            # np = number of players
-            np = len(self.get_players())
-            i = 0
-            while i < np:
-                # get a list of the players going from the ith index to i + ppg - 1 and add that to the list of the groups
-                list_of_groups.append(list_of_players[i: i + ppg])
-                # iterate the i
-                i = i + ppg
-            num_groups = len(list_of_groups)
-            # If the number of players is not a multiple of player per group
-            if np % ppg != 0:
-                # iterate through the list of groups
-                for i in range(num_groups):
-                    # if the last group is full, do not continue
-                    if len(list_of_groups[-1]) == ppg:
-                        break
-                    # Get the player to remove
-                    player = list_of_groups[i][-1]
-                    # remove the player
-                    del list_of_groups[i][-1]
-                    # add the player to the last group
-                    list_of_groups[-1].append(player)
-            # finalise the group matchings ready for game and store the matrix
-            self.set_group_matrix(list_of_groups)
-            self.session.vars['matrix'] = list_of_groups
+			# GROUP LOGIC STARTS HERE
+			# ppg = player_per_group
+			ppg = self.session.config['players_per_group']
+			# list_of_groups is the the list of each group list e.g. [ [p1, p2], [p3, p4] ] if ppg == 2 and np == 4
+			list_of_groups = []
+			# The list of players is list of all the player ID's in the session
+			list_of_players = []
+			for p in self.get_players():
+				list_of_players.append(p.id_in_group)
+			# np = number of players
+			np = len(self.get_players())
+			i = 0
+			while i < np:
+				# get a list of the players going from the ith index to i + ppg - 1 and add that to the list of the groups
+				list_of_groups.append(list_of_players[i: i + ppg])
+				# iterate the i
+				i = i + ppg
+			num_groups = len(list_of_groups)
+			# If the number of players is not a multiple of player per group
+			if np % ppg != 0:
+				# iterate through the list of groups
+				for i in range(num_groups):
+					# if the last group is full, do not continue
+					if len(list_of_groups[-1]) == ppg:
+						break
+					# Get the player to remove
+					player = list_of_groups[i][-1]
+					# remove the player
+					del list_of_groups[i][-1]
+					# add the player to the last group
+					list_of_groups[-1].append(player)
+			# finalise the group matchings ready for game and store the matrix
+			self.set_group_matrix(list_of_groups)
+			self.session.vars['matrix'] = list_of_groups
 
-            # Select a random game
-            paying_line = random.randint(1, Constants.round_lengths[paying_round] - Constants.round_lengths[
-                paying_round - 1])
-            #n must be within the range of 1 to 14 for rounds 1 or 2 and in the range of 1 to 5 for round 3
-            #paying_line = n
-            self.session.vars['paying_line'] = paying_line
+			# Select a random game
+			if(paying_round is not 1):
+				paying_line = random.randint(1, Constants.round_lengths[paying_round] - Constants.round_lengths[
+					paying_round - 1])
+			else:
+				#Since on the first play panel the games 8-14 are too high paying given university budget, we cannot allow them in.
+				paying_line = random.randint(1, 7)
+			#n must be within the range of 1 to 14 for rounds 1 or 2 and in the range of 1 to 5 for round 3
+			#paying_line = n
+			self.session.vars['paying_line'] = paying_line
 
 class Group(BaseGroup):
-    pass
+	pass
 
 #check_correct is used for validating that the user selected the correct answer for the pre lottery quiz
 def check_correct(correct_value):
-    def compare(slected_value):
-        if not (correct_value == slected_value):
-            raise ValidationError('Incorrect')
+	def compare(slected_value):
+		if not (correct_value == slected_value):
+			raise ValidationError('Incorrect')
 
-    return compare
+	return compare
 
 
 class Player(BasePlayer):
-    # read the pre-lottery question of the csv file
-    def returnLotteryFormField(qn):
-        matrix = []
-        for num in range(1, int(Constants.lottery_questions[qn]['#choices']) + 1):
-            matrix.append(Constants.lottery_questions[qn]['choice{}'.format(num)])
-        return models.CharField(choices=matrix, verbose_name=Constants.lottery_questions[qn]['question'],
-                                widget=widgets.RadioSelect(),
-                                validators=[check_correct(Constants.lottery_questions[qn]['choice{}'.format(
-                                    int(Constants.lottery_questions[qn]['#correct']))])])
-    # Add lottery questions here 
-    lottery_question_1 = returnLotteryFormField(0)
-    lottery_question_2 = returnLotteryFormField(1)
-    lottery_question_3 = returnLotteryFormField(2)
-    lottery_question_4 = returnLotteryFormField(3)
-    lottery_question_5 = returnLotteryFormField(4)
+	# read the pre-lottery question of the csv file
+	def returnLotteryFormField(qn):
+		matrix = []
+		for num in range(1, int(Constants.lottery_questions[qn]['#choices']) + 1):
+			matrix.append(Constants.lottery_questions[qn]['choice{}'.format(num)])
+		return models.CharField(choices=matrix, verbose_name=Constants.lottery_questions[qn]['question'],
+								widget=widgets.RadioSelect(),
+								validators=[check_correct(Constants.lottery_questions[qn]['choice{}'.format(
+									int(Constants.lottery_questions[qn]['#correct']))])])
+	# Add lottery questions here 
+	lottery_question_1 = returnLotteryFormField(0)
+	lottery_question_2 = returnLotteryFormField(1)
+	lottery_question_3 = returnLotteryFormField(2)
+	lottery_question_4 = returnLotteryFormField(3)
+	lottery_question_5 = returnLotteryFormField(4)
 
-    # stores players responses to the lottery games
-    submitted_answer_1 = models.CharField(choices=['A', 'B'], widget=widgets.RadioSelectHorizontal())
-    submitted_answer_2 = models.CharField(choices=['A', 'B'], widget=widgets.RadioSelectHorizontal())
-    submitted_answer_3 = models.CharField(choices=['A', 'B'], widget=widgets.RadioSelectHorizontal())
-    submitted_answer_4 = models.CharField(choices=['A', 'B'], widget=widgets.RadioSelectHorizontal())
-    submitted_answer_5 = models.CharField(choices=['A', 'B'], widget=widgets.RadioSelectHorizontal())
-    submitted_answer_6 = models.CharField(choices=['A', 'B'], widget=widgets.RadioSelectHorizontal())
-    submitted_answer_7 = models.CharField(choices=['A', 'B'], widget=widgets.RadioSelectHorizontal())
-    submitted_answer_8 = models.CharField(choices=['A', 'B'], widget=widgets.RadioSelectHorizontal())
-    submitted_answer_9 = models.CharField(choices=['A', 'B'], widget=widgets.RadioSelectHorizontal())
-    submitted_answer_10 = models.CharField(choices=['A', 'B'], widget=widgets.RadioSelectHorizontal())
-    submitted_answer_11 = models.CharField(choices=['A', 'B'], widget=widgets.RadioSelectHorizontal())
-    submitted_answer_12 = models.CharField(choices=['A', 'B'], widget=widgets.RadioSelectHorizontal())
-    submitted_answer_13 = models.CharField(choices=['A', 'B'], widget=widgets.RadioSelectHorizontal())
-    submitted_answer_14 = models.CharField(choices=['A', 'B'], widget=widgets.RadioSelectHorizontal())
+	# stores players responses to the lottery games
+	submitted_answer_1 = models.CharField(choices=['A', 'B'], widget=widgets.RadioSelectHorizontal())
+	submitted_answer_2 = models.CharField(choices=['A', 'B'], widget=widgets.RadioSelectHorizontal())
+	submitted_answer_3 = models.CharField(choices=['A', 'B'], widget=widgets.RadioSelectHorizontal())
+	submitted_answer_4 = models.CharField(choices=['A', 'B'], widget=widgets.RadioSelectHorizontal())
+	submitted_answer_5 = models.CharField(choices=['A', 'B'], widget=widgets.RadioSelectHorizontal())
+	submitted_answer_6 = models.CharField(choices=['A', 'B'], widget=widgets.RadioSelectHorizontal())
+	submitted_answer_7 = models.CharField(choices=['A', 'B'], widget=widgets.RadioSelectHorizontal())
+	submitted_answer_8 = models.CharField(choices=['A', 'B'], widget=widgets.RadioSelectHorizontal())
+	submitted_answer_9 = models.CharField(choices=['A', 'B'], widget=widgets.RadioSelectHorizontal())
+	submitted_answer_10 = models.CharField(choices=['A', 'B'], widget=widgets.RadioSelectHorizontal())
+	submitted_answer_11 = models.CharField(choices=['A', 'B'], widget=widgets.RadioSelectHorizontal())
+	submitted_answer_12 = models.CharField(choices=['A', 'B'], widget=widgets.RadioSelectHorizontal())
+	submitted_answer_13 = models.CharField(choices=['A', 'B'], widget=widgets.RadioSelectHorizontal())
+	submitted_answer_14 = models.CharField(choices=['A', 'B'], widget=widgets.RadioSelectHorizontal())
 
-    # player_submits holds selected values in the playing round in a list that can be itterated over
-    def set_submits(self):
-        if self.subsession.round_number == self.session.vars['paying_round']:
-            self.player_submits = []
-            self.player_submits.append(self.in_round(self.round_number).submitted_answer_1)
-            self.player_submits.append(self.in_round(self.round_number).submitted_answer_2)
-            self.player_submits.append(self.in_round(self.round_number).submitted_answer_3)
-            self.player_submits.append(self.in_round(self.round_number).submitted_answer_4)
-            self.player_submits.append(self.in_round(self.round_number).submitted_answer_5)
-            self.player_submits.append(self.in_round(self.round_number).submitted_answer_6)
-            self.player_submits.append(self.in_round(self.round_number).submitted_answer_7)
-            self.player_submits.append(self.in_round(self.round_number).submitted_answer_8)
-            self.player_submits.append(self.in_round(self.round_number).submitted_answer_9)
-            self.player_submits.append(self.in_round(self.round_number).submitted_answer_10)
-            self.player_submits.append(self.in_round(self.round_number).submitted_answer_11)
-            self.player_submits.append(self.in_round(self.round_number).submitted_answer_12)
-            self.player_submits.append(self.in_round(self.round_number).submitted_answer_13)
-            self.player_submits.append(self.in_round(self.round_number).submitted_answer_14)
+	# player_submits holds selected values in the playing round in a list that can be itterated over
+	def set_submits(self):
+		if self.subsession.round_number == self.session.vars['paying_round']:
+			self.player_submits = []
+			self.player_submits.append(self.in_round(self.round_number).submitted_answer_1)
+			self.player_submits.append(self.in_round(self.round_number).submitted_answer_2)
+			self.player_submits.append(self.in_round(self.round_number).submitted_answer_3)
+			self.player_submits.append(self.in_round(self.round_number).submitted_answer_4)
+			self.player_submits.append(self.in_round(self.round_number).submitted_answer_5)
+			self.player_submits.append(self.in_round(self.round_number).submitted_answer_6)
+			self.player_submits.append(self.in_round(self.round_number).submitted_answer_7)
+			self.player_submits.append(self.in_round(self.round_number).submitted_answer_8)
+			self.player_submits.append(self.in_round(self.round_number).submitted_answer_9)
+			self.player_submits.append(self.in_round(self.round_number).submitted_answer_10)
+			self.player_submits.append(self.in_round(self.round_number).submitted_answer_11)
+			self.player_submits.append(self.in_round(self.round_number).submitted_answer_12)
+			self.player_submits.append(self.in_round(self.round_number).submitted_answer_13)
+			self.player_submits.append(self.in_round(self.round_number).submitted_answer_14)
 
-    def set_payoff(self):
-        lround = self.session.vars['paying_round']
-        line = self.session.vars['paying_line'] - 1
-        ball = self.session.vars['ball_number']
-        
-        # read the range of balls for each round
-        a_best_ball_range = Constants.values[Constants.round_lengths[1]]['a_best_ball_range']
-        a_best_ball_range = a_best_ball_range.split('-')
-        a_worst_ball_range = Constants.values[Constants.round_lengths[1]]['a_worst_ball_range']
-        a_worst_ball_range = a_worst_ball_range.split('-')
-        b_best_ball_range = Constants.values[Constants.round_lengths[1]]['b_best_ball_range']
-        b_best_ball_range = b_best_ball_range.split('-')
-        b_worst_ball_range = Constants.values[Constants.round_lengths[1]]['b_worst_ball_range']
-        b_worst_ball_range = b_worst_ball_range.split('-')
+	def set_payoff(self):
+		lround = self.session.vars['paying_round']
+		line = self.session.vars['paying_line'] - 1
+		ball = self.session.vars['ball_number']
+		
+		# read the range of balls for each round
+		a_best_ball_range = Constants.values[Constants.round_lengths[1]]['a_best_ball_range']
+		a_worst_ball_range = Constants.values[Constants.round_lengths[1]]['a_worst_ball_range']
+		b_best_ball_range = Constants.values[Constants.round_lengths[1]]['b_best_ball_range']
+		b_worst_ball_range = Constants.values[Constants.round_lengths[1]]['b_worst_ball_range']
 
-        # read the value selected by the player
-        if self.round_number == lround:
-            if self.player_submits[line] == 'A':
-                if ball >= int(a_best_ball_range[0]) and ball < int(a_worst_ball_range[0]):
-                    self.payoff = c(Constants.values[Constants.round_lengths[lround - 1] + line]['a_best'])
-                else:
-                    self.payoff = c(Constants.values[Constants.round_lengths[lround - 1] + line]['a_worst'])
-            else:
-                if ball >= int(b_best_ball_range[0]) and ball < int(b_worst_ball_range[0]):
-                    self.payoff = c(Constants.values[Constants.round_lengths[lround - 1] + line]['b_best'])
-                else:
-                    self.payoff = c(Constants.values[Constants.round_lengths[lround - 1] + line]['b_worst'])
-        else:
-            self.payoff = c(0)
+		# read the value selected by the player
+		if self.round_number == lround:
+			if self.player_submits[line] == 'A':
+				if ball >= int(a_best_ball_range[0]) and ball < int(a_worst_ball_range[0]):
+					self.payoff = c(Constants.values[Constants.round_lengths[lround - 1] + line]['a_best'])
+				else:
+					self.payoff = c(Constants.values[Constants.round_lengths[lround - 1] + line]['a_worst'])
+			else:
+				if ball >= int(b_best_ball_range[0]) and ball < int(b_worst_ball_range[0]):
+					self.payoff = c(Constants.values[Constants.round_lengths[lround - 1] + line]['b_best'])
+				else:
+					self.payoff = c(Constants.values[Constants.round_lengths[lround - 1] + line]['b_worst'])
+		else:
+			self.payoff = c(0)

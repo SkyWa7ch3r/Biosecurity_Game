@@ -12,33 +12,66 @@
 		<div id="instructText">
 			<p>
 				<h3><strong><u>Part 1: Virtual Lottery Game</u></strong></h3>
-				<p>Imagine you are taking part in a virtual lottery game where you have a choice between playing for the money amounts in Prize A or Prize B.</p>
-				The following PLAY PANELS contain the odds of each Prize for each game. The default choice is Prize A for each game.
-				If you find the odds in Prize B more appealing at any given game, you can switch to Prize B.
-				However, once you’ve switched to Prize B, you cannot go back to Prize A for the rest of the PLAY PANEL.
-				<br><br>
-				You will be given three PLAY PANELS.
+				<p>Imagine you are taking part in a virtual lottery game where you have a choice between playing for the money amounts in options A or B.</p>
+				The following PLAY PANELS contain the odds of each option for each game. The default choice is option A for each game.
+				If you find the odds in option B more appealing at any given game, you can switch to option B.
+				However, once you’ve switched to option B, you cannot go back to option A for the rest of the PLAY PANEL.
 			</p>
 			<p>
 				<strong><u><h3>How the Game works</u></strong></h3>
-				Thirty-five balls (numbered 1-35) will be put into a virtual bingo cage and one ball will be randomly picked.
+				There are a total of 35 Games, 3 Play Panels and two options, A or B.
 			</p>
 			<p>
-				This numbered ball will correspond to the GAME NUMBER in one of your PLAY PANELS and determines which out of the 35 games will be played.
+				In order to determine what prize what shall receive from the Lottery Game, the game randomly chooses one PLAY PANEL of the possible three.
+				The number of the PLAY PANEL will be shown at the top of the page under the heading "Virtual Lottery Game Panel X of 3", X being the PLAY PANEL number. 
 			</p>
 			<p>
-				All balls are then removed from the bingo cage and ten balls (numbered 1-10) are put back in. The next ball that is picked determines how much money you win (or lose).
+				After randomly choosing a PLAY PANEL, from this PLAY PANEL it will randomly choose <b>one</b> of the games inside that PLAY PANEL. This will be your <b>paying game</b>.
+				The Game Number is shown the left hand side of each panel. 
 			</p>
 			<p>
-				For example, if GAME NUMBER 7 was randomly selected out of the 35 games, and you chose Prize A for that game, you will win
-			</p>
-				- $40 if the ball number is between 1 and 3, or<br>
-				- $10 if the ball number is between 4 and 10.
+				For each game you will have an option of A or B. A number will be chosen between 1 and 10 (including 1 and 10), 
+				it is this number that will determine your prize based on the option you chose.
 			</p>
 			<p>
-				<p>If you chose Prize B, you will win</p>
-				- $150 if the ball number is 1, or<br>
-				- $5 if the ball number is between 2 and 10.
+				The Chance of you winning the said prize for each option (A or B) is displayed the right hand side of each option given in terms of probability.
+			</p>
+			<p>
+				For example, Look at the image below:
+			</p>
+				<img height="150" width="800" src="{% static "Lottery/lottery.jpg" %}"/>
+			</p>
+			<p>
+				In this scenario a PLAY PANEL was chosen with Games 1 to 3.<br>
+				The Game Number that was randomly chosen as the paying game was <b>2</b>.
+			</p>
+			<p>
+				For Game <b>2</b>, you have (just like every game) two options:<br>
+				Option <b>A</b>, which has a <i>30%</i> of you winning $40 and a <i>70%</i> of winning $10.<br> 
+				Option <b>B</b>, which has a <i>10%</i> of you winning $75 and a <i>90%</i> of winning $5.
+			</p>
+			<p>
+				The Game chooses a random number between 1 and 10 (including 1 and 10).
+			</p>
+			<p>
+				If you had chosen Option A, then<br>
+				If the randomly chosen number had been 1 to 3, you would have won $40<br>
+				If the randomly chosen number had been 4 to 10, you would have won $10
+			</p>
+			<p>
+				If you had chosen Option B, then<br>
+				If the randomly chosen number had been 1, you would have won $75<br>
+				If the randomly chosen number had been 2 to 10, you would have won $5
+			</p>
+			<p>
+				<strong>In your game:</strong><br>
+				PLAY PANEL 1 of 3 will have games 1 to 14.<br>
+				PLAY PANEL 2 of 3 will have games 15 to 28.<br>
+				PLAY PANEL 3 of 3 will have games 29 to 35.<br>
+				For every <b>new</b> PLAY PANEL you're allowed to select Option A again, regardless of which game (and all the games below that) you selected as Option B in the previous PLAY PANEL.<br>
+				The instructions will be below each PLAY PANEL for your convenience, in the case you need to read them again.<br>
+				One final note, watch out, <b>you may lose money in this Virtual Lottery Game</b>.<br>
+				<b><i>Good Luck!</i></b>
 			</p>
 		</div>
 	</div>
@@ -92,6 +125,5 @@
 		float:right;
 		margin-bottom: 100px;
 	}
-	
 </style>
 {% endblock %}
