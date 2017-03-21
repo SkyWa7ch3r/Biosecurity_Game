@@ -1,0 +1,58 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+{% load otreechat %}
+
+{% block title %}Chat Stage: {{ subsession.round_number }} of {{ Constants.num_rounds }}{% endblock %}
+
+{% block content %}
+
+	<div id="pagehead">
+		<img src="{% static "Biosecurity/uwalogo.png" %}"/>
+		<div class="title">Chat Stage: {{ subsession.round_number }} of {{ Constants.num_rounds }}</div>
+	</div>
+	<i><b>
+		Hello {{ name }}<br>
+		As a reminder, please keep yourself anonymous, use the names provided.<br>
+		If there are any issues, or if you feel uncomfortable at any time, please contact your administrator.
+	</i></b>
+	</div>
+	{% chat nickname=name %}
+	<style>
+		.otree-chat
+		{
+			margin: 10px 0 0 0;
+		}
+	</style>
+{% endblock %}
+
+
+
+{% block styles %}
+	<style type="text/css">
+		#pagehead
+		{
+			display:inline-block;
+			float:top;
+			width:100%;
+			background:#27348b;
+			margin:0 0 0 0;
+			padding:0.75em;
+			overflow:hidden;
+		}
+		#pagehead img
+		{
+			height:3.8em;
+		}
+		#pagehead .title
+		{
+			display:inline-block;
+			float:right;
+			font-size:2em;
+			color:#ffffff;
+		}
+		#otree-title
+		{
+			display: none;
+		}
+	</style>
+{% endblock %}

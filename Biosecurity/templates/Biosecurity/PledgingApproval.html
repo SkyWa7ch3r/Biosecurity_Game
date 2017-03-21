@@ -1,7 +1,7 @@
 {% extends "global/Base.html" %}
 {% load staticfiles otree_tags %}
 
-
+{% block title %}Approval based on Pledges Stage {{ subsession.round_number }} of {{ Constants.num_rounds }}{% endblock %}
 {% block content %}
 	<div id="pagehead">
 		<img src="{% static "Biosecurity/uwalogo.png" %}"/>
@@ -89,6 +89,10 @@
 		font-size: 1.25em;
 		margin-bottom: 1em;
 		display: block;
+	}
+	#otree-title
+	{
+		display: none;
 	}
 </style>
 {% endblock %}

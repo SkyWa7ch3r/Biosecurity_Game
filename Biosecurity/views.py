@@ -194,22 +194,22 @@ class OthersRound(Page):
 		}
 	
 
-class ChatBox(Page):
+class Chat(Page):
 	"""
 	The ChatBox class is responsible for determining when and how to display the
 	ChatBox.html page. Displays the chat box only if player communication is
 	enabled and every fifth round. Uses timeout_seconds to limit communication and
 	continue the experiment.
 	"""
+	timeout_seconds = 90
 	def is_displayed(self):
 		return self.session.config['player_communication'] == True and (self.round_number == 1 or self.round_number == 6 or self.round_number == 11)
 	def vars_for_template(self):
 		return {
-			'groupNum': self.group.id,
+			#'groupNum': self.group.id,
 			'name': self.player.participant.vars['name'],
-			'session_id': self.subsession.session.id,
+			#'session_id': self.subsession.session.id,
 		}
-	timeout_seconds = 90
 
 
 class ResultsWaitPage(WaitPage):
@@ -240,8 +240,8 @@ class Results(Page):
 	total_cost: Amount of protection used + constant upkeep = cost for the round
 	independant of outcome.
 	"""
+	timeout_seconds = 60
 	def vars_for_template(self):
-		timeout_seconds = 60
 		results = []
 		negative = False
 		currentFunds = self.player.participant.vars['funds']
@@ -475,7 +475,7 @@ page_sequence = [
 	IndiPledgingWait,
 	PledgingApproval,
 	AopWait,
-	ChatBox,
+	Chat,
 	WaitforChat,
 	SoloRound,
 	WaitforEveryone,

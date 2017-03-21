@@ -2,8 +2,7 @@
 {% load staticfiles otree_tags %}
 
 {% block title %}
-	
-	
+	Biosecurity Game Round {{ subsession.round_number }} of {{ Constants.num_rounds }}
 {% endblock %}
 
 {% block content %}
@@ -40,6 +39,10 @@
 
 {% block styles %}
 <style type="text/css">
+	#otree-title
+	{
+		display: none;
+	}
 	.farm_pic
 	{
 		display:inline-block;

@@ -1,6 +1,7 @@
 {% extends "global/Base.html" %}
 {% load staticfiles otree_tags %}
 
+{% block title %}Biosecurity Game Instructions{% endblock %}
 
 {% block content %}
 	<div id="pagehead">
@@ -179,6 +180,10 @@
 
 {% block styles %}
 <style type="text/css">
+	#otree-title
+	{
+		display: none;
+	}
 	#pagehead
 	{
 		display:inline-block;

@@ -1,11 +1,12 @@
 {% extends "global/Base.html" %}
 {% load staticfiles otree_tags %}
 
+{% block title %}Approval based on Contribution Stage: {{ subsession.round_number }} of {{ Constants.num_rounds }}{% endblock %}
 
 {% block content %}
 	<div id="pagehead">
 		<img src="{% static "Biosecurity/uwalogo.png" %}"/>
-		<div class="title">Approval based on Contribution Stage {{ subsession.round_number }} of {{ Constants.num_rounds }}</div>
+		<div class="title">Approval based on Contribution Stage: {{ subsession.round_number }} of {{ Constants.num_rounds }}</div>
 	</div>
 	<div id="roundText">
 		<strong>{{ player_name }}</strong> <br/>	
@@ -74,6 +75,10 @@
 
 {% block styles %}
 	<style type="text/css">
+		#otree-title
+		{
+			display: none;
+		}
 		#pagehead
 		{
 			display:inline-block;

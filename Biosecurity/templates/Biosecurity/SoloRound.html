@@ -1,15 +1,12 @@
 {% extends "global/Base.html" %}
 {% load staticfiles otree_tags %}
 
-{% block title %}
-	
-	
-{% endblock %}
+{% block title %}Biosecurity Game Round: {{ subsession.round_number }} of {{ Constants.num_rounds }}{% endblock %}
 
 {% block content %}
 	<div id="pagehead">
 		<img src="{% static "Biosecurity/uwalogo.png" %}"/>
-		<div class="title">Biosecurity Game Round {{ subsession.round_number }} of {{ Constants.num_rounds }}</div>
+		<div class="title">Biosecurity Game Round: {{ subsession.round_number }} of {{ Constants.num_rounds }}</div>
 	</div>
 	
 	<div class="farm_pic"><img src="{% static "Biosecurity/farm_back.png" %}"/></div>
@@ -38,6 +35,10 @@
 
 {% block styles %}
 <style type="text/css">
+	#otree-title
+	{
+		display: none;
+	}
 	.farm_pic
 	{
 		display:inline-block;

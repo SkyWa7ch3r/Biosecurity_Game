@@ -1,6 +1,7 @@
 {% extends "global/Base.html" %}
 {% load staticfiles otree_tags %}
 
+{% block title %}Virtual Lottery Game Instructions{% endblock %}
 
 {% block content %}
 
@@ -83,6 +84,10 @@
 
 {% block scripts %}
 <style type="text/css">
+	#otree-title
+	{
+		display: none;
+	}
 	#pagehead
 	{
 		display:inline-block;

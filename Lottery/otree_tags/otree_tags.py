@@ -1,41 +1,14 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-# =============================================================================
-# DOCS
-# =============================================================================
-
-"""Template tags to for the otree template users.
-
-"""
-
-# =============================================================================
-# IMPORTS
-# =============================================================================
-
-import decimal
-
 from django import template
 from django.template.loader import render_to_string
 from django.core.urlresolvers import Resolver404, reverse
-from django.utils.safestring import mark_safe
-
 from .otree_forms import FormFieldNode
 from .otree_forms import defaultlabel
-from otree.common import Currency
+from otree.common import Currency, safe_json
 import otree.common_internal
 
-import six
-
-# =============================================================================
-# CONSTANTS
-# =============================================================================
 
 register = template.Library()
 
-
-# =============================================================================
-# TAGS
-# =============================================================================
 
 class NextButtonNode(template.Node):
     def render(self, context):
@@ -83,8 +56,9 @@ def add_class(var, css_class, *extra_css_classes):
 
 
 NO_USER_MSG = '''
-Before logging in, you must create a user by setting ADMIN_USERNAME and
+You must set ADMIN_USERNAME and
 ADMIN_PASSWORD in settings.py
+(or disable authentication by unsetting AUTH_LEVEL).
 '''
 
 
@@ -123,4 +97,5 @@ def abs_value(var):
 def get_list_val(array, i):
     return array[int(i)-1]
 
+register.filter('json', safe_json)
 register.filter('defaultlabel', defaultlabel)

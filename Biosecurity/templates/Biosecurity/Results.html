@@ -1,11 +1,12 @@
 {% extends "global/Base.html" %}
 {% load staticfiles otree_tags %}
 
+{% block title %}Outcome Feedback Stage: {{ subsession.round_number }} of {{ Constants.num_rounds }}{% endblock %}
 {% block content %}
 
 	<div id="pagehead">
 		<img src="{% static "Biosecurity/uwalogo.png" %}"/>
-		<div class="title">Outcome Feedback Stage Round: {{ subsession.round_number }} of {{ Constants.num_rounds }}</div>
+		<div class="title">Outcome Feedback Stage: {{ subsession.round_number }} of {{ Constants.num_rounds }}</div>
 	</div>
 
 	<div id="resultText">
@@ -100,6 +101,9 @@
 		display: inline-block;
 		text-align: left;
 	}
-	
+	#otree-title
+	{
+		display: none;
+	}	
 </style>
 {% endblock %}

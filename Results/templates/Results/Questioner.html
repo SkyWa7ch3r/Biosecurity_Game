@@ -1,16 +1,52 @@
 {% extends "global/Base.html" %}
 {% load otree_tags %}
+{% load staticfiles %}
 
-{% block title %}
-	The Questionnaire
-{% endblock %}
+{% block title %}The Questionnaire{% endblock %}
 
 {% block content %}
-	<h3><strong>Please Answer the Questions below</h3></strong>
+	<div id="pagehead">
+		<img src="{% static "Results/uwalogo.png" %}"/>
+		<div class="title">The Questionnaire</div>
+	</div>
+	
+	<h3><strong>Please Answer the Questions below:</h3></strong>
 	{% for field in form %}
     	{% formfield field %}
 	{% endfor %}
 
     {% next_button %}
 
+{% endblock %}
+
+{% block styles %}
+<style type="text/css">
+	#otree-title
+	{
+		display: none;
+	}
+	#pagehead
+	{
+		display:inline-block;
+		float:left;
+		width:100%;
+		background:#27348b;
+		margin:0 0 0 0;
+		padding:0.75em;
+		overflow:hidden;
+		margin-bottom: 2em;
+	}
+	#pagehead img
+	{
+		height:3.8em;
+	}
+	#pagehead .title
+	{
+		display:inline-block;
+		float:right;
+		font-size:2em;
+		color:#ffffff;
+	}
+
+</style>
 {% endblock %}

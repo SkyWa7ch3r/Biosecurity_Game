@@ -3,7 +3,7 @@
 
 
 {% block title %}
-    
+    Virtual Lottery Game Panel: {{ subsession.round_number }} of {{ Constants.num_rounds }}
 {% endblock %}
 
 
@@ -11,7 +11,7 @@
 
 	<div id="pagehead">
 		<img src="{% static "Lottery/uwalogo.png" %}"/>
-		<div class="title">Virtual Lottery Game Panel {{ subsession.round_number }} of {{ Constants.num_rounds }}</div>
+		<div class="title">Virtual Lottery Game Panel: {{ subsession.round_number }} of {{ Constants.num_rounds }}</div>
 	</div>
 	<div id="Instructions">
 		<p>
@@ -83,7 +83,10 @@
 
 {% block styles %}
     <style type="text/css">
-
+	#otree-title
+	{
+		display: none;
+	}
 	#pagehead
 	{
 		display:inline-block;

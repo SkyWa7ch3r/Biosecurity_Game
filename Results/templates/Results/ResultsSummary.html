@@ -1,13 +1,12 @@
 {% extends "global/Base.html" %}
 {% load staticfiles otree_tags %}
 
-{% block title %}
-{% endblock %}
+{% block title %}Experiment Results{% endblock %}
 
 {% block content %}
 	<div id="pagehead">
 		<img src="{% static "Results/uwalogo.png" %}"/>
-		<div class="title"> Experiment Results Summary</div>
+		<div class="title">Experiment Results</div>
 	</div>
 	
 	<div id="resultBox">
@@ -51,6 +50,10 @@
 
 {% block styles %}
 <style type="text/css">
+	#otree-title
+	{
+		display: none;
+	}
 	#pagehead
 	{
 		display:inline-block;
