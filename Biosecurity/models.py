@@ -83,7 +83,50 @@ class Subsession(BaseSubsession):
 		#Get the group matching if its the actual game and not just the tests.
 		if "game" in self.session.config['name']:
 			self.set_group_matrix(self.session.vars['matrix'])
+		#Do the group matching for the tests
+		else:
+			# GROUP LOGIC STARTS HERE
+			# ppg = player_per_group
+			ppg = self.session.config['players_per_group']
+			# list_of_groups is the the list of each group list e.g. [ [p1, p2], [p3, p4] ] if ppg == 2 and np == 4
+			list_of_groups = []
+			# The list of players is list of all the player ID's in the session
+			list_of_players = []
+			for p in self.get_players():
+				list_of_players.append(p)
+			# np = number of players
+			np = len(list_of_players)
+			i = 0
+			while i < np:
+				# get a list of the players going from the ith index to i + ppg - 1 and add that to the list of the groups
+				list_of_groups.append(list_of_players[i: i + ppg])
+				# iterate the i
+				i = i + ppg
+			num_groups = len(list_of_groups)
+			# If the number of players is not a multiple of player per group
+			if np % ppg != 0:
+				# iterate through the list of groups
+				for i in range(num_groups):
+					# if the last group is full, do not continue
+					if len(list_of_groups[-1]) == ppg:
+						break
+					# Get the player to remove
+					player = list_of_groups[i][-1]
+					# remove the player
+					del list_of_groups[i][-1]
+					# add the player to the last group
+					list_of_groups[-1].append(player)
+			# finalise the group matchings ready for game and store the matrix
+			self.set_group_matrix(list_of_groups)
+		
 		if(self.round_number == 1):
+			names = []
+			#Read names from csv and store in array    
+			with open('CSV/names.csv') as filestream:
+				file = csv.DictReader(filestream)
+				for row in file:
+					names.append(row['Names'])
+					
 			for g in self.get_groups():
 				#Start the pledge counter, displays how many rounds till next pledge
 				g.get_player_by_id(1).participant.vars["Rounds_Till_Pledge"] = self.session.config["pledge_looper"]
@@ -95,58 +138,84 @@ class Subsession(BaseSubsession):
 				g.get_player_by_id(1).participant.vars['pledge_round'] = False
 				#Define All the Participant Variables needed for the group, even if they're not used.
 				g.get_player_by_id(1).participant.vars["approval_means"] = [0.00] * 20
-			names = []
-			#Read names from csv and store in array    
-			with open('CSV/names.csv') as filestream:
-				file = csv.DictReader(filestream)
-				for row in file:
-					names.append(row['Names'])
-			been_before = [1000]
-			namesChosen = []
-			for p in self.get_players():
-				num = 1000
+			
 				#No generate random numbers until we get an index that hasnt been chosen before
-				while num in been_before:
-					num = random.randint(0,len(names) - 1)
-				#Record this number so no one else ghets the name
-				been_before.append(num)
-				#Apply starting funds
-				p.participant.vars['funds'] = self.session.config['starting_funds']
-				#Apply the name via the index chosen by num
-				p.participant.vars['name'] = names[num]
-				namesChosen.append(names[num])
-				# Recent_Pledge[1] =  Current Pledge, Recent_Pledge[0] = Previous Pledge
-				p.participant.vars["Recent_Pledge"] = [0,0]
-				# Group_Targets[1] =  Current Group Target, Group_Targets[0] = Previous Group Target
-				p.participant.vars["Group_Targets_Prob"] = [0, 0]
-				#For Approval By Contribution may come in handy later, a list for costs done by every player per ["pledge_looper"] rounds
-				p.participant.vars["Protection_Provided"] = []
-			for _ in range(21):
-				namesChosen.append(None)
-		#Set the names each of every single subsession (or round)
-		for p in self.get_players():
-			if(self.round_number == 1):
-				p.participant.vars['namesChosen'] = list(namesChosen)
-			p.name_1 = p.participant.vars['namesChosen'][0]
-			p.name_2 = p.participant.vars['namesChosen'][1]
-			p.name_3 = p.participant.vars['namesChosen'][2]
-			p.name_4 = p.participant.vars['namesChosen'][3]
-			p.name_5 = p.participant.vars['namesChosen'][4]
-			p.name_6 = p.participant.vars['namesChosen'][5]
-			p.name_7 = p.participant.vars['namesChosen'][6]
-			p.name_8 = p.participant.vars['namesChosen'][7]
-			p.name_9 = p.participant.vars['namesChosen'][8]
-			p.name_10 = p.participant.vars['namesChosen'][9]
-			p.name_11 = p.participant.vars['namesChosen'][10]
-			p.name_12 = p.participant.vars['namesChosen'][11]
-			p.name_13 = p.participant.vars['namesChosen'][12]
-			p.name_14 = p.participant.vars['namesChosen'][13]
-			p.name_15 = p.participant.vars['namesChosen'][14]
-			p.name_16 = p.participant.vars['namesChosen'][15]
-			p.name_17 = p.participant.vars['namesChosen'][16]
-			p.name_18 = p.participant.vars['namesChosen'][17]
-			p.name_19 = p.participant.vars['namesChosen'][18]
-			p.name_20 = p.participant.vars['namesChosen'][19]	
+				been_before = [1000]
+				namesChosen = []
+				#For every player inside this group...
+				for p in g.get_players():
+					#Start the random number process at 1000 to start the loop below
+					num = 1000
+					while num in been_before:
+						num = random.randint(0,len(names) - 1)
+					#Record this number so no one else gets the name inside the group
+					been_before.append(num)
+					#Apply the name via the index chosen by num
+					p.participant.vars['name'] = names[num]
+					#record the name as chosen in names chosen so we can apply this to the name_x in the player class
+					namesChosen.append(names[num])
+					
+					#Start each player with the required funds and participant variables.
+					#Apply starting funds
+					p.participant.vars['funds'] = self.session.config['starting_funds']
+					# Recent_Pledge[1] =  Current Pledge, Recent_Pledge[0] = Previous Pledge
+					p.participant.vars["Recent_Pledge"] = [0,0]
+					# Group_Targets[1] =  Current Group Target, Group_Targets[0] = Previous Group Target
+					p.participant.vars["Group_Targets_Prob"] = [0, 0]
+					#For Approval By Contribution may come in handy later, a list for costs done by every player per ["pledge_looper"] rounds
+					p.participant.vars["Protection_Provided"] = []
+				
+				#Add the required amount to namesChosen to fill name_1 to name_20
+				for _ in range(21):
+					namesChosen.append(None)
+				#Apply the names chosen from name_1 to name_20 while storing the list as a participant variable so we can keep recording the name throughout the game.
+				for p in g.get_players():
+					p.participant.vars['namesChosen'] = list(namesChosen)
+					p.name_1 = p.participant.vars['namesChosen'][0]
+					p.name_2 = p.participant.vars['namesChosen'][1]
+					p.name_3 = p.participant.vars['namesChosen'][2]
+					p.name_4 = p.participant.vars['namesChosen'][3]
+					p.name_5 = p.participant.vars['namesChosen'][4]
+					p.name_6 = p.participant.vars['namesChosen'][5]
+					p.name_7 = p.participant.vars['namesChosen'][6]
+					p.name_8 = p.participant.vars['namesChosen'][7]
+					p.name_9 = p.participant.vars['namesChosen'][8]
+					p.name_10 = p.participant.vars['namesChosen'][9]
+					p.name_11 = p.participant.vars['namesChosen'][10]
+					p.name_12 = p.participant.vars['namesChosen'][11]
+					p.name_13 = p.participant.vars['namesChosen'][12]
+					p.name_14 = p.participant.vars['namesChosen'][13]
+					p.name_15 = p.participant.vars['namesChosen'][14]
+					p.name_16 = p.participant.vars['namesChosen'][15]
+					p.name_17 = p.participant.vars['namesChosen'][16]
+					p.name_18 = p.participant.vars['namesChosen'][17]
+					p.name_19 = p.participant.vars['namesChosen'][18]
+					p.name_20 = p.participant.vars['namesChosen'][19]
+					
+		#This will ensure that every round (other than round 1 which does the above) the game continues to record the name.
+		else:
+			for p in self.get_players():
+				p.name_1 = p.participant.vars['namesChosen'][0]
+				p.name_2 = p.participant.vars['namesChosen'][1]
+				p.name_3 = p.participant.vars['namesChosen'][2]
+				p.name_4 = p.participant.vars['namesChosen'][3]
+				p.name_5 = p.participant.vars['namesChosen'][4]
+				p.name_6 = p.participant.vars['namesChosen'][5]
+				p.name_7 = p.participant.vars['namesChosen'][6]
+				p.name_8 = p.participant.vars['namesChosen'][7]
+				p.name_9 = p.participant.vars['namesChosen'][8]
+				p.name_10 = p.participant.vars['namesChosen'][9]
+				p.name_11 = p.participant.vars['namesChosen'][10]
+				p.name_12 = p.participant.vars['namesChosen'][11]
+				p.name_13 = p.participant.vars['namesChosen'][12]
+				p.name_14 = p.participant.vars['namesChosen'][13]
+				p.name_15 = p.participant.vars['namesChosen'][14]
+				p.name_16 = p.participant.vars['namesChosen'][15]
+				p.name_17 = p.participant.vars['namesChosen'][16]
+				p.name_18 = p.participant.vars['namesChosen'][17]
+				p.name_19 = p.participant.vars['namesChosen'][18]
+				p.name_20 = p.participant.vars['namesChosen'][19]
+				
 			
 class Group(BaseGroup):
 
