@@ -210,7 +210,6 @@ class Player(BasePlayer):
 	lottery_question_2 = returnLotteryFormField(1)
 	lottery_question_3 = returnLotteryFormField(2)
 	lottery_question_4 = returnLotteryFormField(3)
-	lottery_question_5 = returnLotteryFormField(4)
 
 	# stores players responses to the lottery games
 	submitted_answer_1 = models.CharField(choices=['A', 'B'], widget=widgets.RadioSelectHorizontal())

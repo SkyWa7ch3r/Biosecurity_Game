@@ -31,7 +31,7 @@ class LotteryQuestions(Page):
 	
 	# create the pre lottery questions form fields
 	def get_form_fields(self):
-		return ['lottery_question_{}'.format(i) for i in range(1, Constants.num_lotery_questions + 1)]
+		return ['lottery_question_{}'.format(i) for i in range(1, Constants.num_lotery_questions)]
 
 # Passes the variables to the html template
 class Round(Page):
@@ -78,7 +78,8 @@ class Round(Page):
 
 # A wait page displayed when required 
 class ResultsWaitPage(WaitPage):
-	pass
+	def is_displayed(self):
+		return self.subsession.round_number == 1
 
 	# A wait page displayed when required 
 class EndGame(WaitPage):

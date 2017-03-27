@@ -558,6 +558,8 @@ SESSION_CONFIGS = [
 		'probability_coefficient' : 0.6,
 		'controlling_the_cases_for_bots' : False,
 		'case' : 'bankrupt',
+		'participation_fee' : 5.0,
+		'real_world_currency_per_point' : 0.1,
     },
 	{
         'name': 'freeform_biosecurity_game',
@@ -583,6 +585,8 @@ SESSION_CONFIGS = [
 		'probability_coefficient' : 0.6,
 		'controlling_the_cases_for_bots' : False,
 		'case' : 'bankrupt',
+		'participation_fee' : 5.0,
+		'real_world_currency_per_point' : 0.1,
 	},
 	{
         'name': 'monitoring_biosecurity_game',
@@ -608,6 +612,8 @@ SESSION_CONFIGS = [
 		'probability_coefficient' : 0.6,
 		'controlling_the_cases_for_bots' : False,
 		'case' : 'bankrupt',
+		'participation_fee' : 5.0,
+		'real_world_currency_per_point' : 0.1,
     },
 	{
         'name': 'pledging_biosecurity_game',
@@ -633,6 +639,8 @@ SESSION_CONFIGS = [
 		'probability_coefficient' : 0.6,
 		'controlling_the_cases_for_bots' : False,
 		'case' : 'bankrupt',
+		'participation_fee' : 5.0,
+		'real_world_currency_per_point' : 0.1,
     },
 	{
         'name': 'mon_pledging_biosecurity_game',
@@ -658,6 +666,8 @@ SESSION_CONFIGS = [
 		'probability_coefficient' : 0.6,
 		'controlling_the_cases_for_bots' : False,
 		'case' : 'bankrupt',
+		'participation_fee' : 5.0,
+		'real_world_currency_per_point' : 0.1,
     },
 		{
         'name': 'aop_biosecurity_game',
@@ -683,6 +693,8 @@ SESSION_CONFIGS = [
 		'probability_coefficient' : 0.6,
 		'controlling_the_cases_for_bots' : False,
 		'case' : 'bankrupt',
+		'participation_fee' : 5.0,
+		'real_world_currency_per_point' : 0.1,
     },
 	{
         'name': 'aoc_biosecurity_game',
@@ -708,6 +720,8 @@ SESSION_CONFIGS = [
 		'probability_coefficient' : 0.6,
 		'controlling_the_cases_for_bots' : False,
 		'case' : 'bankrupt',
+		'participation_fee' : 5.0,
+		'real_world_currency_per_point' : 0.1,
     },
 	{
         'name': 'custom_biosecurity_game',
@@ -733,6 +747,8 @@ SESSION_CONFIGS = [
 		'probability_coefficient' : 0.6,
 		'controlling_the_cases_for_bots' : False,
 		'case' : 'bankrupt',
+		'participation_fee' : 5.0,
+		'real_world_currency_per_point' : 0.1,
     },
 ]
 
