@@ -196,6 +196,12 @@ def check_correct(correct_value):
 
 
 class Player(BasePlayer):
+
+	participant_label = models.CharField(max_length=10000)
+	
+	def set_participation_label(self):
+		self.participant.label = self.participant_label
+		
 	# read the pre-lottery question of the csv file
 	def returnLotteryFormField(qn):
 		matrix = []

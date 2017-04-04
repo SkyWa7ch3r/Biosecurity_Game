@@ -7,6 +7,7 @@ import csv
 import math
 from statistics import median
 from decimal import Decimal
+from otree.api import SubmissionMustFail
 
 #Dynamic value arrays
 revenue = []
@@ -34,11 +35,58 @@ class PlayerBot(Bot):
 		max_p = self.session.config['max_protection']
 		#Calculate the minimum probability of a person not being the source of the incursion
 		min_prob = int(self.session.config['probability_coefficient'] * 100)
-		#Display the Instructions
+		#Display the Instructions and the questions
 		if self.subsession.round_number == 1:
 			yield(views.BioInstructions)
+			#Initialize the value lists
+			correct_values = []
+			wrong_values = []
+			#Populate the correct_values list with the correct answers to the questions
+			with open('CSV/bio_questions.csv') as f:
+				values = csv.DictReader(f)
+				#For every row in the csv file
+				for row in values:
+					#Just in case it tries to register an empty row, which it was in my testing
+					if row['id'] != '':
+						#Get the correct choice integer
+						correct_choice = row['#correct']
+						#Get the choice string
+						cstring = 'choice%s' % correct_choice
+						#Initialize wrong string
+						wstring = ''
+						#If the correct choice isnt 1
+						if correct_choice != '1':
+							#Load the first choice into the wrong value string
+							wstring = 'choice1'
+						#if the correct choice is number 1 then
+						else:
+							#Load the second choice into the wrong value string
+							wstring = 'choice2'
+						#Add the correct and wrong values
+						correct_values.append(row[cstring])
+						wrong_values.append(row[wstring])
+			
+			#Test for Bio Questions Failure, it checks for failures in order of question numbers 1,2,3,... In order for the test to continue these asserts MUST FAIL
+			yield SubmissionMustFail(views.BioQuestions, {'bio_question_1': wrong_values[0], 'bio_question_2': correct_values[1], 'bio_question_3': correct_values[2],
+										   'bio_question_4': correct_values[3]} )
+			yield SubmissionMustFail(views.BioQuestions, {'bio_question_1': correct_values[0], 'bio_question_2': wrong_values[1], 'bio_question_3': correct_values[2],
+										   'bio_question_4': correct_values[3]} )
+			yield SubmissionMustFail(views.BioQuestions, {'bio_question_1': correct_values[0], 'bio_question_2': correct_values[1], 'bio_question_3': wrong_values[2],
+										   'bio_question_4': correct_values[3]} )
+			yield SubmissionMustFail(views.BioQuestions, {'bio_question_1': correct_values[0], 'bio_question_2': correct_values[1], 'bio_question_3': correct_values[2],
+										   'bio_question_4': wrong_values[3]} )
+										   
+			#Had the following yield for when it had 5 questions, will leave in here for that possible eventuality
+			#yield SubmissionMustFail(views.BioQuestions, {'bio_question_1': correct_values[0], 'bio_question_2': correct_values[1], 'bio_question_3': correct_values[2],
+			#							   'bio_question_4': correct_values[3]} )
+			
+			#Try the correct options to see if it goes through to the next page
+			yield(views.BioQuestions, {'bio_question_1': correct_values[0], 'bio_question_2': correct_values[1], 'bio_question_3': correct_values[2],
+										   'bio_question_4': correct_values[3]} )
+			
 			if(self.player.id_in_group == 1):
 				print("Beginning test for %s"%self.session.config["display_name"])
+			
 		#Check if the One Player Feature has been enabled, so one player goes before all the others
 		if self.session.config['set_leader'] == False:
 

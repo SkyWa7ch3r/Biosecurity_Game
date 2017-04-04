@@ -2,6 +2,7 @@ from otree.api import (
 	models, widgets, BaseConstants, BaseSubsession, BaseGroup, BasePlayer,
 	Currency as c, currency_range, safe_json
 )
+from django.core.exceptions import ValidationError
 from django.db import models
 from decimal import Decimal
 import otree
@@ -36,6 +37,15 @@ Player class contains individual variables for a given player
 Protection : 3 decimal place value between 0 and 1. Represents 1-p where p is the probabillity of an outbreak occuring 
 cost : the amount in in-game dollars the player has elected to spent on protection in a given round. The minimum is 0 and the max is set by an admin. The value is passed from a HTML slider widget
 """
+
+#check_correct is used for validating that the user selected the correct answer for the pre lottery quiz
+def check_correct(correct_value):
+	def compare(slected_value):
+		if not (correct_value == slected_value):
+			raise ValidationError('Incorrect')
+
+	return compare
+
 class Constants(BaseConstants):
 
 	players_per_group = None
@@ -58,6 +68,13 @@ class Constants(BaseConstants):
 		[5, '5'],
 		[6, 'Strongly approve (6)'],
 	]
+	
+	#Retrieve the Biosecurity Control Questions
+	with open('CSV/bio_questions.csv') as f:
+		bio_questions = list(csv.DictReader(f))
+		
+	#Store how many questions there are
+	num_bio_questions = len(bio_questions)
 	
 	#Do the values for the Cost and Probability Calculations
 	max_probability = 0.9999
@@ -121,7 +138,7 @@ class Subsession(BaseSubsession):
 		
 		if(self.round_number == 1):
 			names = []
-			#Read names from csv and store in array    
+			#Read names from csv and store in array	   
 			with open('CSV/names.csv') as filestream:
 				file = csv.DictReader(filestream)
 				for row in file:
@@ -495,6 +512,7 @@ class Group(BaseGroup):
 		self.get_player_by_id(1).participant.vars["approval_means"] = list(approval_means)
 		for p in self.get_players():
 			p.participant.vars["Protection_Provided"] = []
+			
 class Player(BasePlayer):
 	#Save the values to store for the excel or CSV data, names a re self explanatory
 	funds_at_rounds_end = otree.models.CurrencyField(default = 0)
@@ -547,6 +565,23 @@ class Player(BasePlayer):
 	approval_18 = otree.models.IntegerField(default=0, choices=Constants.RATING, verbose_name='')
 	approval_19 = otree.models.IntegerField(default=0, choices=Constants.RATING, verbose_name='')
 	approval_20 = otree.models.IntegerField(default=0, choices=Constants.RATING, verbose_name='')
+	
+	
+	# Read the Bio_Questions csv file and load the questions and answers for the form fields in the views.py, qn = question number (id in the csv)
+	# read the pre-lottery question of the csv file
+	def returnLotteryFormField(qn):
+		matrix = []
+		for num in range(1, int(Constants.bio_questions[qn]['#choices']) + 1):
+			matrix.append(Constants.bio_questions[qn]['choice{}'.format(num)])
+		return otree.models.CharField(choices=matrix, verbose_name=Constants.bio_questions[qn]['question'],
+								widget=otree.widgets.RadioSelect(),
+								validators=[check_correct(Constants.bio_questions[qn]['choice{}'.format(
+									int(Constants.bio_questions[qn]['#correct']))])])
+	# Add lottery questions here 
+	bio_question_1 = returnLotteryFormField(0)
+	bio_question_2 = returnLotteryFormField(1)
+	bio_question_3 = returnLotteryFormField(2)
+	bio_question_4 = returnLotteryFormField(3)
 	
 	#find protection value using cost entered by player and max_protection which is set my an admin
 	def calculate_protection(self):

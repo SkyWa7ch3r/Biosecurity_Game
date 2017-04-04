@@ -41,7 +41,7 @@ class PlayerBot(Bot):
 
 		if self.subsession.round_number == 1:
 			#Load the instruction and Introduction pages
-			yield(views.Introduction)
+			yield(views.Introduction, {'participant_label' : 'Bot%d' % self.player.id_in_group} )
 			yield(views.LotteryInstructions)
 			#Test for Lottery Questions Failure, it checks for failures in order of question numbers 1,2,3,... In order for the test to continue these asserts MUST FAIL
 			yield SubmissionMustFail(views.LotteryQuestions, {'lottery_question_1': wrong_values[0], 'lottery_question_2': correct_values[1], 'lottery_question_3': correct_values[2],

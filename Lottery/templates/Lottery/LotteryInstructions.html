@@ -12,70 +12,70 @@
 	<div id="instructions">
 		<div id="instructText">
 			<p>
-				<h3><b>Please Refer to the Printed Sheet Given to you</b></h3>
-			</p>
-			<p>
 				<h3><strong><u>Part 1: Virtual Lottery Game</u></strong></h3>
-				<p>Imagine you are taking part in a virtual lottery game where you have a choice between playing for the money amounts in options A or B.</p>
-				The following PLAY PANELS contain the odds of each option for each game. The default choice is option A for each game.
-				If you find the odds in option B more appealing at any given game, you can switch to option B.
-				However, once you’ve switched to option B, you cannot go back to option A for the rest of the PLAY PANEL.
 			</p>
 			<p>
-				<strong><u><h3>How the Game works</u></strong></h3>
-				There are a total of 35 Games, 3 Play Panels and two options, A or B.
+				You will now take part in the Virtual Lottery Game. In this game you will be presented with tables—known as <b>Play Panels</b>—like the one shown below.
 			</p>
 			<p>
-				In order to determine what prize what shall receive from the Lottery Game, the game randomly chooses one PLAY PANEL of the possible three.
-				The number of the PLAY PANEL will be shown at the top of the page under the heading "Virtual Lottery Game Panel X of 3", X being the PLAY PANEL number. 
+				<img src="{% static "Lottery/play_panel.png" %}"/>
 			</p>
 			<p>
-				After randomly choosing a PLAY PANEL, from this PLAY PANEL it will randomly choose <b>one</b> of the games inside that PLAY PANEL. This will be your <b>paying game</b>.
-				The Game Number is shown the left hand side of each panel. 
+				Each Play Panel contains several games—14 games in the Play Panel above. 
+				For each game, there are two Options: <b>Option A</b> and <b>Option B</b>. 
+				Each Option is associated with a chance of winning one of two monetary amounts.
 			</p>
 			<p>
-				For each game you will have an option of A or B. A number will be chosen between 1 and 10 (including 1 and 10), 
-				it is this number that will determine your prize based on the option you chose.
+				For example, in the above Play Panel, Option A is always associated with a 30% chance of winning $20 and a 70% chance of winning $5 (this is true for all 14 games). 
+				However, for Option B, there is a 10% chance of winning a relatively large amount of money and a 90% chance of winning a relatively small amount of money. 
+				The larger amount with a 10% chance varies in size across games, whereas the smaller amount with a 90% chance remains the same (it is always $2.5).
+				For example, in Game 1 there is a 10% chance of winning $34 and a 90% chance of winning $2.5;
+				in Game 2 there is a 10% chance of winning $38 and a 90% chance of winning $2.5;
+				in Game 3 there is a 10% chance of winning $42 and a 90% chance of winning $2.5 and so on.
 			</p>
 			<p>
-				The Chance of you winning the said prize for each option (A or B) is displayed the right hand side of each option given in terms of probability.
+				Your task is to choose your preferred option in each game. 
+				The default choice is Option A. 
+				However, if you find the odds in Option B more appealing for any given game, you can switch to Option B by clicking on the corresponding radio button for that Option.
+				<b><i>However, once you have switched to Option B, you cannot switch back to Option A for the rest of the Play Panel.</b></i>
+				To illustrate, in the Play Panel shown above, the participant has decided in Game 5 that the odds in Option B are more appealing than in Option A. 
+				Accordingly, Option B has now been selected as the preferred option for the rest of the games in the Play Panel. 
 			</p>
 			<p>
-				For example, Look at the image below:
+				You will be given three Play Panels (i.e., tables), one Play Panel at a time. 
+				The first Play Panel contains 14 games (numbered 1-14), the second Play Panel also contains 14 games (numbered 15-28), 
+				whilst the third Play Panel contains 7 games (numbered 29-35).
 			</p>
-				<img height="150" width="800" src="{% static "Lottery/lottery.jpg" %}"/>
-			</p>
-			<p>
-				In this scenario a PLAY PANEL was chosen with Games 1 to 3.<br>
-				The Game Number that was randomly chosen as the paying game was <b>2</b>.
-			</p>
-			<p>
-				For Game <b>2</b>, you have (just like every game) two options:<br>
-				Option <b>A</b>, which has a <i>30%</i> of you winning $40 and a <i>70%</i> of winning $10.<br> 
-				Option <b>B</b>, which has a <i>10%</i> of you winning $75 and a <i>90%</i> of winning $5.
+				<b><i>Note that in the third and final Play Panel, the monetary amounts on offer in the two Options can assume negative values.</b></i>
+				For example, if an Option in a game specified a 10% chance of $30 and a 90% chance of -$16, this means a 90% chance of “winning” $30 and 
+				a 10% chance of “losing” $16 that you already have in your possession.
 			</p>
 			<p>
-				The Game chooses a random number between 1 and 10 (including 1 and 10).
+				<strong><u>How the Game works</strong></u>
 			</p>
 			<p>
-				If you had chosen Option A, then<br>
-				If the randomly chosen number had been 1 to 3, you would have won $40<br>
-				If the randomly chosen number had been 4 to 10, you would have won $10
+				Once you have registered your preferences in the three play panels, thirty-five balls (numbered 1-35) will be put into a virtual bingo cage by the computer,
+				and one ball will be randomly picked. This numbered ball will correspond to the Game Number in one of your Play Panels and determines which out of the 35 games 
+				will be played.
 			</p>
 			<p>
-				If you had chosen Option B, then<br>
-				If the randomly chosen number had been 1, you would have won $75<br>
-				If the randomly chosen number had been 2 to 10, you would have won $5
+				All balls are then removed from the bingo cage and ten balls (numbered 1-10) are put back in. 
+				The next ball that is randomly picked by the computer determines how much money you win (or lose).
 			</p>
 			<p>
-				<strong>In your game:</strong><br>
-				PLAY PANEL 1 of 3 will have games 1 to 14.<br>
-				PLAY PANEL 2 of 3 will have games 15 to 28.<br>
-				PLAY PANEL 3 of 3 will have games 29 to 35.<br>
-				For every <b>new</b> PLAY PANEL you're allowed to select Option A again, regardless of which game (and all the games below that) you selected as Option B in the previous PLAY PANEL.<br>
-				The instructions will be below each PLAY PANEL for your convenience, in the case you need to read them again.<br>
-				One final note, watch out, <b>you may lose money in this Virtual Lottery Game</b>.<br>
-				<b><i>Good Luck!</i></b>
+				For example, in the earlier Play Panel if Game Number 7 was randomly selected out of the 35 games, 
+				and you chose Option A for that game, you would win: 
+			</p>
+			<p>
+				•	$20 if the ball number is between 1 and 3 (30% chance), or<br> 
+				•	$5 if the ball number is between 4 and 10 (70% chance). 
+			</p>
+			<p>
+				If you chose Option B, you would win:
+			</p>
+			<p>
+				•	$75 if the ball number is 1 (10% chance), or <br>
+				•	$2.5 if the ball number is between 2 and 10 (90% chance).
 			</p>
 		</div>
 	</div>
@@ -127,6 +127,12 @@
 		font-size: 1.5em;
 		margin-bottom: 1em;
 		margin: 2% 5% 2% 5%;
+	}
+	#instructText img
+	{
+		width: 100%;
+		height: auto;
+		border: 2px solid #000000;
 	}
 	#nxtBtn
 	{

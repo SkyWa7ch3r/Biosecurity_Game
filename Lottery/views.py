@@ -6,6 +6,10 @@ from .models import Constants
 # html template for the Introduction
 class Introduction(Page):
 	# Display this page only once
+	form_model = models.Player
+	form_fields = ['participant_label']
+	def before_next_page(self):
+		self.player.set_participation_label()
 	def is_displayed(self):
 		return self.subsession.round_number == 1
 
@@ -31,7 +35,7 @@ class LotteryQuestions(Page):
 	
 	# create the pre lottery questions form fields
 	def get_form_fields(self):
-		return ['lottery_question_{}'.format(i) for i in range(1, Constants.num_lotery_questions)]
+		return ['lottery_question_{}'.format(i) for i in range(1, Constants.num_lotery_questions + 1)]
 
 # Passes the variables to the html template
 class Round(Page):

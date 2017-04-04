@@ -1,4 +1,4 @@
-from otree.api import Currency as c, currency_range
+from otree.api import Currency as c, currency_range, widgets
 from . import models
 from ._builtin import Page, WaitPage
 from .models import Constants
@@ -448,6 +448,23 @@ class ActionApproval(Page):
 			'player_name': self.player.participant.vars['name'],
 			'contribution_looper' : self.session.config["contribution_looper"],
 		}
+		
+class BioQuestions(Page):
+	'''
+		This is the Biosecurity Control Questions Page which puts questions in
+		to see if participants understand the instructions, it will be very much
+		like the lottery questions. In fact the models and views copies that code.
+	'''
+	# Display this page only once
+	def is_displayed(self):
+		return self.subsession.round_number == 1
+
+	form_model = models.Player
+	
+	# create the pre lottery questions form fields
+	def get_form_fields(self):
+		return ['bio_question_{}'.format(i) for i in range(1, Constants.num_bio_questions + 1)]
+	
 '''
 The Below Wait Pages are specifically there to reduce the amount of wait pages
 '''
@@ -468,6 +485,8 @@ class NoPledgeResultWaitPage(WaitPage):
 
 page_sequence = [
 	BioInstructions,
+	WaitforInstructions,
+	BioQuestions,
 	WaitforInstructions,
 	GroupPledging,
 	PledgeWait,

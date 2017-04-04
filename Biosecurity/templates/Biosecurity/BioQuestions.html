@@ -1,0 +1,50 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+   Biosecurity Game Control Questions
+{% endblock %}
+
+{% block content %}
+
+	<div id="pagehead">
+		<img src="{% static "Lottery/uwalogo.png" %}"/>
+		<div class="title">Biosecurity Game Control Questions</div>
+	</div>
+	{% for field in form %}
+    	{% formfield field %}
+	{% endfor %}
+	{% next_button %}
+{% endblock %}
+
+{% block scripts %}
+<style type="text/css">
+	#otree-title
+	{
+		display: none;
+	}
+	#pagehead
+	{
+		display:inline-block;
+		float:left;
+		width:100%;
+		background:#27348b;
+		margin:0 0 0 0;
+		padding:0.75em;
+		overflow:hidden;
+		margin-bottom: 1em;
+	}
+	#pagehead img
+	{
+		height:3.8em;
+	}
+	#pagehead .title
+	{
+		display:inline-block;
+		float:right;
+		font-size:2em;
+		color:#ffffff;
+	}
+	
+</style>
+{% endblock %}

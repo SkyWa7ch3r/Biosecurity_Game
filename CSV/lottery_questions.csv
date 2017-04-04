@@ -2,5 +2,4 @@ id,question,#choices,#correct,choice1,choice2,choice3,choice4,choice5
 1,How many PLAY PANELS are chosen to determine your prize? ,3,1,1,2,3,,
 2,How many paying games will there be (viz. games in which you can earn money)? ,3,1,1,2,3,,
 3,Imagine you have selected A for games 1-5 in a play panel and then select B for game 6 in the same play panel. What must you select for the rest of the games within this play panel? ,3,2,Select A or B for all the remaining games,Only select B for the remaining games,Only select A for the remaining games,,
-4,How is the paying game and the number that determines your prize selected? ,3,2,They are set the same every time,They are chosen at random,The experimenter chooses them,,
-,,,,,,,,
+4,How is the paying game and the number that determines your prize selected? ,3,2,They are set the same every time,They are chosen at random,The experimenter chooses them,

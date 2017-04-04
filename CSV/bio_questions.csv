@@ -1,0 +1,5 @@
+id,question,#choices,#correct,choice1,choice2,choice3,choice4,choice5
+1,If there is no pest outbreak and you put in no biosecurity effort you will receive?,4,2,$25,$20,$0,$5,
+2,If there is a pest outbreak and your biosecurity effort cost $10 you will receive?,4,1,-$15,$0,-$5,$25,
+3,If one player decides to protect against the pest at 50% and three players decide to protect at 100%. What is the probability of an outbreak?,4,2,100%,50%,25%,0%,
+4,If two players protect at 100% and two players protect at 50%. What is the probability of an outbreak?,4,3,75%,50%,25%,100%,
