@@ -1,0 +1,7 @@
+otree test basic_biosecurity_game > basic_biosecurity_game_cmd_test.txt
+otree test freeform_biosecurity_game > freeform_biosecurity_game_cmd_test.txt
+otree test monitoring_biosecurity_game > monitoring_biosecurity_game_cmd_test.txt
+otree test pledging_biosecurity_game > pledging_biosecurity_game_cmd_test.txt
+otree test mon_pledging_biosecurity_game > mon_pledging_biosecurity_game_cmd_test.txt
+otree test aop_biosecurity_game > aop_biosecurity_game_cmd_test.txt
+otree test aoc_biosecurity_game > aoc_biosecurity_game_cmd_test.txt

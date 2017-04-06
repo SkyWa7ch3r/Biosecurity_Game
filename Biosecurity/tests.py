@@ -139,9 +139,9 @@ class PlayerBot(Bot):
 						#Assert that the value calculated here for the group approval of player 1 is indeed the approval of player 1
 						assert self.group.get_player_by_id(1).participant.vars["approval_means"][0] == approval_for_testing
 				
-				#Display the ChatBox 
+				#Display the Chat 
 				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
-					yield (views.ChatBox)
+					yield (views.Chat)
 					
 				#Get the revenue
 				revenue_value = self.session.config['revenue']
@@ -253,9 +253,9 @@ class PlayerBot(Bot):
 														'approval_20' : -6})
 						assert self.group.get_player_by_id(1).participant.vars["approval_means"][0] == -6								
 														
-				#Display the ChatBox 
+				#Display the Chat 
 				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
-					yield (views.ChatBox)
+					yield (views.Chat)
 				#Get the revenue
 				revenue_value = self.session.config['revenue']
 				#Get the upkeep
@@ -348,9 +348,9 @@ class PlayerBot(Bot):
 														'approval_20' : 3})
 						assert self.group.get_player_by_id(1).participant.vars["approval_means"][0] == 3
 						
-				#Display the ChatBox 
+				#Display the Chat 
 				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
-					yield (views.ChatBox)
+					yield (views.Chat)
 				#Get the revenue
 				revenue_value = self.session.config['revenue']
 				#Get the upkeep
@@ -442,9 +442,9 @@ class PlayerBot(Bot):
 														'approval_19' : 6, 
 														'approval_20' : 6})
 						assert self.group.get_player_by_id(1).participant.vars["approval_means"][0] == 6								
-				#Display the ChatBox 
+				#Display the Chat 
 				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
-					yield (views.ChatBox)
+					yield (views.Chat)
 				#Get the revenue
 				revenue_value = self.session.config['revenue']
 				#Get the upkeep
@@ -536,9 +536,9 @@ class PlayerBot(Bot):
 														'approval_19' : 0, 
 														'approval_20' : 0})
 					assert self.group.get_player_by_id(1).participant.vars["approval_means"][0] == 0
-				#Display the ChatBox 
+				#Display the Chat 
 				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
-					yield (views.ChatBox)
+					yield (views.Chat)
 				#Get the revenue
 				revenue_value = self.session.config['revenue']
 				#Get the upkeep
@@ -628,9 +628,9 @@ class PlayerBot(Bot):
 														'approval_18' : random.randint(-6, 6), 
 														'approval_19' : random.randint(-6, 6), 
 														'approval_20' : random.randint(-6, 6)})
-				#Display the ChatBox 
+				#Display the Chat 
 				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
-					yield (views.ChatBox)
+					yield (views.Chat)
 				#Get the revenue
 				revenue_value = self.session.config['revenue']
 				#Get the upkeep
@@ -729,9 +729,9 @@ class PlayerBot(Bot):
 														'approval_18' : random.randint(-6, 6), 
 														'approval_19' : random.randint(-6, 6), 
 														'approval_20' : random.randint(-6, 6)})
-				#Display the ChatBox 
+				#Display the Chat 
 				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
-					yield (views.ChatBox)
+					yield (views.Chat)
 				#Get the revenue
 				revenue_value = self.session.config['revenue']
 				#Get the upkeep
@@ -791,9 +791,9 @@ class PlayerBot(Bot):
 		else:
 			#It will go through the cases exactly as before with minor changes
 			if self.case == 'random':
-				#Display the ChatBox 
+				#Display the Chat 
 				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
-					yield (views.ChatBox)
+					yield (views.Chat)
 				#Get the revenue
 				revenue_value = self.session.config['revenue']
 				#Get the upkeep
@@ -825,9 +825,9 @@ class PlayerBot(Bot):
 				if(self.subsession.round_number == 15):
 					print("Completed %s"%self.case)
 			elif self.case == 'quarter':
-				#Display the ChatBox 
+				#Display the Chat 
 				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
-					yield (views.ChatBox)
+					yield (views.Chat)
 				#Get the revenue
 				revenue_value = self.session.config['revenue']
 				#Get the upkeep
@@ -858,9 +858,9 @@ class PlayerBot(Bot):
 				if(self.subsession.round_number == 15):
 					print("Completed %s"%self.case)
 			elif self.case == 'half':
-				#Display the ChatBox 
+				#Display the Chat 
 				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
-					yield (views.ChatBox)
+					yield (views.Chat)
 				#Get the revenue
 				revenue_value = self.session.config['revenue']
 				#Get the upkeep
@@ -891,9 +891,9 @@ class PlayerBot(Bot):
 				if(self.subsession.round_number == 15):
 					print("Completed %s"%self.case)
 			elif self.case == 'threequarters':
-				#Display the ChatBox 
+				#Display the Chat 
 				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
-					yield (views.ChatBox)
+					yield (views.Chat)
 				#Get the revenue
 				revenue_value = self.session.config['revenue']
 				#Get the upkeep
@@ -924,9 +924,9 @@ class PlayerBot(Bot):
 				if(self.subsession.round_number == 15):
 					print("Completed %s"%self.case)
 			elif self.case == 'full':
-				#Display the ChatBox 
+				#Display the Chat 
 				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
-					yield (views.ChatBox)
+					yield (views.Chat)
 				#Get the revenue
 				revenue_value = self.session.config['revenue']
 				#Get the upkeep
@@ -957,9 +957,9 @@ class PlayerBot(Bot):
 				if(self.subsession.round_number == 15):
 					print("Completed %s"%self.case)
 			elif self.case == 'half0halffull':
-				#Display the ChatBox 
+				#Display the Chat 
 				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
-					yield (views.ChatBox)
+					yield (views.Chat)
 				#Get the revenue
 				revenue_value = self.session.config['revenue']
 				#Get the upkeep
@@ -997,9 +997,9 @@ class PlayerBot(Bot):
 				if(self.subsession.round_number == 15):
 					print("Completed %s"%self.case)
 			elif self.case == 'bankrupt':
-				#Display the ChatBox 
+				#Display the Chat 
 				if (self.subsession.round_number == 1 or self.subsession.round_number == 6 or self.subsession.round_number == 11) and self.session.config['player_communication'] == True:
-					yield (views.ChatBox)
+					yield (views.Chat)
 				#Get the revenue
 				revenue_value = self.session.config['revenue']
 				#Get the upkeep

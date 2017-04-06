@@ -558,7 +558,7 @@ SESSION_CONFIGS = [
 		'probability_coefficient' : 0.6,
 		'controlling_the_cases_for_bots' : False,
 		'case' : 'bankrupt',
-		'participation_fee' : 5.0,
+		'participation_fee' : 10.0,
 		'real_world_currency_per_point' : 0.1,
     },
 	{
@@ -585,7 +585,7 @@ SESSION_CONFIGS = [
 		'probability_coefficient' : 0.6,
 		'controlling_the_cases_for_bots' : False,
 		'case' : 'bankrupt',
-		'participation_fee' : 5.0,
+		'participation_fee' : 10.0,
 		'real_world_currency_per_point' : 0.1,
 	},
 	{
@@ -612,7 +612,7 @@ SESSION_CONFIGS = [
 		'probability_coefficient' : 0.6,
 		'controlling_the_cases_for_bots' : False,
 		'case' : 'bankrupt',
-		'participation_fee' : 5.0,
+		'participation_fee' : 10.0,
 		'real_world_currency_per_point' : 0.1,
     },
 	{
@@ -639,7 +639,7 @@ SESSION_CONFIGS = [
 		'probability_coefficient' : 0.6,
 		'controlling_the_cases_for_bots' : False,
 		'case' : 'bankrupt',
-		'participation_fee' : 5.0,
+		'participation_fee' : 10.0,
 		'real_world_currency_per_point' : 0.1,
     },
 	{
@@ -666,7 +666,7 @@ SESSION_CONFIGS = [
 		'probability_coefficient' : 0.6,
 		'controlling_the_cases_for_bots' : False,
 		'case' : 'bankrupt',
-		'participation_fee' : 5.0,
+		'participation_fee' : 10.0,
 		'real_world_currency_per_point' : 0.1,
     },
 		{
@@ -693,7 +693,7 @@ SESSION_CONFIGS = [
 		'probability_coefficient' : 0.6,
 		'controlling_the_cases_for_bots' : False,
 		'case' : 'bankrupt',
-		'participation_fee' : 5.0,
+		'participation_fee' : 10.0,
 		'real_world_currency_per_point' : 0.1,
     },
 	{
@@ -720,7 +720,7 @@ SESSION_CONFIGS = [
 		'probability_coefficient' : 0.6,
 		'controlling_the_cases_for_bots' : False,
 		'case' : 'bankrupt',
-		'participation_fee' : 5.0,
+		'participation_fee' : 10.0,
 		'real_world_currency_per_point' : 0.1,
     },
 	{
@@ -747,7 +747,7 @@ SESSION_CONFIGS = [
 		'probability_coefficient' : 0.6,
 		'controlling_the_cases_for_bots' : False,
 		'case' : 'bankrupt',
-		'participation_fee' : 5.0,
+		'participation_fee' : 10.0,
 		'real_world_currency_per_point' : 0.1,
     },
 ]
