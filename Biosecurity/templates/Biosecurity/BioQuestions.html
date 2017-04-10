@@ -11,10 +11,16 @@
 		<img src="{% static "Lottery/uwalogo.png" %}"/>
 		<div class="title">Biosecurity Game Control Questions</div>
 	</div>
+	<p>
+		<i><b>The Instructions are below for your convenience, please read them again if you need clarification on how the game works before asking questions.</b></i>
+	</p>
 	{% for field in form %}
     	{% formfield field %}
 	{% endfor %}
 	{% next_button %}
+	
+	{% include "Biosecurity/BioInstructionsShort.html" %}
+	
 {% endblock %}
 
 {% block scripts %}

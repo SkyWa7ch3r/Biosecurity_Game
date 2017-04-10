@@ -449,7 +449,7 @@ class ActionApproval(Page):
 			'contribution_looper' : self.session.config["contribution_looper"],
 		}
 		
-class BioQuestions(Page):
+class BioQuestions(BioInstructions):
 	'''
 		This is the Biosecurity Control Questions Page which puts questions in
 		to see if participants understand the instructions, it will be very much
