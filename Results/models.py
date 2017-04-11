@@ -47,33 +47,12 @@ class Constants(BaseConstants):
 	round_lengths.append(size)
 
 	num_rounds = 1
-
-	num_lotery_questions = 5
-
-	# questioner_rounds = int(len(questioner_list) / 10)
-	# last_questioner_number = len(questioner_list) % 10
-
+	
+	num_questions = len(questioner_list)
+	
 
 class Subsession(BaseSubsession):
-	def before_session_starts(self):
-		"""
-		The Subsession class decides the random round, ball and paying line of the lottery game to calculate the pay each player receives
-		based on their choices in the lottery game.
-		"""
-		if self.round_number == 1:
-			# Select a random round
-			paying_round = random.randint(1, Constants.num_rounds)
-			self.session.vars['paying_round'] = paying_round
-
-			# Select a random ball
-			ball_number = random.randint(1, 10)
-			self.session.vars['ball_number'] = ball_number
-
-			# Select a random game
-			paying_line = random.randint(1, Constants.round_lengths[paying_round] - Constants.round_lengths[
-				paying_round - 1])
-			self.session.vars['paying_line'] = paying_line
-
+	pass
 
 class Group(BaseGroup):
 	pass
@@ -112,4 +91,6 @@ class Player(BasePlayer):
 	questioner_13 = returnFormField(12)
 	questioner_14 = returnFormField(13)
 	questioner_15 = returnFormField(14)
+	questioner_16 = returnFormField(15)
+	questioner_17 = returnFormField(16)
 	
