@@ -31,7 +31,7 @@
 				In this experiment, you are a farmer in a region with three other farmers (viz. your co-players in the game). Each season, your crop will generate revenue. You will receive this revenue in the seasons where there is no pest outbreak . When a pest outbreak occurs, the pest spreads quickly and infects all neighbouring farms, resulting in the loss of that season’s crop. You will generate no revenue in a season where a pest outbreak occurs.
 			</p>
 			<p>
-				At the start of each season, you must decide how much effort you will invest in protecting your crop against a pest outbreak. There is a financial cost associated with this effort—as the amount of effort you invest increases, so too does the cost of protection. You do not have to pay any cost if you choose to invest zero effort in protection. 
+				At the start of each season, you must decide how much effort you will invest in protecting your crops against a pest outbreak. There is a financial cost associated with this effort—as the amount of effort you invest increases, so too does the cost of protection. You do not have to pay any cost if you choose to invest zero effort in protection. 
 			</p>
 			<p>		
 				The probability of a pest outbreak occurring is variable and depends on the amount of effort both you and your co-players invest in protection.  
@@ -40,7 +40,7 @@
 				<u><i><strong>The Game</i></strong></u>
 			</p>
 			<p>
-				The game consists of 15 playing rounds, with each round corresponding to a growing season. On each round, your crop will generate you potential revenue of ${{ revenue }}. You must also pay a ${{ upkeep }} production cost. This is the labour cost of producing your crop, which you have no control over. You can also choose the amount of effort and money that you wish to invest in protecting your crops against a pest outbreak. The amount of effort you may invest in protection varies between 0% (with a cost of $0) and 100% (with a cost of ${{ max_protection }}). 
+				The game consists of 15 playing rounds, with each round corresponding to a growing season. Each player starts the game with a ${{ starting_funds }} operating fund. On each round, your crop will generate your potential revenue of ${{ revenue }}. You must also pay a ${{ upkeep }} production cost. This is the labour cost of producing your crop, which you have no control over. You can also choose the amount of effort and money that you wish to invest in protecting your crops against a pest outbreak. The amount of effort you may invest in protection varies between 0% (with a cost of $0) and 100% (with a cost of ${{ max_protection }}). 
 			</p>
 			<p>
 				If there is no pest outbreak you will receive your revenue of ${{ revenue }}, minus the ${{ upkeep }} cost of production and the cost of protection . For example, if you chose to invest 100% effort in protecting your crops then your cost of protection would be ${{ max_protection }}. Accordingly, your income for the round would be ${{ max_protection }}—viz.
@@ -164,10 +164,7 @@
 					<i><u><strong>Your Payout</strong></i></u>
 				</p>
 				<p>
-					At the end of the experiment, you will be paid your show-up fee of $10, in addition to any revenue generated during the biosecurity game, subject to a conversion rate. The conversion rate is your revenue earned × 0.1. For example, if your revenue earned was $300 then you would be paid 300 × 0.1 = $30 in addition to your show-up fee, taking your total earnings to $40.
-				</p>
-				<p>
-					<i>Important note</i>: any losses incurred in the game will be deducted from your show-up fee. For example, if your total account balance at the end of the game was -$60 then you would be paid 10 – (60 × 0.10) = $4. If the losses incurred in the game are equal to or greater than the show-up fee then you will leave the experiment empty handed.
+					At the end of the experiment, you will be paid any revenue generated during the biosecurity game, subject to a conversion rate. The conversion rate is your revenue earned × 0.1. For example, if your revenue earned was $300 then you would be paid 300 × 0.1 = $30.
 				</p>
 		</div>
 	</div>

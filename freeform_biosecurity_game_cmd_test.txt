@@ -1,9 +1,0 @@
-============================= test session starts =============================
-platform win32 -- Python 3.6.0, pytest-2.9.2, py-1.4.31, pluggy-0.3.1
-Django settings: settings (from environment variable)
-rootdir: c:\program files\python36\lib\site-packages\otree\bots, inifile: 
-plugins: django-3.0.0
-collected 1 items
-
-c:\program files\python36\lib\site-packages\otree\bots\runner.py Beginning test for Freeform Communication Biosecurity Game
-F

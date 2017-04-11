@@ -28,7 +28,7 @@ class Constants(BaseConstants):
 		values = list(csv.DictReader(f))
 	with open('CSV/lottery_questions.csv') as f:
 		lottery_questions = list(csv.DictReader(f))
-	with open('CSV/questioner_data_grace.csv') as f:
+	with open('CSV/questioner_data.csv') as f:
 		questioner_list = list(csv.DictReader(f))
 
 	# lottery_rounds defines how many lottery rounds there are
