@@ -464,7 +464,17 @@ class BioQuestions(BioInstructions):
 	# create the pre lottery questions form fields
 	def get_form_fields(self):
 		return ['bio_question_{}'.format(i) for i in range(1, Constants.num_bio_questions + 1)]
-	
+
+class ReduceNegativeToZero(WaitPage):
+	'''
+		This is to ensure that at the end of the game, if anyone is below 0
+		for their current funds that they're payoff is $0 so that, no money is lost
+		from the original show up fee.
+	'''
+	def is_displayed(self):
+		return self.subsession.round_number == Constants.num_rounds
+	def after_all_players_arrive(self):
+		self.group.reduce_to_zero()
 '''
 The Below Wait Pages are specifically there to reduce the amount of wait pages
 '''
@@ -505,6 +515,7 @@ page_sequence = [
 	NoPledgeResultWaitPage,
 	ActionApproval,
 	PledgeWaitCounter,
+	ReduceNegativeToZero,
 ]
 
 

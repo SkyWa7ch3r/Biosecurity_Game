@@ -89,6 +89,9 @@ class ResultsWaitPage(WaitPage):
 class EndGame(WaitPage):
 	def is_displayed(self):
 		return self.subsession.round_number == Constants.num_rounds
+	#Adjust the  participant payoff so if people get negative on the lottery, no money is lost.
+	def after_all_players_arrive(self):
+		self.group.reduce_to_zero()
 
 # Specify the sequence of the app
 page_sequence = [

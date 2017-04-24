@@ -6,8 +6,9 @@ import random
 import csv
 import math
 from statistics import median
-from decimal import Decimal
+from decimal import *
 from otree.api import SubmissionMustFail
+import otree
 
 #Dynamic value arrays
 revenue = []
@@ -25,9 +26,15 @@ just with changes to the cost and assert checks
 '''
 class PlayerBot(Bot):
 	cases = ['random', 'quarter', 'half' , 'threequarters', 'full', 'half0halffull', 'bankrupt']
+	
 	def calculate_protection_for_test(self, max_protection, cost):
+		#Convert to the currency format to ensure there are no precision errors
+		cost_as_currency = c(cost)
+		#Calculate the cost_factor, this allows for Dynamic Values for Max protection
 		cost_factor = max_protection/-math.log(1 - Constants.max_probability + self.session.config["probability_coefficient"])
-		return round(Decimal(1 + self.session.config["probability_coefficient"] - math.exp(-cost/cost_factor)),2)
+		#Return the calculated protection
+		return round(Decimal(1 + self.session.config["probability_coefficient"] - math.exp(-cost_as_currency/cost_factor)), 4)
+	
 	def play_round(self):
 		if self.session.config["controlling_the_cases_for_bots"]:
 			self.case = self.session.config["case"]

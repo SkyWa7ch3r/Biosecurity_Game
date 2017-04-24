@@ -191,6 +191,9 @@ function printCosts(costFactor, prob_coeff) {
     x = document.getElementById("numb").value;
     text_cost = x;
     x = (1+prob_coeff-Math.exp(-(text_cost)/costFactor))*100;
+	if (x > 99.95) {
+		x = 99.95;
+	}
 	x = +x.toFixed(2)
     text_prob = x;
     // Set values in HTML

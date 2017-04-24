@@ -184,7 +184,10 @@ class Subsession(BaseSubsession):
 			self.session.vars['paying_line'] = paying_line
 
 class Group(BaseGroup):
-	pass
+	def reduce_to_zero(self):
+		for player in self.get_players():
+			if player.participant.payoff < 0:
+				player.participant.payoff = 0
 
 #check_correct is used for validating that the user selected the correct answer for the pre lottery quiz
 def check_correct(correct_value):

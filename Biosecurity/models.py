@@ -244,7 +244,7 @@ class Group(BaseGroup):
 	GroupTargetProbability = models.FloatField(default= 0.0)
 	
 	#Group's averaged protection values
-	chance_of_incursion = models.DecimalField(max_digits=4,decimal_places=2, default=0.00)
+	chance_of_incursion = models.DecimalField(max_digits=4,decimal_places=4, default=0.00)
 	
 	#Approval by contribution round, True when its a contribution round
 	contribution = models.NullBooleanField(False)
@@ -512,11 +512,16 @@ class Group(BaseGroup):
 		self.get_player_by_id(1).participant.vars["approval_means"] = list(approval_means)
 		for p in self.get_players():
 			p.participant.vars["Protection_Provided"] = []
-			
+	
+	def reduce_to_zero(self):
+		for player in self.get_players():
+			if player.payoff < 0:
+				player.participant.payoff += abs(player.participant.vars['funds'])
+				
 class Player(BasePlayer):
 	#Save the values to store for the excel or CSV data, names a re self explanatory
 	funds_at_rounds_end = otree.models.CurrencyField(default = 0)
-	protection = otree.models.DecimalField(max_digits = 3, decimal_places = 2)
+	protection = otree.models.DecimalField(max_digits = 5, decimal_places = 4)
 	groupTarget = otree.models.IntegerField(widget=otree.widgets.SliderInput(attrs={'step' : '1'}))
 	individualPledge = otree.models.CurrencyField(widget=otree.widgets.SliderInput(attrs={'step' : '0.01'}))
 	cost = otree.models.CurrencyField(widget=otree.widgets.SliderInput(attrs={'step': '0.01'}))
