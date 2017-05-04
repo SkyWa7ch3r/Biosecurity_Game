@@ -23,28 +23,8 @@ class Constants(BaseConstants):
 	name_in_url = 'results'
 	players_per_group = None
 
-	# open the csv files
-	with open('CSV/lottery_data.csv') as f:
-		values = list(csv.DictReader(f))
-	with open('CSV/lottery_questions.csv') as f:
-		lottery_questions = list(csv.DictReader(f))
 	with open('CSV/questioner_data.csv') as f:
 		questioner_list = list(csv.DictReader(f))
-
-	# lottery_rounds defines how many lottery rounds there are
-	lottery_rounds = 1
-
-	# round_lengths defines how many games there are in each lottery round
-	round_lengths = [0]
-
-	# read the csv file to find lottery_rounds and round_lengths
-	size = 0
-	for i in range(0, len(values)):
-		if lottery_rounds != int(values[i]['lottery_round']):
-			round_lengths.append(size)
-			lottery_rounds += 1
-		size += 1
-	round_lengths.append(size)
 
 	num_rounds = 1
 	

@@ -513,10 +513,7 @@ class Group(BaseGroup):
 		for p in self.get_players():
 			p.participant.vars["Protection_Provided"] = []
 	
-	def reduce_to_zero(self):
-		for player in self.get_players():
-			if player.payoff < 0:
-				player.participant.payoff += abs(player.participant.vars['funds'])
+	
 				
 class Player(BasePlayer):
 	#Save the values to store for the excel or CSV data, names a re self explanatory

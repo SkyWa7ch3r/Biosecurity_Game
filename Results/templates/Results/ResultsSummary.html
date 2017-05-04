@@ -31,13 +31,17 @@
 					</tr>
 					<tr>
 						<td><b>Your Total winnings</td></b>
-						<td>${{ total_payoff }}</td>
+						{% if lotneg %}
+							<td>-${{ total_payoff }}</td>
+						{% else %}
+							<td>${{ total_payoff }}</td>
+						{% endif %}
 					</tr>
 				</table>
 			</p>
 			<h3><strong> Biosecurity Game </strong></h3>
 			<p>
-				{% if neg %}
+				{% if bioneg %}
 					Your total pay-off for the Biosecurity Game is -${{ bio_funds }}
 				{% else %}
 					Your total pay-off for the Biosecurity Game is ${{ bio_funds }}
