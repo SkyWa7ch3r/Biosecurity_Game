@@ -11,7 +11,7 @@
 	<p>
 	<div id="roundText">
 		<strong>{{ player_name }}</strong><br>
-		Everyone's ideal target for the chance of having <b>no</b> incursion was calculated.<br>
+		Everyone's ideal target for the chance of having <b>no</b> outbreak was calculated.<br>
 		The target for the group as it stands is:<br>
 		<strong>{{ Group_Target_Prob }}%</strong>
 		</p>
@@ -20,7 +20,7 @@
 		<input id="numb" input type="range" name="individualPledge" min="0" max= "{{ max_protection }}" step="0.01" value="0" onchange="printCosts({{cost_factor}},{{prob_coeff}})">
 		<p>Amount of protection you are pledging to provide:</p>
 		<p id="text_cost"></p>
-		<p>The chance of you <b>not</b> being the source of the incursion based on the amount of protection you pledged to provide:</p>
+		<p>The chance of you <b>not</b> being the source of the outbreak based on the amount of protection you pledged to provide:</p>
 		<p id="text_prob"></p>
 	</div>
 	{% next_button %}

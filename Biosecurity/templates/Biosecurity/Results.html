@@ -37,34 +37,88 @@
 				<strong> Your current funds: ${{ funds }} </strong> <br/>
 			{% endif %}
 		</p>
+	</div>
+	<div id="resultTable">
 		{% if monitoring == True %}
-			<div id ="roundResultCon">
-				<div id ="roundResult">
-					<p>
-					<table border="5" cellpadding="5" cellspacing="5">
-					<caption>Each Player's Protection</caption>
+			<table border="5" cellpadding="5" cellspacing="5">
+				<caption>The Results of Round <b>{{ subsession.round_number }}</b></caption>
+				<tr style="background: #CCC">
+					<th>Name</th>
+					{% if pledge == True %}
+						<th>Pledged Protection</th>
+						<th>Pledged Protection Probability</th>
+					{% endif %}	
+					<th>Cost of Protection</th>
+					<th>Protection Probability</th>									
+				</tr>
+				{% for name, cost, probability, player_pledge, pledge_prob, name_true in results %}
 					<tr>
-						<th>Name</th>
-						<th>Protection Provided</th>
-					</tr>
-					{% for name, cost in results %}
-						<tr>
+						{% if name_true %}
+							<td style="color:blue">{{ name }}</td>
+						{% else %}
 							<td>{{ name }}</td>
-							<td>${{ cost }}</td>
-						</tr>
-					{% endfor %}
-					</table>
-					</p>
-				</div>
-			</div>
+						{% endif %}
+						{% if pledge == True %}
+							<td>${{ player_pledge }}</td>
+							<td>{{ pledge_prob }}%</td>
+						{% endif %}
+						<td>${{ cost }}</td>
+						<td>{{ probability }}%</td>
+					</tr>
+				{% endfor %}
+				<tr style="background: #CCC">
+					{% if pledge == True %}
+						<th>Group Target</th>
+						<th>Pledged Total</th>
+						<th>Overall Pledged Protection</th>
+						<th>Total</th>
+						<th>Overall Protection</th>
+					{% else %}
+						<td></td>
+						<th>Total</th>
+						<th>Overall Protection</th>
+					{% endif %}
+				</tr>
+				<tr>
+					{% if pledge == True %}
+						<td>{{ group_target }}%</td>
+						<td>${{ total_pledge }}</td>
+						<td>{{ overall_pledge }}%</td>
+						<td>${{ total_protection }}</td>
+						<td>{{ overall }}%</td>
+					{% else %}
+						<td></td>
+						<td>${{ total_protection }}</td>
+						<td>{{ overall }}%</td>
+					{% endif %}		
+				</tr>
+			</table>
 		{% endif %}
 	</div>
+	<p>
 		{% next_button %}
-
+	</p>
 {% endblock %}
 
 {% block scripts %}
 <style type="text/css">
+	#resultTable
+	{	
+		margin-bottom: 0.5em;
+		position:relative;
+		float: right;
+		{% if pledge %}
+			font-size: 1.5em;
+			width: 65%;
+			top: -360px;
+			left: -10px
+		{% else %}
+			width: 70%;
+			font-size: 1.5em;
+			top: -320px;
+			right: -100px;
+		{% endif %}
+	}
 	#pagehead
 	{
 		display:inline-block;
@@ -92,18 +146,10 @@
 		font-size: 1.5em;
 		margin-bottom: 1em;
 	}
-	#roundResultCon
-	{
-		text-align: center;
-	}
-	#roundResult
-	{
-		display: inline-block;
-		text-align: left;
-	}
 	#otree-title
 	{
 		display: none;
-	}	
+	}
+	
 </style>
 {% endblock %}

@@ -10,6 +10,12 @@ import csv
 author = 'Martin Porebski & Campbell Beck'
 
 doc = """
+This is the Lottery Game where participants have 3 Play Panels, each panel containing upto 15 games, 
+where each game will have two options A or B, option A generally being the less risky lottery game to play, and B being 
+the more risky option, however B has much higher reward when a participant wins on option B. The game will allow you as an administrator 
+to assess how risk aversive your group(s) is/are. Please refer to the Administration Instructions for more details on the Lottery Game.
+"""
+"""
 The Lottery Game.
 
 It begins with the lottery instructions page which contains information regarding how the game is played and how payoffs are made. 

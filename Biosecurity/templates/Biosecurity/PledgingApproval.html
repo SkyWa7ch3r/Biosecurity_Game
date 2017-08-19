@@ -25,12 +25,18 @@
 		<table border="5" cellspacing="5" cellpadding="5">
 			<caption>Each Player's Pledge and Approval Selection</caption>
 			<th>Name</th>
-			<th>Individual Pledge</th>
+			<th>Pledged Protection</th>
+			<th>Pledged Protection Probability</th>
 			<th>Approval of Player's Pledge</th>
-			{% for id, name, result in list %}
+			{% for id, name, result, prob, name_true in list %}
 				<tr>
-					<td>{{ name }}</td>
+					{% if name_true %}
+						<td style="color:blue">{{ name }}</td>
+					{% else %}
+						<td>{{ name }}</td>
+					{% endif %}
 					<td>${{ result }}</td>
+					<td>{{ prob }}%</td>
 					<td>
 						<div class="form-group required">
 							<div class="controls  field-approval_{{id}}">

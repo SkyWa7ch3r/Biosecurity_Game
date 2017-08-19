@@ -10,6 +10,9 @@ import csv
 author = 'Trae Shaw'
 
 doc = """
+This is the Results application which has the end questionnaire and shows the results for the Lottery and Biosecurity Game to the participants.
+"""
+"""
 This is the Results models.py, in here are the methods for displaying the final results after the completion of the experiment as well as a survey beforehand. This file also provides
 the random lottery ball selection. 
 """

@@ -36,9 +36,13 @@
 				<th>Round: {{ n }}</th>
 			{% endfor %}
 			<th>Approval of Player's Contribution</th>
-			{% for name, id, pledge_result, results in list_for_table %}
+			{% for name, id, pledge_result, results, name_true in list_for_table %}
 				<tr>
-					<td>{{ name }}</td>
+					{% if name_true %}
+						<td style="color:blue">{{ name }}</td>
+					{% else %}
+						<td>{{ name }}</td>
+					{% endif %}
 					<td>${{ pledge_result }}</td>
 					{% for result in results %}
 						<td>${{ result }}</td>

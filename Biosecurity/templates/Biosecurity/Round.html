@@ -13,73 +13,137 @@
 	
 	<br></br>
 	<div id="roundText">
-		<p><strong>{{ player_name }}</strong></p>
+		<table border=1 cellpadding="5" id="slider">
+			<tr>
+				<th colspan=4 class="name"><strong>{{ player_name }}</strong></th>
+			</tr>
+			<tr>
+				<th class="th">Current Funds:</th>
+				<td class="td">${{ funds }}</td>
+				<td rowspan=3 colspan=2>
+					How much effort do you want to invest in protecting your crops?
+					<p>
+					Please adjust the slider to indicate the amount of money you want to spend on protection:
+					</p>
+					<!--Slider with a range from 0 to a value set by an admin (max_protection). When the value is altered by the player, the cost and probabillity values are recalculated and displayed-->
+					<input id="numb" input type="range" name="cost" min="0" max= "{{max_protection}}" step="0.01" value="0" onchange="printCosts({{cost_factor}},{{prob_coeff}})">
+					Cost of Protection: <span id="text_cost"></span><br>
+					{% if calc %}
+						Probability that you're <b>not</b> the source of the outbreak: <span id="text_prob"></span></td>
+					{% endif %}
+				</td>
+			</tr>
+			<tr>
+				<th class="th">Revenue from Crop:</th>
+				<td class="td">${{ revenue }}</td>
+		</td>
+			<tr>			
+				<th class="th">Cost of Production:</th>
+				<td class="td">${{ upkeep }}</td>	
+			</tr>
+		
 		{% if pledge %}
-			<p>Rounds till the next pledge: <b>{{ next_pledge }}</b></p>
-			{% if Capproval and not cont_TF %}
-				<p>Rounds Till the next Approval by Contribution: {{ next_cont }}</p>
-			{% endif %}
-			{% if Capproval and cont_TF %}
-				<p>You will do an Approval based on each person's Contribution this round.</p>
-			{% endif %}
-			<p>The Group Target is <b>{{ Group_Target_Prob }}%</b></p>
-			<p>
-			<table border="5" cellpadding="5" cellspacing="5">
-				<caption>Each Player's Pledges</caption>
 				<tr>
+					<td colspan=4 class="pledge-counter">Rounds till the next pledge: <b>{{ next_pledge }}</b></td>
+				</tr>
+				<tr style="background: #CCC">
 					<th>Name</th>
-					<th>Individual Pledge</th>
+					<th>Pledged Protection</th>
+					<th class="needsBorder">Pledged Protection Probability</th>
 					{% if Papproval %}
-						<th>Group's Approval of Individual Pledge</th>
+						<th>Group's Approval of Pledged Protection</th>
 					{% endif %}
 					{% if Capproval and abovec %}
 						<th>Group's Approval of Contribution</th>
 					{% endif %}
+					{% if Capproval and not abovec %}
+						<th class="belowc" rowspan="{{ advisory_column_length }}">
+							The first Approval of Contributions Stage has not taken place yet.<br>
+							Refer back to this column in {{ next_cont }} Round(s).
+						</th>
+					{% endif %}
 				</tr>
-				{% for name, pledge, average in list %}
+				{% for name, player_pledge, pledge_prob, average, colour, name_true in list %}
 					<tr>
-						<td>{{ name }}</td>
-						<td>${{ pledge }}</td>
+						{% if name_true %}
+							<td style="color:blue">{{ name }}</td>
+						{% else %}
+							<td>{{ name }}</td>
+						{% endif %}
+						<td>${{ player_pledge }}</td>
+						<td class="needsBorder">{{ pledge_prob }}%</td>
 						{% if Papproval %}
-							<td>{{ average }}</td>
+							<td style="color:{{ colour }}">{{ average }}</td>
 						{% endif %}
 						{% if Capproval and abovec %}
-							<td>{{ average }}</td>
+							<td style="color:{{ colour }}">{{ average }}</td>
 						{% endif %}
 					</tr>
 				{% endfor %}
-			</table>
-			</p>
+				<tr style="background: #CCC">
+					<th>Group Target</th>
+					<th>Pledged Total</th>
+					<th class="needsBorder">Pledged Overall Protection</th>
+					<!--The below if statement is viewed as if (a and b) or c -->
+					{% if Capproval and abovec or Papproval%}
+						<th>Next Approval Stage</th>
+					{% endif %}
+				<tr>
+				<tr>
+					<td>{{ Group_Target_Prob }}%</td>
+					<td>${{ total_pledge }}</td>
+					<td class="needsBorder">{{ overall_pledge }}%</td>
+					{% if Capproval and not cont_TF and abovec%}
+						<td>{{ next_cont }} Rounds</td>
+					{% endif %}
+					{% if Capproval and cont_TF and abovec %}
+						<td>This Round</td>
+					{% endif %}
+					{% if Papproval %}
+						<td>{{ next_pledge }} Round(s)</td>
+					{% endif %}
+				</tr>
 		{% endif %}
-		<p>
-		Your current funds are: ${{ funds }} </br>
-		Revenue from crop: ${{ revenue }} <br>
-		Cost of production: ${{ upkeep }} <br>
-		</p>
-		<p>
-		How much effort do you want to invest in protecting your crops?
-		</p>
-	
-		<div id="Calculator">
-			
-			<p>Please adjust the slider to indicate the amount of money you want to spend on protection:</p>
-		
-			<!--Slider with a range from 0 to a value set by an admin (max_protection). When the value is altered by the player, the cost and probabillity values are recalculated and displayed-->
-			<input id="numb" input type="range" name="cost" min="0" max= "{{max_protection}}" step="0.01" value="0" onchange="printCosts({{cost_factor}},{{prob_coeff}})">
-			<br></br>
-			<p>Cost of Protection:</p>
-			<p id="text_cost"></p>
-			{% if calc %}
-				<p>Probablity that you are <b>not</b> the source of the incursion:</p>
-				<p id="text_prob"></p>
-			{% endif %}
-		</div>
-	</div>
+		</table>
+	</div>		
 	{% next_button %}
 {% endblock %}
 
 {% block styles %}
 <style type="text/css">
+	#slider
+	{
+		width: 100%;
+		margin-bottom: 0.5em;
+		border: 3px solid black;
+	}
+	#slider .th
+	{
+		text-align: right;
+		border-right: 0;
+	}
+	#slider .td
+	{
+		text-align: left;
+		border-left: 0;
+	}
+	#slider .name
+	{
+		text-align: center;
+	}
+	#slider .pledge-counter
+	{
+		text-align: center;
+		border-top: 3px solid black;
+	}
+	#slider .belowc
+	{
+		text-align: center;
+	}
+	#slider .needsBorder
+	{
+		border-right: 3px solid black;
+	}
 	#otree-title
 	{
 		display: none;
@@ -119,11 +183,11 @@
 	#roundText
 	{
 		font-size: 1.25em;
-		margin-bottom: 1em;
 		display: block;
 	}
-	#numb{
-		width: 50%;
+	#numb
+	{
+		width: 100%;
 	}
 	<!-- Slider Styling from: https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/ --->
 	input[type=range] {

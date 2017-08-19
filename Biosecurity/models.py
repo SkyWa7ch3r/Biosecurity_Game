@@ -17,25 +17,54 @@ author = 'UWA 2016 CITS3200 Group I: Joel Dunstan, Willem Meyer, Trae Shaw, Just
 Changes made after 1/12/2016 were all made by Joel Dunstan as per the git logs
 """
 
-doc = """
+doc = '''
+This is the Biosecurity Game in which participants have 15 rounds of play. Each round participants must decide
+their biosecurity effort against biosecurity threats, the round may also include pledging the amount of effort they wish
+to contribute, showing their approval of other participant's efforts or pledges. The default is 4 players per group, anymore than this
+will increase the difficulty of the game due to joint probability. Please refer to the Administration Instructions and the Test Documentation
+for more information on adjusting variables, and how an outbreak is calculated.
+'''
+
+"""
 This is the Biosecurity Game models.py, in here are the methods for calculating the probability, cost and profit for each round in the Biosecurity
 Game.
 
 The Constants Class contains constant variables used with the Game.
-players_per_group : one of the variables required to be defined in theis class. The number of players is set in the Lottery Game
-num_rounds : rounds to be played
-max_protection : the maximum amount, in in-game money, that can be spent on security. This value is equivilent to 99% protection. Increasing this value makes it more difficult for players to turn a profit . This value can be changed in sessions_config.csv. 10, the recommended value, represents the amount of money a player would have spent for protection in the original z-tree implementation of this experiment.
-cost_factor : The constant in the probabillity calculation formula: p = 1-e^(cost/cost_factor)
+players_per_group : Set as None, here grouping is done in subsession.
+num_rounds : The Number of Rounds to be played
 
-Subsession initializes players with random names and set starting funds before the start of the session. The names are read from file.
-If the admin has dsabled dynamic_finances then the values for revenue, upkeep and max_protection are set upon session creation. 
-Otherwise, theses values are sourced from dynamic_finances.csv and passed into arrays, representing a different value for each round
+The Subsession class is used at the start of each round, and the start of a session. Here grouping is done for testing environments for the biosecurity
+game. The Subsession class has many others tasks too such as assigning each participant's anonymous names and storing them for the game to store and use
+in the data later. Many of the participant variables used throughout the games for pledging and the like are also initialised here for later use. Thus no
+variables are really declared here.
 
-Group is the collection of players playing the game together. It calcuates whether an incursion occurs and the resulting changes in player's finances
+The Group class is responsible for all functions that apply to the entire group, where the group is a subset of participants from the session who are playing,
+you can have multiple groups per session, anything that should be done to all participants in a session should be done inside the Subsession class.
+It is here where we store values such as:
+incursion - Is True if there was an incursion/outbreak
+incursion_count - The number of outbreaks so far.
+GroupTargetProbability - The groups pledge/target for the next 'pledge_looper' rounds
+chance_of_incursion - This is the chance of an outbreak this round as calculated and determined by the groups actions
+contribution - Is True when there is an approval by contribution taking place that round
+pledge - Is True when there is a pledge for the next 'pledge_looper' rounds from participants taking place that round
+In the Group Class we also calculate the group target from players in that group which is the median of what everyone thinks
+the group target should be. The average approval of player's is also done here, whether those approval is on pledges or contributions.
 
-Player class contains individual variables for a given player
-Protection : 3 decimal place value between 0 and 1. Represents 1-p where p is the probabillity of an outbreak occuring 
-cost : the amount in in-game dollars the player has elected to spent on protection in a given round. The minimum is 0 and the max is set by an admin. The value is passed from a HTML slider widget
+The Player Class is responsible for handling all the fucntions and variables associated with each player is a game.
+Its here I will draw a distinction between player and participant, a participant is an instance in the context of a session, a player belongs to a group
+which a group is a subset of all the participants in a session. In essence, yes a participant is a player, however is depends on the context as to which
+word you use. Within a group, use the word Player, within a session use the word participant, if you're not sure use the word participant.
+funds_at_rounds_end - The amount of funds a player has at the end of the round.
+protection - The amount of biosecurity effort from a player that round in the form of probability that they're not the source of the outbreak.
+groupTarget - This is target the player thinks the group should aspire to when pledging is activated.
+individualPledge - The individual pledge from a player that they wish to pledge for the next 'pledge_looper' rounds
+cost - The amount of biosecurity effort in the form of cost in monetary value.
+Group_Approval - The groups approval of that players contribution/pledge.
+name_1-20 - The names of every player in the group, storing for the excel spreadsheets
+approval_1-20 - The same as names_1-20 except it storing approvals
+In this class we do the conversion between cost -> protection and we also get the biosecurity questions here too.
+
+Some of the functions for the Biosecurity quiz were obtained from the lottery quiz, and thus have the same names.
 """
 
 #check_correct is used for validating that the user selected the correct answer for the pre lottery quiz
