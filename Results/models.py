@@ -17,6 +17,7 @@ This is the Results models.py, in here are the methods for displaying the final 
 the random lottery ball selection. 
 """
 
+#Added Comment here to ensure git enforces change to UTF-8 encoding
 
 class Constants(BaseConstants):
 	"""

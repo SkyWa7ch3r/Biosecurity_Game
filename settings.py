@@ -66,8 +66,7 @@ POINTS_CUSTOM_NAME = ""
 LANGUAGE_CODE = 'en'
 
 # if an app is included in SESSION_CONFIGS, you don't need to list it here
-# if an app is included in SESSION_CONFIGS, you don't need to list it here
-INSTALLED_APPS = ['otree','otreechat']
+INSTALLED_APPS = ['otree','otreechat', 'django.contrib.admin', 'django.contrib.auth', 'django.contrib.contenttypes', 'django.contrib.messages', 'django.contrib.sessions']
 
 SENTRY_DSN = 'http://2fc10e0ecf6c4e699910d279943a09e0:06b6088276c64734b77bca2f79a3abaf@sentry.otree.org/75'
 
@@ -764,6 +763,5 @@ ROOMS = [
 	}
 ]
 
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+ROOT_URLCONF = 'urls'
+
