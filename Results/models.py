@@ -29,7 +29,6 @@ class Constants(BaseConstants):
 
 	with open('CSV/questioner_data.csv') as f:
 		questioner_list = list(csv.DictReader(f))
-
 	num_rounds = 1
 	
 	num_questions = len(questioner_list)
