@@ -13,7 +13,7 @@ id,question,type,#choices,choice1,choice2,choice3,choice4,choice5,choice6
 12,What is your gender?,choice,3,Male,Female,Other,,,
 13,What is your age?,age,,,,,,,
 14,What is your residential suburb and postcode?,text,,,,,,,
-15,What is your annual income? ,choice,5,"0 – $18,200","$18,201 – $37,000","$37,001 – $80,000","$80,001 - $180,000","$180,001 and over", 
+15,What is your annual income? ,choice,5,"0 - $18,200","$18,201 - $37,000","$37,001 - $80,000","$80,001 - $180,000","$180,001 and over", 
 ,,,,,,,,,
 ,,,,,,,,,
 ,,,,,,,,,
