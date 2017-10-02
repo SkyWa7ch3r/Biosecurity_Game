@@ -95,7 +95,7 @@ get_form_fields methods pass the form specifications to be displayed
 class Constants(BaseConstants):
 	name_in_url = 'lottery'
 	players_per_group = None
-	lottery_instructions_template = 'lottery/LotteryInstructionsShort.html'
+	lottery_instructions_template = 'Lottery/LotteryInstructionsShort.html'
 
 	# open the csv files
 	with open('CSV/lottery_data.csv') as f:
