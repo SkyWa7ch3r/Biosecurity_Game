@@ -7,7 +7,6 @@ from boto.mturk import qualification
 import otree.settings
 import csv
 
-
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # the environment variable OTREE_PRODUCTION controls whether Django runs in
@@ -764,4 +763,5 @@ ROOMS = [
 ]
 
 ROOT_URLCONF = 'urls'
+
 

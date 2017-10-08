@@ -23,7 +23,7 @@ class PlayerBot(Bot):
 								 'questioner_12': 'Male', 
 								 'questioner_13': '21', 
 								 'questioner_14': 'UWA 6000',
-								 'questioner_15' : "0 – $18,200"
+								 'questioner_15' : '0 – $18,200'
 								 })
 		'''
 		yield(views.Questioner, {'questioner_1': "I thought that other players would not protect, so I didn't see why I should either.", 

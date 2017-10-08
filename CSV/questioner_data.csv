@@ -15,6 +15,6 @@ id,question,type,#choices,choice1,choice2,choice3,choice4,choice5,choice6,choice
 14,What is your Gender?,choice,3,Male,Female,Other,,,,
 15,What is your age?,age,,,,,,,,
 16,What is your residential suburb and postcode?,text,,,,,,,,
-17,What is your annual income? ,choice,5,"0 - $18,200","$18,201 - $37,000","$37,001 - $80,000","$80,001 - $180,000","$180,001 and over",,
+17,What is your annual income? ,choice,5,'0 - $18,200',"$18,201 - $37,000","$37,001 - $80,000","$80,001 - $180,000","$180,001 and over",,
 ,,"Allowed types: text, integer, age, choice (so just type in possible options in the following columns)",,,,,,,,
 ,,"Can add more choices eg choice6 choice7, the program will pick up on it, HAVE to specify number of choices in #choices",,,,,,,,
