@@ -42,7 +42,7 @@ class PlayerBot(Bot):
 								 'questioner_14': 'Male', 
 								 'questioner_15': '21',
 								 'questioner_16': 'UWA 6009',
-								 'questioner_17': '0 – $18,200',
+								 'questioner_17': "$18,201 - $37,000",
 								 'questioner_18': '1 - Strongly Disagree', 
 								 'questioner_19': '1 - Strongly Disagree', 
 								 'questioner_20': '1 - Strongly Disagree'

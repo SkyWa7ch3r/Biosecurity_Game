@@ -100,7 +100,7 @@ class PlayerBot(Bot):
 			#Test with random variable protection, protection equation is tested, incursion unpredictable
 			if self.case == 'random':
 				#Do the pledging pages if pledging is on
-				if(self.session.config['pledge'] == True and (self.subsession.round_number % self.session.config["pledge_looper"] == 0 or self.subsession.round_number == 1)):
+				if(self.session.config['pledge'] == True and (self.subsession.round_number % self.session.config["pledge_looper"] == 1 or self.subsession.round_number == 1)):
 					#Start the Group Pledging, choses a random Target
 					yield (views.GroupPledging, {'groupTarget' : random.randint(min_prob, 100)})
 					#Work out the Group Target
@@ -228,7 +228,7 @@ class PlayerBot(Bot):
 			#Test with doing 1/4 of whatever the max protection is set to, protection equation tested, incursion unpredictable
 			elif self.case == 'quarter':
 				#Do the pledging pages if pledging is on
-				if(self.session.config['pledge'] == True and (self.subsession.round_number % self.session.config["pledge_looper"] == 0 or self.subsession.round_number == 1)):
+				if(self.session.config['pledge'] == True and (self.subsession.round_number % self.session.config["pledge_looper"] == 1 or self.subsession.round_number == 1)):
 					
 					yield (views.GroupPledging, {'groupTarget' : random.randint(min_prob, 100)})
 					targets = []
@@ -323,7 +323,7 @@ class PlayerBot(Bot):
 			#Test with doing 1/2 of whatever the max protection is set to, protection equation tested, incursion unpredictable
 			elif self.case == 'half':
 				#Do the pledging pages if pledging is on
-				if(self.session.config['pledge'] == True and (self.subsession.round_number % self.session.config["pledge_looper"] == 0 or self.subsession.round_number == 1)):
+				if(self.session.config['pledge'] == True and (self.subsession.round_number % self.session.config["pledge_looper"] == 1 or self.subsession.round_number == 1)):
 					
 					yield (views.GroupPledging, {'groupTarget' : random.randint(min_prob, 100)})
 					targets = []
@@ -418,7 +418,7 @@ class PlayerBot(Bot):
 			#Test with doing 3/4 of whatever the max protection is set to, protection equation tested, incursion somewhat predictable, entering point of diminishing returns for protection	  
 			elif self.case == 'threequarters':
 				#Do the pledging pages if pledging is on
-				if(self.session.config['pledge'] == True and (self.subsession.round_number % self.session.config["pledge_looper"] == 0 or self.subsession.round_number == 1)):
+				if(self.session.config['pledge'] == True and (self.subsession.round_number % self.session.config["pledge_looper"] == 1 or self.subsession.round_number == 1)):
 					
 					yield (views.GroupPledging, {'groupTarget' : random.randint(min_prob, 100)})
 					targets = []
@@ -512,7 +512,7 @@ class PlayerBot(Bot):
 			#Test with doing whatever the max protection is set to, protection equation tested, incursion mostly predictable.
 			elif self.case == 'full':
 				#Do the pledging pages if pledging is on
-				if(self.session.config['pledge'] == True and (self.subsession.round_number % self.session.config["pledge_looper"] == 0 or self.subsession.round_number == 1)):
+				if(self.session.config['pledge'] == True and (self.subsession.round_number % self.session.config["pledge_looper"] == 1 or self.subsession.round_number == 1)):
 					
 					yield (views.GroupPledging, {'groupTarget' : random.randint(min_prob, 100)})
 					targets = []
@@ -605,7 +605,7 @@ class PlayerBot(Bot):
 			#Test with any player's id that are even as 0 protection cost, odd are using full protection cost.
 			elif self.case == 'half0halffull':
 				#Do the pledging pages if pledging is on
-				if(self.session.config['pledge'] == True and (self.subsession.round_number % self.session.config["pledge_looper"] == 0 or self.subsession.round_number == 1)):
+				if(self.session.config['pledge'] == True and (self.subsession.round_number % self.session.config["pledge_looper"] == 1 or self.subsession.round_number == 1)):
 					
 					yield (views.GroupPledging, {'groupTarget' : random.randint(min_prob, 100)})
 					targets = []
@@ -706,7 +706,7 @@ class PlayerBot(Bot):
 			#Test with doing 0 protection cost, protection equation tested, incursion completely predictable, guranteed incursion all the time
 			elif self.case == 'bankrupt':
 				#Do the pledging pages if pledging is on
-				if(self.session.config['pledge'] == True and (self.subsession.round_number % self.session.config["pledge_looper"] == 0 or self.subsession.round_number == 1)):
+				if(self.session.config['pledge'] == True and (self.subsession.round_number % self.session.config["pledge_looper"] == 1 or self.subsession.round_number == 1)):
 					
 					yield (views.GroupPledging, {'groupTarget' : random.randint(min_prob, 100)})
 					targets = []
