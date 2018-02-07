@@ -141,6 +141,8 @@ class Round(Page):
 				#If Approval by Pledging or approval contribution on, get the approval data
 				if(self.session.config["Papproval"] or (self.session.config["Capproval"] and abovec)):
 					average.append(self.group.get_player_by_id(1).participant.vars["approval_means"][p.id_in_group - 1])
+					#Round the average number so participants only see whole numbers or integers
+					average[-1] = int(round(average[-1], 0))
 					#Add a colour to the colours based on the approval value.
 					if average[-1] > 0:
 						colours.append("green")
@@ -148,8 +150,6 @@ class Round(Page):
 						colours.append("red")
 					else:
 						colours.append("black")
-					#Round the average number so participants only see whole numbers or integers
-					average[-1] = int(round(average[-1], 0))
 				else:
 					#For the zipping to work, all the lists need to be of equal length, thus adding Nones
 					#to ensure that these lists when not used are the same length as the pledge_protection or names.
@@ -618,13 +618,13 @@ class ApprovalReview(Page):
 			results.append(p.participant.vars["Protection_Provided"])
 			#Copies the method for getting the averages from the round page
 			average.append(self.group.get_player_by_id(1).participant.vars["approval_means"][p.id_in_group - 1])
+			average[-1] = int(round(average[-1], 0))
 			if average[-1] > 0:
 				colours.append("green")
 			elif average[-1] < 0:
 				colours.append("red")
 			else:
 				colours.append("black")
-			average[-1] = int(round(average[-1], 0))
 		#Get the round numbers for display
 		for i in range(self.subsession.round_number - self.session.config["contribution_looper"] + 1, self.subsession.round_number + 1):
 			round_numbers.append(i)

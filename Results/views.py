@@ -46,7 +46,7 @@ class CheckPayments(WaitPage):
 			#If a participant lost money in the Lottery game but won money in the Biosecurity then...
 			elif(p.participant.vars['lotPayoff'] < 0 and p.participant.vars['funds'] > 0):
 				#If the lottery loss is larger than the biosecurity payoff
-				if(p.participant.vars['lotPayoff'] > p.participant.vars['funds']):
+				if(abs(p.participant.vars['lotPayoff']) > p.participant.vars['funds']):
 					p.participant.payoff = 0
 			#If a participant loses in both games then...
 			elif(p.participant.vars['lotPayoff'] < 0 and p.participant.vars['funds'] < 0):
