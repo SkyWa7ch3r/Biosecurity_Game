@@ -10,7 +10,7 @@ import math
 import random
 import csv
 from statistics import median
-
+from otree import widgets
 author = 'UWA 2016 CITS3200 Group I: Joel Dunstan, Willem Meyer, Trae Shaw, Justin Chong'
 
 """
@@ -35,7 +35,7 @@ num_rounds : The Number of Rounds to be played
 
 The Subsession class is used at the start of each round, and the start of a session. Here grouping is done for testing environments for the biosecurity
 game. The Subsession class has many others tasks too such as assigning each participant's anonymous names and storing them for the game to store and use
-in the data later. Many of the participant variables used throughout the games for pledging and the like are also initialised here for later use. Thus no
+in the data later. Many of the participant variables used throughout the games for pledging and the like are also initialized here for later use. Thus no
 variables are really declared here.
 
 The Group class is responsible for all functions that apply to the entire group, where the group is a subset of participants from the session who are playing,
@@ -50,7 +50,7 @@ pledge - Is True when there is a pledge for the next 'pledge_looper' rounds from
 In the Group Class we also calculate the group target from players in that group which is the median of what everyone thinks
 the group target should be. The average approval of player's is also done here, whether those approval is on pledges or contributions.
 
-The Player Class is responsible for handling all the fucntions and variables associated with each player is a game.
+The Player Class is responsible for handling all the functions and variables associated with each player is a game.
 Its here I will draw a distinction between player and participant, a participant is an instance in the context of a session, a player belongs to a group
 which a group is a subset of all the participants in a session. In essence, yes a participant is a player, however is depends on the context as to which
 word you use. Within a group, use the word Player, within a session use the word participant, if you're not sure use the word participant.
@@ -69,8 +69,8 @@ Some of the functions for the Biosecurity quiz were obtained from the lottery qu
 
 #check_correct is used for validating that the user selected the correct answer for the pre lottery quiz
 def check_correct(correct_value):
-	def compare(slected_value):
-		if not (correct_value == slected_value):
+	def compare(selected_value):
+		if not (correct_value == selected_value):
 			raise ValidationError('Incorrect')
 
 	return compare
@@ -81,7 +81,7 @@ class Constants(BaseConstants):
 	name_in_url = 'Biosecurity'
 	num_rounds = 15
 	
-	#Define all the player decisions for approval
+	#Define all the player decisions for approval, No longer used, HTML drop down is responsible for passing through the values
 	RATING = [
 		[-6, 'Strongly Disapprove (-6)'],
 		[-5, '-5'],
@@ -164,7 +164,7 @@ class Subsession(BaseSubsession):
 					list_of_groups[-1].append(player)
 			# finalise the group matchings ready for game and store the matrix
 			self.set_group_matrix(list_of_groups)
-		
+			#GROUP LOGIC ENDS HERE
 		if(self.round_number == 1):
 			names = []
 			#Read names from csv and store in array	   
@@ -185,7 +185,7 @@ class Subsession(BaseSubsession):
 				#Define All the Participant Variables needed for the group, even if they're not used.
 				g.get_player_by_id(1).participant.vars["approval_means"] = [0.00] * 20
 			
-				#No generate random numbers until we get an index that hasnt been chosen before
+				#Generate random numbers until we get an index that hasn't been chosen before
 				been_before = [1000]
 				namesChosen = []
 				#For every player inside this group...
@@ -239,6 +239,8 @@ class Subsession(BaseSubsession):
 					p.name_20 = p.participant.vars['namesChosen'][19]
 					
 		#This will ensure that every round (other than round 1 which does the above) the game continues to record the name.
+		#Really wish you could loop over variables in oTree or Django, like you can with the forms. If you could this could be
+		#reduced down to 3-4 lines.
 		else:
 			for p in self.get_players():
 				p.name_1 = p.participant.vars['namesChosen'][0]
@@ -283,7 +285,7 @@ class Group(BaseGroup):
 	
 	#When the resusts page loads, this function finds net incoms of players
 	def calculate_profits(self):
-		#Calucate the protection each player provides (0-0.99) representing a percentage (0 = 100% chance of incursion etc.)
+		#Calculate the protection each player provides (0-0.99) representing a percentage (0 = 100% chance of incursion etc.)
 		for p in self.get_players():
 				p.participant.vars["Protection_Provided"].append(Decimal(p.cost))
 				p.protection = p.calculate_protection()
@@ -539,8 +541,6 @@ class Group(BaseGroup):
 				self.get_player_by_id(i + 1).Group_Approval = approval_means[i]
 		#Save the List of Approval Means
 		self.get_player_by_id(1).participant.vars["approval_means"] = list(approval_means)
-		for p in self.get_players():
-			p.participant.vars["Protection_Provided"] = []
 	
 	
 				

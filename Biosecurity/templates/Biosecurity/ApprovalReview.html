@@ -1,0 +1,97 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}Approval based on Contribution Stage: {{ subsession.round_number }} of {{ Constants.num_rounds }}{% endblock %}
+
+{% block content %}
+	<div id="pagehead">
+		<img src="{% static "Biosecurity/uwalogo.png" %}"/>
+		<div class="title">Approval based on Contribution Stage:  {{ subsession.round_number }} of {{ Constants.num_rounds }}</div>
+	</div>
+	<div id="roundText">
+		<p>
+			<strong>{{ player_name }}</strong><br>
+			Please review you and your co-players contributions over the last {{ contribution_looper }} again in the table below
+			and observe the approval rating for yourself and your co-players in the final column.<br>
+			Your approval rating can take on any value between -6 (<i>Strongly Disapprove</i>) and +6 (<i>Strongly Approve</i>).<br>
+		</p>
+	</div>
+	<div id="results">
+		<table border="5" cellspacing="5" cellpadding="5">
+			{% if contribution_looper == 1 %}
+				<caption>The Results from the Last Round</caption>
+			{% else %}
+				<caption>Approval on Contribution from the last {{ contribution_looper }} rounds</caption>
+			{% endif %}
+			<th>Name</th>
+			<th>Player's Pledge</th>
+			{% for n in round_numbers %}
+				<th>Round: {{ n }}</th>
+			{% endfor %}
+			<th>Approval of Player's Contribution</th>
+			{% for name, pledge_result, results, average, colour, name_true in list_for_table %}
+				<tr>
+					{% if name_true %}
+						<td style="color:blue">{{ name }}</td>
+					{% else %}
+						<td>{{ name }}</td>
+					{% endif %}
+					<td>${{ pledge_result }}</td>
+					{% for result in results %}
+						<td>${{ result }}</td>
+					{% endfor %}
+					<td style="color:{{ colour }}">
+						{{ average }}
+					</td>
+				</tr>
+			{% endfor %}
+		</table>
+	</div>
+	{% next_button %}
+	
+{% endblock %}
+
+{% block styles %}
+<style type="text/css">
+	.otree-title
+	{
+		display: none;
+	}
+	#pagehead
+	{
+		display:inline-block;
+		float:left;
+		width:100%;
+		background:#27348b;
+		margin:0 0 0 0;
+		padding:0.75em;
+		overflow:hidden;
+		margin-bottom: 2em;
+	}
+	#pagehead img
+	{
+		height:3.8em;
+	}
+	#pagehead .title
+	{
+		display:inline-block;
+		float:right;
+		font-size:2em;
+		color:#ffffff;
+	}
+	#roundText
+	{
+		font-size: 1.25em;
+		margin-bottom: 1em;
+		display: block;
+	}
+	#results
+	{
+		font-size: 1.5em;
+		margin-bottom: 1em;
+		text-align: center;
+		display: inline-block;
+		text-align: left;
+	}
+</style>
+{% endblock %}

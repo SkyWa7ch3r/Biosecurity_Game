@@ -8,18 +8,17 @@
 		<img src="{% static "Biosecurity/uwalogo.png" %}"/>
 		<div class="title">Group Pledging Stage: {{ subsession.round_number }} of {{ Constants.num_rounds }}</div>
 	</div>
-	<p>
 	<div id="roundText">
+		<p>
 		<strong>{{ player_name }}</strong><br>
-		Here, you will choose a target for the chance of <b>no</b> outbreak for the group.<br>
-		In the next stage, a Group Target will be calculated based off your target and the targets of your group members.<br>
-		In the next stage, you will also decide your individual pledge in order to meet the Group Target.<br>
+		Please propose a target level of protection that the group should aim for over the next {{ pledge_loop }} rounds.<br> 
+		The group target is a value between 40% and 100% and represents the chance that an outbreak will <b>not</b> occur.
 		</p>
-		What chance of <b>not</b> having an outbreak do you think the group needs?
-		<br><br>
-		<input id="numb" input type="range" name="groupTarget" min="{{ prob_coeff }}" max= "100" step="1.0" value="0" onchange="printProb()">
-		<br>
-		The chance of <b>not</b> having an outbreak you have chosen:
+		<p>What chance of an outbreak <b>not</b> occurring do you think the group should aim for?</p>
+		<p>
+		<input id="numb" input type="range" name="groupTarget" min="40" max= "100" step="1.0" value="0" onchange="printProb()">
+		</p>
+		The chance of an outbreak <b>not</b> that you have chosen is:
 		<p id="text_prob">%</p>
 		<br></br>
 	</div>
@@ -29,7 +28,7 @@
 
 {% block styles %}
 <style type="text/css">
-	#otree-title
+	.otree-title
 	{
 		display: none;
 	}
@@ -162,9 +161,9 @@
 {% block scripts %}
 
 	<script>
-	document.onload = setDefaultOutput({{prob_coeff}});
-	function setDefaultOutput(prob_coeff) {
-		document.getElementById("text_prob").innerHTML = prob_coeff + "%";
+	document.onload = setDefaultOutput();
+	function setDefaultOutput() {
+		document.getElementById("text_prob").innerHTML = 40 + "%";
 	}
 	function printProb() {
 		document.getElementById("text_prob").innerHTML = document.getElementById("numb").value + "%";

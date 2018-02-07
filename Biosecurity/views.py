@@ -45,7 +45,9 @@ class BioInstructions(Page):
 class SoloRound(Page):
 	doc="""
 	The SoloRound page only displays to the "leader" player (if lead_player is enabled only).
-	Gets cost from player and outputs protection and cost_factor to SoloRounds.html
+	Gets cost from player and outputs protection and cost_factor to SoloRounds.html.
+	
+	THIS PAGE HASN"T BEEN FULLY TESTED AS IT WILL NOT BE USED FOR EXPERIMENTATION.
 	"""
 
 	def is_displayed(self):
@@ -78,7 +80,7 @@ class Round(Page):
 
 	doc="""
 	The Round class is responsible for determining when and how to display the
-	Round.html page. It also initialises the forms used each round and uses timeout_seconds
+	Round.html page. It also initializes the forms used each round and uses timeout_seconds
 	to automatically push the experiment forward. This page does not display if the lead_player feature is active
 	"""
 
@@ -90,6 +92,7 @@ class Round(Page):
 	#In the event of a timeout or move on from admin, it will produce a random integer for protection
 	def before_next_page(self):
 		if self.timeout_happened:
+			#DYNAMIC FINANCEWS HASN"T BEEN TESTED AS THIS WILL NOT BE USED IN EXPERIMENTATION
 			if(self.session.config['dynamic_finances'] == False):
 				self.player.cost= random.uniform(0.00, self.session.config['max_protection'])
 			else:
@@ -115,13 +118,14 @@ class Round(Page):
 		abovec = False
 		#Calculate the cost factor
 		cost_factor = self.session.config['max_protection']/-math.log(1 - Constants.max_probability + self.session.config["probability_coefficient"])
-		#Check if a apprval by contribution has taken place
+		#Check if a approval by contribution has taken place, if so change abovec to True
 		if(self.subsession.round_number > self.session.config["contribution_looper"]):
 			abovec = True
 		#Get the data for the lists to pass them to the template
 		for p in self.group.get_players():
 			#Get the Player's name
 			names.append(p.participant.vars["name"])
+			#Add a boolean to name_true, True if the current player in the loop matches the player who submitted the form.
 			if p.participant.vars["name"] == self.player.participant.vars["name"]:
 				name_true.append(True)
 			else:
@@ -131,17 +135,21 @@ class Round(Page):
 				pledge_protection.append(p.participant.vars["Recent_Pledge"][1])
 				probability = 1-math.exp(-p.participant.vars["Recent_Pledge"][1]/cost_factor) + self.session.config["probability_coefficient"]
 				pledge_prob.append(round(probability * 100, 2))
+				#Update overall group values
 				total_pledge += p.participant.vars["Recent_Pledge"][1]
 				overall_pledge *= probability
 				#If Approval by Pledging or approval contribution on, get the approval data
 				if(self.session.config["Papproval"] or (self.session.config["Capproval"] and abovec)):
 					average.append(self.group.get_player_by_id(1).participant.vars["approval_means"][p.id_in_group - 1])
+					#Add a colour to the colours based on the approval value.
 					if average[-1] > 0:
 						colours.append("green")
 					elif average[-1] < 0:
 						colours.append("red")
 					else:
 						colours.append("black")
+					#Round the average number so participants only see whole numbers or integers
+					average[-1] = int(round(average[-1], 0))
 				else:
 					#For the zipping to work, all the lists need to be of equal length, thus adding Nones
 					#to ensure that these lists when not used are the same length as the pledge_protection or names.
@@ -204,6 +212,8 @@ class OthersRound(Page):
 	The OthersRound class is responsible for determining when and how to display the
 	OthersRound.html page. It also initialises the forms used each round and uses timeout_seconds
 	to automatically push the experiment forward. This page displays only if the lead_player feature is active and only for non-leader players
+	
+	HASN"T BEEN FULLY TESTED AS IT WILL NOT BE USED IN EXPERIMENTATION
 	"""
 	def is_displayed(self):
 		return (self.session.config['set_leader'] and self.player.id_in_group != self.group.get_player_by_role('Leader').id_in_group)
@@ -282,14 +292,22 @@ class Results(Page):
 	"""
 	timeout_seconds = 60
 	def vars_for_template(self):
+		#List that holds all the results for display
 		results = []
+		#A boolean used to determine if the income is negative or not to ensure the negative is used properly on the page
 		negative = False
 		currentFunds = self.player.participant.vars['funds']
+		#Holds the names for display
 		names = []
+		#Holds the costs for display
 		costs = []
+		#Holds the protection values (%) for display
 		probabilities = []
+		#Holds the pledges ($) for display
 		pledges = []
+		#Holds the pledge values (%) for display
 		pledge_prob = []
+		#Initialize the overall variables
 		total_protection = 0
 		total_pledge = 0
 		overall_pledge = 1
@@ -331,12 +349,15 @@ class Results(Page):
 		if(self.player.participant.vars['funds'] < 0.00):
 			negative = True
 			currentFunds = currentFunds * -1.00
-		payoff = abs(self.player.payoff)
+		#Get the current income for the round
+		payoff = self.player.payoff
+		#if its the first round take off the starting funds otherwise it will display the income for round 1 incorrectly
 		if(self.subsession.round_number == 1):
 			payoff -= self.session.config['starting_funds']	
 		#Now 'fix' the overall pledge protection values
 		if(self.session.config['pledge'] == True):
 			overall_pledge = round(overall_pledge * 100, 2)
+		
 		return {
 			'results': zip(names, costs, probabilities, pledges, pledge_prob, name_true),
 			'funds': currentFunds,
@@ -346,7 +367,7 @@ class Results(Page):
 			'total_cost': self.player.cost + c(self.session.config['upkeep']),
 			'monitoring' : self.session.config['monitoring'],
 			'neg' : negative,
-			'payoff' : payoff,
+			'payoff' : abs(payoff),
 			'overall' : round((1 - self.group.chance_of_incursion)*100, 2),
 			'pledge' : self.session.config['pledge'],
 			'total_protection' : total_protection,
@@ -404,6 +425,7 @@ class IndiPledging(Page):
 			'cost_factor' : cost_factor,
 			'prob_coeff' : self.session.config["probability_coefficient"],
 			'player_name' : self.player.participant.vars["name"],
+			'pledge_loop' : self.session.config["pledge_looper"],
 		}
 
 class IndiPledgingWait(WaitPage):
@@ -423,16 +445,16 @@ class GroupPledging(Page):
 	timeout_seconds = 60
 	form_model = models.Player
 	form_fields = ['groupTarget']
-	#Set the minimum for minimum amount of chance that someone is not the source of incursion in the case of timeout
+	#On timeout simply chooses the minimum group target.
 	def before_next_page(self):
 		if self.timeout_happened:
-			self.player.groupTarget = self.session.config["probability_coefficient"] * 100
+			self.player.groupTarget = 40
 	def is_displayed(self):
 		return self.session.config['pledge'] == True and self.subsession.round_number % self.session.config["pledge_looper"] == 1
 	def vars_for_template(self):
 		return {
 			'player_name' : self.player.participant.vars["name"],
-			'prob_coeff' : self.session.config['probability_coefficient'] * 100,
+			'pledge_loop' : self.session.config["pledge_looper"],
 		}
 		
 class PledgingApproval(Page):
@@ -464,6 +486,7 @@ class PledgingApproval(Page):
 				name_true.append(True)
 			else:
 				name_true.append(False)
+			#Uses the ids for the automatic naming of the forms.
 			ids.append(p.id_in_group)
 			pledge_results.append(p.participant.vars["Recent_Pledge"][1])
 			probability = 1-math.exp(-p.participant.vars["Recent_Pledge"][1]/cost_factor) + self.session.config["probability_coefficient"]
@@ -522,9 +545,10 @@ class ActionApproval(Page):
 				gtp = self.participant.vars["Group_Targets_Prob"][1]
 			elif(self.session.config["contribution_looper"] < self.session.config["pledge_looper"]):
 				pledge_results.append(p.participant.vars["Recent_Pledge"][0])
-				gtp = self.participant.vars["Group_Targets_Prob"][1]				
+				gtp = self.participant.vars["Group_Targets_Prob"][1]
+			#Get the participants contributions from the last contribution_looper rounds
 			results.append(p.participant.vars["Protection_Provided"])
-			
+		#Get the round numbers for the display	
 		for i in range(self.subsession.round_number - self.session.config["contribution_looper"] + 1, self.subsession.round_number + 1):
 			round_numbers.append(i)
 		return {
@@ -551,6 +575,74 @@ class BioQuestions(BioInstructions):
 	def get_form_fields(self):
 		return ['bio_question_{}'.format(i) for i in range(1, Constants.num_bio_questions + 1)]
 
+class ApprovalReview(Page):
+	'''
+		This is the page where participants will review their approvals based 
+		on their contributions before the next round takes place
+	'''
+	timeout_seconds = 60
+	def is_displayed(self):
+		return self.session.config['pledge'] == True and self.session.config['Capproval'] == True and self.subsession.round_number % self.session.config["contribution_looper"] == 0
+	def vars_for_template(self):
+		#List of names
+		names = []
+		#The Pledge that was made over the last ["pledge_looper"] rounds
+		pledge_results = []
+		#This will be a list of lists of the protection provided from each player from the last ["pledge_looper"] rounds
+		results = []
+		#List of Round Numbers from Current Round to Current Round -  ["Pledge_Looper"]
+		round_numbers = []
+		#Allows us to highlight player's name in a table
+		name_true = []
+		#This holds the group approvals for players
+		average = []
+		#The below list will contain either black, red or green as a string for html styling.
+		colours = []
+		for p in self.group.get_players():
+			names.append(p.participant.vars['name'])
+			if p.participant.vars["name"] == self.player.participant.vars["name"]:
+				name_true.append(True)
+			else:
+				name_true.append(False)
+			'''
+			If Pledge looper and contribution are the same, then grab the most recent pledge as its 
+			most likely the approval stage will occur before next pledge. If the Pledge Looper is more
+			than the Contribution looper, then it will take the previous pledge rather than the most recent.
+			If Pledge looper is less, then it will take the most recent.
+			'''
+			if self.session.config["contribution_looper"] >= self.session.config["pledge_looper"]:
+				pledge_results.append(p.participant.vars["Recent_Pledge"][1])
+			elif(self.session.config["contribution_looper"] < self.session.config["pledge_looper"]):
+				pledge_results.append(p.participant.vars["Recent_Pledge"][0])
+			#Get the participants contributions from the last contribution_looper rounds
+			results.append(p.participant.vars["Protection_Provided"])
+			#Copies the method for getting the averages from the round page
+			average.append(self.group.get_player_by_id(1).participant.vars["approval_means"][p.id_in_group - 1])
+			if average[-1] > 0:
+				colours.append("green")
+			elif average[-1] < 0:
+				colours.append("red")
+			else:
+				colours.append("black")
+			average[-1] = int(round(average[-1], 0))
+		#Get the round numbers for display
+		for i in range(self.subsession.round_number - self.session.config["contribution_looper"] + 1, self.subsession.round_number + 1):
+			round_numbers.append(i)
+		
+		return {
+				'list_for_table' : zip(names, pledge_results, results, average, colours, name_true),
+				'round_numbers' : round_numbers,
+				'player_name': self.player.participant.vars['name'],
+				'contribution_looper' : self.session.config["contribution_looper"],
+		}
+		
+class ApprovalReviewWait(WaitPage):
+	def is_displayed(self):
+		return self.session.config['pledge'] == True and self.session.config['Capproval'] == True and self.subsession.round_number % self.session.config["contribution_looper"] == 0
+	def after_all_players_arrive(self):
+		#Reset the protection provided list to then add the next contribution_looper rounds without any extra data to deal with.
+		for p in self.group.get_players():
+			p.participant.vars["Protection_Provided"] = []
 '''
 The Below Wait Pages are specifically there to reduce the amount of wait pages
 '''
@@ -591,6 +683,8 @@ page_sequence = [
 	NoPledgeResultWaitPage,
 	ActionApproval,
 	PledgeWaitCounter,
+	ApprovalReview,
+	ApprovalReviewWait,
 ]
 
 

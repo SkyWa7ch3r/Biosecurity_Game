@@ -4,7 +4,11 @@ from ._builtin import Page, WaitPage
 from .models import Constants
 
 class ResultsSummary(Page):
+	'''
+		The final page of the entire experiment which shows the result for the entire game.
+	'''
 	def vars_for_template(self):
+		#Have booleans to ensure negatives appear properly
 		bioneg = False
 		lotneg = False
 		if(self.player.participant.vars['funds'] < 0):
@@ -24,6 +28,10 @@ class ResultsSummary(Page):
 
 
 class Questioner(Page):
+	'''
+		This is the survey which asks participants questions about their experience with the game, general trust and economic questions
+		as well as questions relating to their socio-economic background.
+	'''
 	form_model = models.Player
 
 	def get_form_fields(self):

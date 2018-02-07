@@ -12,6 +12,12 @@ Joel Dunstan
 Trae Shaw
 '''
 
+###########################################
+##############DEPRECATED###################
+###########################################
+########OTREE CHAT IS NOW USED#############
+###########################################
+
 rooms = {}
 profanity_list = []
 profanity = open("Profanity/Profanity.txt", "r")

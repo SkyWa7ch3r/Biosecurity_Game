@@ -9,18 +9,13 @@
 		<div class="title">Approval based on Contribution Stage: {{ subsession.round_number }} of {{ Constants.num_rounds }}</div>
 	</div>
 	<div id="roundText">
-		<strong>{{ player_name }}</strong> <br/>	
-		<p>The Group Target was <b>{{ Group_Target_Prob }}%</b></p>
-		Review the table Below and use the drop down box the right hand side of each row to decide<br>
-		your Approval of each players Contribution from the 
-		{% if contribution_looper == 1 %}
-			last round.<br>
-		{% else %}
-			last {{ contribution_looper }} rounds.<br>
-		{% endif %}
-		You Approval of Each Player will be on a scale of -6 (Strongly Disapprove) to +6 (Strongly Approve)<br>
-		From now on, when you decide your Protection against Biosecurity Threats you will see the Group's Approval<br>
-		of yourself and other players. The closer the Group Approval is to +6, the more the Group Approves of that person.<br>
+		<strong>{{ player_name }}</strong><br>
+		Please review your and your co-players contributions over the last {{ contribution_looper }} rounds shown in the table below,
+		and assign to each an approval rating using the drop down menu in the final column.<br> 
+		Your approval rating can take on any value between -6 (<i>Strongly Disapprove</i>) and +6 (<i>Strongly Approve</i>).<br>
+		The ratings provided by everyone will be combined to provide an overall approval rating for each individual player.<br> 
+		These approval ratings will be communicated to everyone after this stage and again when each player makes their 
+		biosecurity protection decision over the next {{ contribution_looper }} rounds.
 	</div>
 	<br>
 	<div id="results">
@@ -28,7 +23,7 @@
 			{% if contribution_looper == 1 %}
 				<caption>The Results from the Last Round</caption>
 			{% else %}
-				<caption>The Results from the last {{ contribution_looper }} rounds</caption>
+				<caption>Group's Pledges and Contributions from the last {{ contribution_looper }} Rounds</caption>
 			{% endif %}
 			<th>Name</th>
 			<th>Player's Pledge</th>
@@ -79,7 +74,7 @@
 
 {% block styles %}
 	<style type="text/css">
-		#otree-title
+		.otree-title
 		{
 			display: none;
 		}

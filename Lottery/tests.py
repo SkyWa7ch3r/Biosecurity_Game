@@ -58,7 +58,7 @@ class PlayerBot(Bot):
 			#Try the correct options to see if it goes through to the next page
 			yield(views.LotteryQuestions, {'lottery_question_1': correct_values[0], 'lottery_question_2': correct_values[1], 'lottery_question_3': correct_values[2],
 										   'lottery_question_4': correct_values[3]} )
-		#Based on the case	 
+		#Based on the case, here we are simply testing the forms themselves not entirely how a person will interact with them, since they should choose B, once B has been chosen.	 
 		if self.case == 'random':
 			#Choice a random choice between A or B as chosen from the choices array above
 			yield (views.Round, {'submitted_answer_1': random.choice(choices), 'submitted_answer_2': random.choice(choices), 'submitted_answer_3': random.choice(choices),

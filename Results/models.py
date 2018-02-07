@@ -43,7 +43,9 @@ class Group(BaseGroup):
 class Player(BasePlayer):
 	def returnFormField(qn):
 		"""
-		The Player class initialises the survey/questionaire and allows for the form entries to be returned.
+		The Player class initializes the survey/questionaire and allows for the form entries to be returned.
+		Of course there's questions that require different types of answers hence decide the type of field to use
+		for storage by the type of answer the survey is expecting e.g. a text type will require a CharField
 		"""
 		if Constants.questioner_list[qn]['type'] == 'text':
 			return models.CharField(verbose_name=Constants.questioner_list[qn]['question'], widget=widgets.TextInput())
@@ -52,13 +54,14 @@ class Player(BasePlayer):
 		elif Constants.questioner_list[qn]['type'] == 'age':
 			return models.PositiveIntegerField(verbose_name=Constants.questioner_list[qn]['question'],
 											   choices=range(10, 150), initial=None)
+		#Otherwise assume there are choices involved and treat it like a dropdown or radio button
 		else:
 			matrix = []
 			for num in range(1, int(Constants.questioner_list[qn]['#choices']) + 1):
 				matrix.append(Constants.questioner_list[qn]['choice{}'.format(num)])
 			return models.CharField(choices=matrix, verbose_name=Constants.questioner_list[qn]['question'],
 									widget=widgets.RadioSelect())
-
+	#Question fields
 	questioner_1 = returnFormField(0)
 	questioner_2 = returnFormField(1)
 	questioner_3 = returnFormField(2)

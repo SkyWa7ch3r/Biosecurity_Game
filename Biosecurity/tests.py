@@ -209,6 +209,7 @@ class PlayerBot(Bot):
 					approval_for_testing = approval_total/number_of_players
 					#Assert that the value calculated here for the group approval of player 1 is indeed the approval of player 1
 					assert self.group.get_player_by_id(1).participant.vars["approval_means"][0] == approval_for_testing
+					yield(views.ApprovalReview)
 				#Show the incursion count for testing and recording purposes
 				print("Incursion Count: %d"%self.group.get_player_by_id(1).participant.vars['incursion_count'])
 				#Show the funds of each player at round 5 and round 15 for reecording purposes
@@ -309,7 +310,8 @@ class PlayerBot(Bot):
 												  'approval_18' : -6, 
 												  'approval_19' : -6, 
 												  'approval_20' : -6})
-					assert self.group.get_player_by_id(1).participant.vars["approval_means"][0] == -6							  
+					assert self.group.get_player_by_id(1).participant.vars["approval_means"][0] == -6	
+					yield(views.ApprovalReview)					
 				print("Incursion Count: %d"%self.group.get_player_by_id(1).participant.vars['incursion_count'])
 				if(self.subsession.round_number == 5 or self.subsession.round_number == 15):
 					for p in self.group.get_players():
@@ -404,7 +406,8 @@ class PlayerBot(Bot):
 												  'approval_18' : 3, 
 												  'approval_19' : 3, 
 												  'approval_20' : 3})
-					assert self.group.get_player_by_id(1).participant.vars["approval_means"][0] == 3							  
+					assert self.group.get_player_by_id(1).participant.vars["approval_means"][0] == 3
+					yield(views.ApprovalReview)
 				print("Incursion Count: %d"%self.group.get_player_by_id(1).participant.vars['incursion_count'])
 				if(self.subsession.round_number == 5 or self.subsession.round_number == 15):
 					for p in self.group.get_players():
@@ -499,6 +502,7 @@ class PlayerBot(Bot):
 												  'approval_19' : 6, 
 												  'approval_20' : 6})
 					assert self.group.get_player_by_id(1).participant.vars["approval_means"][0] == 6
+					yield(views.ApprovalReview)
 				print("Incursion Count: %d"%self.group.get_player_by_id(1).participant.vars['incursion_count'])
 				if(self.subsession.round_number == 5 or self.subsession.round_number == 15):
 					for p in self.group.get_players():
@@ -592,6 +596,7 @@ class PlayerBot(Bot):
 												  'approval_19' : 0, 
 												  'approval_20' : 0})
 					assert self.group.get_player_by_id(1).participant.vars["approval_means"][0] == 0
+					yield(views.ApprovalReview)
 				print("Incursion Count: %d"%self.group.get_player_by_id(1).participant.vars['incursion_count'])
 				if(self.subsession.round_number == 5 or self.subsession.round_number == 15):
 					for p in self.group.get_players():
@@ -693,6 +698,7 @@ class PlayerBot(Bot):
 												  'approval_18' : random.randint(-6, 6), 
 												  'approval_19' : random.randint(-6, 6), 
 												  'approval_20' : random.randint(-6, 6)})
+					yield(views.ApprovalReview)
 				print("Incursion Count: %d"%self.group.get_player_by_id(1).participant.vars['incursion_count'])
 				if(self.subsession.round_number == 5 or self.subsession.round_number == 15):
 					for p in self.group.get_players():
@@ -784,6 +790,7 @@ class PlayerBot(Bot):
 												  'approval_18' : random.randint(-6, 6), 
 												  'approval_19' : random.randint(-6, 6), 
 												  'approval_20' : random.randint(-6, 6)})
+					yield(views.ApprovalReview)
 				print("Incursion Count: %d"%self.group.get_player_by_id(1).participant.vars['incursion_count'])
 				if(self.subsession.round_number == 5 or self.subsession.round_number == 15):
 					for p in self.group.get_players():

@@ -41,15 +41,22 @@
 	<div id="resultTable">
 		{% if monitoring == True %}
 			<table border="5" cellpadding="5" cellspacing="5">
-				<caption>The Results of Round <b>{{ subsession.round_number }}</b></caption>
+				{% if pledge %}
+					<caption>Round <b>{{ subsession.round_number }}</b> Pledges and Contributions</caption>
+				{% else %}
+					<caption>Round <b>{{ subsession.round_number }}</b> Contributions</caption>
+				{% endif %}
 				<tr style="background: #CCC">
 					<th>Name</th>
 					{% if pledge == True %}
 						<th>Pledged Protection</th>
 						<th>Pledged Protection Probability</th>
-					{% endif %}	
-					<th>Cost of Protection</th>
-					<th>Protection Probability</th>									
+						<th>Actual Protection</th>
+						<th>Actual Protection Probability</th>
+					{% else %}					
+						<th>Protection</th>
+						<th>Protection Probability</th>									
+					{% endif %}
 				</tr>
 				{% for name, cost, probability, player_pledge, pledge_prob, name_true in results %}
 					<tr>
@@ -146,7 +153,7 @@
 		font-size: 1.5em;
 		margin-bottom: 1em;
 	}
-	#otree-title
+	.otree-title
 	{
 		display: none;
 	}

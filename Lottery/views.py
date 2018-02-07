@@ -3,8 +3,12 @@ from . import models
 from ._builtin import Page, WaitPage
 from .models import Constants
 
-# html template for the Introduction
+# Template for the Introduction
 class Introduction(Page):
+	'''
+		This is the official game introduction page where someone will put their name and will introduce
+		how the session will be run in terms of app_sequence and some rules.
+	'''
 	# Display this page only once
 	form_model = models.Player
 	form_fields = ['participant_label']
@@ -19,14 +23,20 @@ class Introduction(Page):
 			'communication': self.session.config['player_communication'],
 		}
 		
-# html template for the lottery instructions
+# Template for the lottery instructions
 class LotteryInstructions(Page):
+	'''
+		Page simply displays the Lottery instructions to the participants.
+	'''
 	# Display this page only once
 	def is_displayed(self):
 		return self.subsession.round_number == 1
 	
 # html template for Lottery Questions
 class LotteryQuestions(Page):
+	'''
+		This is the control quiz for the lottery game.
+	'''
 	# Display this page only once
 	def is_displayed(self):
 		return self.subsession.round_number == 1
@@ -39,6 +49,10 @@ class LotteryQuestions(Page):
 
 # Passes the variables to the html template
 class Round(Page):
+	'''
+		These are the play panels, here the vales are read from the constants and passed into the html files
+		themselves. 
+	'''
 	form_model = models.Player
 	form_fields = ['submitted_answer']
 

@@ -7,7 +7,7 @@ from .models import Constants
 class PlayerBot(Bot):
 
 	def play_round(self):
-		#Go through the Questioner Page
+		#Go through the Questioner Page, answers may need to be adjusted when a question changes
 		'''
 		yield(views.Questioner, {'questioner_1': 'Strongly Disagree', 
 								 'questioner_2': 'Strongly Disagree', 

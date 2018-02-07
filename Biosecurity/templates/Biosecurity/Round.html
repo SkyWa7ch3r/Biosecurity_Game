@@ -29,7 +29,7 @@
 					<input id="numb" input type="range" name="cost" min="0" max= "{{max_protection}}" step="0.01" value="0" onchange="printCosts({{cost_factor}},{{prob_coeff}})">
 					Cost of Protection: <span id="text_cost"></span><br>
 					{% if calc %}
-						Probability that you're <b>not</b> the source of the outbreak: <span id="text_prob"></span></td>
+						Probability that you are <b>not</b> the source of the outbreak: <span id="text_prob"></span></td>
 					{% endif %}
 				</td>
 			</tr>
@@ -44,7 +44,7 @@
 		
 		{% if pledge %}
 				<tr>
-					<td colspan=4 class="pledge-counter">Rounds till the next pledge: <b>{{ next_pledge }}</b></td>
+					<td colspan=4 class="pledge-counter">Rounds until the next pledge: <b>{{ next_pledge }}</b></td>
 				</tr>
 				<tr style="background: #CCC">
 					<th>Name</th>
@@ -111,6 +111,10 @@
 
 {% block styles %}
 <style type="text/css">
+	.otree-title
+	{
+		display: none;
+	}
 	#slider
 	{
 		width: 100%;
@@ -143,10 +147,6 @@
 	#slider .needsBorder
 	{
 		border-right: 3px solid black;
-	}
-	#otree-title
-	{
-		display: none;
 	}
 	.farm_pic
 	{

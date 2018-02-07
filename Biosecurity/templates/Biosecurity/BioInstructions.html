@@ -84,6 +84,12 @@
 			<p>
 				<Strong><i><u>The Stages</strong></i></u>
 			</p>
+			<p>
+				Each round of the game is played in a sequence of stages.
+				{% if pledge %}
+					Some of these stages occur on all rounds, whereas other stages occur every 3 rounds.
+				{% endif %}
+			</p>
 				{% if dynamic_finances %}
 					<p>
 					<b><i> Dynamic Finances has been turned on, you will receive a different amount of revenue, production costs and maximum amounts of protection per round</b></i>
@@ -92,19 +98,18 @@
 				{% if pledge %}
 					<p>
 					<b><i><u>Group Pledging</u></b></i></br>
-					In this stage, you will use a slider to decide an ideal target the group should strive for. This target is done on a scale of 0 - 100%, and represents
-					the chance of not having an incursion that the group should strive for. Once you and your group members have individually decided what you believe to
-					be an ideal target (the chance of no incursion as a group), everyone's ideal target will be taken into an equation, which will result in an overall
-					Group Target, the chance of no incursion that your group as a whole has decided to strive for.</br>
+					This stage occurs every 3 rounds, commencing from round 1. In this stage, you will use a slider to decide on a 
+					target that you think that the group should aim for on a scale of 40 - 100% for the next 3 rounds. 
+					For instance, if you set the target as 51% that means that the group should aim to be pest free 51% of the time 
+					for the next 3 rounds. The individual targets are used to calculate an average group target.</br>
 					</p>
 					<p>
 					<b><i><u>Individual Pledging</u></b></i></br>
-					In this stage, you and your group members will see the Group Target. Using the slider you will pledge how much you will spend on protection against
-					Biosecurity Threats for the next {{ plooper }} rounds. This individual pledge will be shown in currency, below this will be a calculation
-					of probability that you will not be the source of the incursion based upon the amount of protection you are willing to provide.
-					To remind you, this game is based on <i>joint probability</i>, your individual probability is not an indicator of the
-					group's probability of incursion, even if other players do the same amount of protection. Keep this in mind when making an individual
-					pledge (if you're cooperative, you want to pledge above the Group Target to help ensure the group meets its target).
+					Like the group pledging stage, this stage occurs every 3 rounds, commencing from round 1. 
+					In this stage you are shown the average group target from the group pledging stage. 
+					You will then use a slider to pledge how much you intend to spend on biosecurity protection 
+					on each of the next 3 rounds. This amount is also expressed as a probability that you will 
+					not be the source of an outbreak.
 					</p>
 				{% endif %}
 				{% if Papproval %}
@@ -117,7 +122,7 @@
 				{% endif %}
 				<p>
 					<b><i><u>Protection Decision Stage</u></b></i></br>
-					 In this stage, you will use a slider to indicate how much effort you want to invest in protecting your crops.
+					 In this stage, you will use a slider to indicate how much effort you actually want to invest in protecting your crops.
 					 For a given effort level, indicated by the position of the slider, you will be able to see the cost of protection and the associated probability that you will not be the source of a pest outbreak. 
 					 Remember, this game is based on joint probability—your individual probability is not an indicator of the group's probability of a pest outbreak, even if other players provide the same amount of protection. 
 					{% if dynamic_finances %}
@@ -127,44 +132,49 @@
 						the amount of revenue to gain in the event no incursion occurs is ${{ revenue }}.
 					{% endif %}
 					{% if pledge %}
-						In the main round you will again see the Group Target, and each person's individual pledges (including your own) and how many rounds there are until the next pledging stage.
-						{% if Papproval %}
-							After selecting the approval of everyone's pledges, the groups approval of each player will be shown. The group's approval
-							of each player is the average of everyone's approval of that player.
-						{% endif %}
-						{% if Capproval %}
-							After completing a round where you gave an approval of everyone's Contribution over the last {{ clooper }} rounds, the group's
-							approval of each player will be shown. The Group's approval of each player is the average of everybodies approval of the player's contributions.
-							More information will be provided below in <i>Approval based On Contribution</i>.
-						{% endif %}
+						In this stage you will be given a reminder of the average group target, everyone’s individual pledges,
+						and how many rounds there are until the next set of pledges must be submitted.
 					{% endif %}	
 				</p>
 				<p>
 					<b><i><u>Outcome Feedback Stage</u></b></i></br>
-					In this stage you will receive feedback about whether or not there was an outbreak of pests, and your income for the round.
-					{% if monitoring %}
-						You shall also receive feedback on how much protection other players provided.
+					{% if monitoring and pledge %}
+						This stage occurs on every round. In this stage you will receive feedback about whether or not there 
+						was a pest outbreak, your income for the round, and how much protection other players pledged to provide
+						and actually provided. Thus, you will be able to see whether other player’s contributions are consistent or 
+						not with their pledged contributions.
+					{% elif monitoring %}
+						In this stage you will receive feedback about whether or not there was an outbreak of pests, your income for the 
+						round, and how much protection other players provided.
 					{% else %}
-						You will not receive feedback on how much protection other players provided, only whether there was an outbreak of pests or not.
+						In this stage you will receive feedback about whether or not there was an outbreak of pests and your income for the 
+						round.
 					{% endif %}
 				</p>
 					{% if Capproval %}
-						<p>
 						<b><i><u>Approval based On Contribution</u></b></i></br>
-						This stage will show up every {{ clooper }} rounds. It will show the results from the last {{ clooper }} rounds, the results will include
-						the Group Target, everybody's individual pledges and the amount protection they provided from the last {{ clooper }} rounds. With this information, you will
-						decide your approval of that player on a scale of -6 to 6.</br>
-						-6 being Strongly Dissaprove</br>
-						6 being Strongly Approve</br>
-						The closer the number is to 6, the more you approve of the player's contributions. As mentioned in <i>Deciding Your Protection</i>, the Group's Approval of each player will be the average
-						of everyone's approval of that player, and the Group's Approval of each player will be displayed in the Deciding Your Protection Stage.
+						<p>
+						This stage occurs every 3 rounds. 
+						It shows the results from the last 3 rounds including: the group target, individual player pledges,
+						and actual player contributions for the last 3 rounds. 
+						Using this information, you will be required to indicate your degree of approval of your and other 
+						players contributions on a scale ranging from -6 (<i>Strongly Disapprove</i>) to +6 (<i>Strongly Approve</i>).
+						The group approval of each player will then be the average approval of that player. 
+						The approval ratings will be communicated to players at the end of this stage, and again over the 
+						next three rounds in the protection decision stage.
+						</p>
+						<p>
+						When submitting your approval scores, remember that it is a player’s actual contributions, not 
+						their pledged contributions, that you are rating. 
 						</p>
 					{% endif %}
 				<p>
 					<i><u><strong>Your Payout</strong></i></u>
 				</p>
 				<p>
-					At the end of the experiment, you will be paid any revenue generated during the biosecurity game, subject to a conversion rate. The conversion rate is your revenue earned × 0.1. For example, if your revenue earned was $300 then you would be paid 300 × 0.1 = $30.
+					At the end of the experiment, you will be paid any revenue generated during the biosecurity game,
+					subject to a conversion rate. The conversion rate is your revenue earned × 0.1. 
+					For example, if your revenue earned was $300 then you would be paid 300 × 0.1 = $30.
 				</p>
 		</div>
 	</div>
@@ -175,7 +185,7 @@
 
 {% block styles %}
 <style type="text/css">
-	#otree-title
+	.otree-title
 	{
 		display: none;
 	}
@@ -215,6 +225,7 @@
 		font-size: 1.5em;
 		margin-bottom: 1em;
 		margin: 2% 5% 2% 5%;
+		text-align: justify;
 	}
 	#nxtBtn
 	{

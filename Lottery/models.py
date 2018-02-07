@@ -38,7 +38,7 @@ round_lengths - stores how many games there are for each lottery round (read fro
 num_rounds - stores how many of the lottery rounds there are (read from the lottery_data.csv file)
 num_lotery_questions - automatically determines the number of questions in the lottery_questions.csv
 
-The Subsession class sets up the variables that differ across each session that is created. These include the size of each group, the round that will be paid out on, the game for that round which will be paid out on and the number of the ball selected (these are caluclated randomly)
+The Subsession class sets up the variables that differ across each session that is created. These include the size of each group, the round that will be paid out on, the game for that round which will be paid out on and the number of the ball selected (these are calculated randomly)
 paying_round - paying round from which winning game and ball will be selected
 paying_line - paying game
 ball_number - winning ball
@@ -50,7 +50,7 @@ def check_correct is method used for validating that the user selected the corre
 
 The Player class holds the logic for how the various question pages operate along with setting up the individual player variables for each round:
 
-returnLotteryFormField is a mehotd that reads the lottery questions from the lottery_questions that stores CSV values and forms models for the form fields (lottery_question_) that will be displayed in the html template.
+returnLotteryFormField is a method that reads the lottery questions from the lottery_questions that stores CSV values and forms models for the form fields (lottery_question_) that will be displayed in the html template.
 
 lottery_question_1 - lottery_question_5 store the answers to the pre lottery quiz
 
@@ -59,11 +59,11 @@ submitted_answer_0 - submitted_answer_14 store the choice for each lottery game 
 There is a maximum of 15 games, however it can be any number from 1 to 15 as well as any number of rounds (as specified in the csv file)
 Each field is a radio select using A or B as the possible choices
 Values specified in the values csv file that determine the winnings from each ball in each game
-Subssession.round_number doesn't work, not sure why, if a fix is found the code will be finished
+Subsession.round_number doesn't work, not sure why, if a fix is found the code will be finished
 
 The submits() method puts the submitted_answers values into a list so that the submissions can be indexed when calculating payoff.
 
-player_submits holds selected values in the playing round in a list that can be itterated over
+player_submits holds selected values in the playing round in a list that can be iterated over
 
 set_payoff() determines the payoff for each player from the lottery by determining the range for the best and worst outcomes for choices A and B for each round using the list created from the csv file titled lottery_data, if the current round is the pre-determined paying round, a comparison is made between the players
 selection for the paying line and calculates the payoff from the same list by comparing which range the selected ball number is in for the players choice.
@@ -80,10 +80,10 @@ the next number is the index of the correct choice and numbers proceeding it are
 Next search models.py for the section that contains lottery_question_1 - lottery_question_5 and follow the format for every added question
 e.g; if adding a 6th question, below lottery_question_5 = returnLotteryFormField(4), add lottery_question_6 = returnLotteryFormField(5)
 
-Editing the lottery values: To edit the range of balls for each round, go to the first row for each round (the first number 1, 2 or 3) and edit each ranges in the columns titled as "a_best_range", "a_worst_range" and similary for B (ranges should not exceed 10).
+Editing the lottery values: To edit the range of balls for each round, go to the first row for each round (the first number 1, 2 or 3) and edit each ranges in the columns titled as "a_best_range", "a_worst_range" and similarly for B (ranges should not exceed 10).
 
-Similary the pay off for each game in the round can be edited by editing the desired game number's row in the column titled either "a_best", "a_worst" and similarly for B columns
-Choosing when payoff occurs: If it is desired that payoff is made of a predetermined round, game, ball number or a combination of all 3 editing of the subsession class must be done. To do so remove the # on any of the lines #paying_round = n, #paying_line = n, #ball_number = n and change the n to the desired value (the range for each is specified above each line)
+Similarly the pay off for each game in the round can be edited by editing the desired game number's row in the column titled either "a_best", "a_worst" and similarly for B columns
+Choosing when payoff occurs: If it is desired that payoff is made of a predetermined round, game, ball number or a combination of all 3 editing of the Subsession class must be done. To do so remove the # on any of the lines #paying_round = n, #paying_line = n, #ball_number = n and change the n to the desired value (the range for each is specified above each line)
 
 views.py takes all of the processed variables from the models.py and passes them to the templates to be displayed through the html files. Each class specifies each page (html)
 is_displayed methods specify when should the page be displayed in each round
@@ -143,7 +143,7 @@ class Subsession(BaseSubsession):
 			#ball_number = n
 			self.session.vars['ball_number'] = ball_number
 
-			# GROUP LOGIC STARTS HERE
+			# GROUP ASSIGNMENT STARTS HERE, PARTICIPANTS ARE SORTED INTO GROUPS ACCORDING TO THE BELOW CODE
 			# ppg = player_per_group
 			ppg = self.session.config['players_per_group']
 			# list_of_groups is the the list of each group list e.g. [ [p1, p2], [p3, p4] ] if ppg == 2 and np == 4
@@ -177,6 +177,7 @@ class Subsession(BaseSubsession):
 			# finalise the group matchings ready for game and store the matrix
 			self.set_group_matrix(list_of_groups)
 			self.session.vars['matrix'] = list_of_groups
+			#END OF GROUP ASSIGNMENT
 
 			# Select a random game
 			if(paying_round is not 1):
@@ -194,8 +195,8 @@ class Group(BaseGroup):
 
 #check_correct is used for validating that the user selected the correct answer for the pre lottery quiz
 def check_correct(correct_value):
-	def compare(slected_value):
-		if not (correct_value == slected_value):
+	def compare(selected_value):
+		if not (correct_value == selected_value):
 			raise ValidationError('Incorrect')
 
 	return compare
@@ -239,7 +240,7 @@ class Player(BasePlayer):
 	submitted_answer_13 = models.CharField(choices=['A', 'B'], widget=widgets.RadioSelectHorizontal())
 	submitted_answer_14 = models.CharField(choices=['A', 'B'], widget=widgets.RadioSelectHorizontal())
 
-	# player_submits holds selected values in the playing round in a list that can be itterated over
+	# player_submits holds selected values in the playing round in a list that can be iterated over
 	def set_submits(self):
 		if self.subsession.round_number == self.session.vars['paying_round']:
 			self.player_submits = []
@@ -271,15 +272,21 @@ class Player(BasePlayer):
 
 		# read the value selected by the player
 		if self.round_number == lround:
+			#If the player chose option, then apply the chances of option A
 			if self.player_submits[line] == 'A':
+				#If the player gets a ball in the range that gives them the best payoff, then assign this as the payoff
 				if ball >= int(a_best_ball_range[0]) and ball < int(a_worst_ball_range[0]):
 					self.payoff = c(Constants.values[Constants.round_lengths[lround - 1] + line]['a_best'])
+				#Otherwise pay them the worst amount
 				else:
 					self.payoff = c(Constants.values[Constants.round_lengths[lround - 1] + line]['a_worst'])
+			#If the player chose option B then apply the chances of option B
 			else:
+				#Same as option A above.
 				if ball >= int(b_best_ball_range[0]) and ball < int(b_worst_ball_range[0]):
 					self.payoff = c(Constants.values[Constants.round_lengths[lround - 1] + line]['b_best'])
 				else:
 					self.payoff = c(Constants.values[Constants.round_lengths[lround - 1] + line]['b_worst'])
+		#Otherwise set the payoff as 0, this way Administrators know which round was the paying one, by simply looking at the round with a payoff
 		else:
 			self.payoff = c(0)
