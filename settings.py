@@ -72,7 +72,7 @@ SENTRY_DSN = 'http://2fc10e0ecf6c4e699910d279943a09e0:06b6088276c64734b77bca2f79
 DEMO_PAGE_INTRO_TEXT = """
 <p align="justify"><b>Welcome to the Biosecurity Game Administration page.</b> Here you can start a demo session to test out a game,
 otherwise head over to sessions to create your own session, or head to Data to collect what data you have got from the sessions
-you have ran.<br> For more information refer to the link here: </p> <p align="center"><a href=https://1drv.ms/w/s!AphuEhKWv8YUg4o-jaC06aTQblLQPQ>Administration Instructions</a></p>
+you have ran.<br> For more information refer to the link here: </p> <p align="center"><a href=https://1drv.ms/w/s!AphuEhKWv8YUg4o-jaC06aTQblLQPQ target="_blank">Administration Instructions</a></p>
 """
 
 # from here on are qualifications requirements for workers
