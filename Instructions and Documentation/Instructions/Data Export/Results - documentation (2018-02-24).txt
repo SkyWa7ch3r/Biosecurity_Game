@@ -1,0 +1,439 @@
+Results: Documentation
+**********************
+
+Accessed: 2018-02-24
+
+
+This is the Results application which has the end questionnaire and shows the results for the Lottery and Biosecurity Game to the participants.
+
+
+Participant
+    id_in_session
+        type
+            positive integer
+        doc
+    code
+        type
+            text
+        doc
+            Randomly generated unique identifier for the participant. If you would like to merge this dataset with those from another subsession in the same session, you should join on this field, which will be the same across subsessions.
+    label
+        type
+            text
+        doc
+            Label assigned by the experimenter. Can be assigned by passing a GET param called 'participant_label' to the participant's start URL
+    _is_bot
+        type
+            NullBooleanField
+        doc
+        choices
+            True: Yes
+            False: No
+    _index_in_pages
+        type
+            positive integer
+        doc
+    _max_page_index
+        type
+            positive integer
+        doc
+    _current_app_name
+        type
+            text
+        doc
+    _round_number
+        type
+            positive integer
+        doc
+    _current_page_name
+        type
+            text
+        doc
+    ip_address
+        type
+            GenericIPAddressField
+        doc
+    time_started
+        type
+            DateTimeField
+        doc
+    visited
+        type
+            NullBooleanField
+        doc
+            Whether this user's start URL was opened
+        choices
+            True: Yes
+            False: No
+    mturk_worker_id
+        type
+            text
+        doc
+    mturk_assignment_id
+        type
+            text
+        doc
+    payoff
+        type
+            decimal
+        doc
+Player
+    id_in_group
+        type
+            positive integer
+        doc
+            Index starting from 1. In multiplayer games, indicates whether this is player 1, player 2, etc.
+    questioner_1
+        type
+            text
+        doc
+        choices
+            I thought that other players would not protect, so I didn't see why I should either.: I thought that other players would not protect, so I didn't see why I should either.
+            I thought other players would protect and I could benefit without having to protect myself.: I thought other players would protect and I could benefit without having to protect myself.
+            I tried to avoid incurring monetary losses.: I tried to avoid incurring monetary losses.
+            I thought the other players would choose to protect, so I protected as well.: I thought the other players would choose to protect, so I protected as well.
+            I thought that choosing to protect was the right thing to do, regardless of what other players decided: I thought that choosing to protect was the right thing to do, regardless of what other players decided
+            I didn't know what others were going to do and thought it was worth the risk of taking protective action: I didn't know what others were going to do and thought it was worth the risk of taking protective action
+    questioner_2
+        type
+            text
+        doc
+        choices
+            1 - Not at all Concerned: 1 - Not at all Concerned
+            2 - A little Concerned: 2 - A little Concerned
+            3 - Somewhat Concerned: 3 - Somewhat Concerned
+            4 - Rather Concerned: 4 - Rather Concerned
+            5 - Concerned: 5 - Concerned
+            6 - Highly Concerned: 6 - Highly Concerned
+            7 - Very Concerned: 7 - Very Concerned
+    questioner_3
+        type
+            text
+        doc
+        choices
+            1 - Not at all Concerned: 1 - Not at all Concerned
+            2 - A little Concerned: 2 - A little Concerned
+            3 - Somewhat Concerned: 3 - Somewhat Concerned
+            4 - Rather Concerned: 4 - Rather Concerned
+            5 - Concerned: 5 - Concerned
+            6 - Highly Concerned: 6 - Highly Concerned
+            7 - Very Concerned: 7 - Very Concerned
+    questioner_4
+        type
+            text
+        doc
+        choices
+            1 - A little amount of Trust: 1 - A little amount of Trust
+            2 - There was some Trust, maybe: 2 - There was some Trust, maybe
+            3 - There was a moderate level of trust: 3 - There was a moderate level of trust
+            4 - Trust was held, would occasionally break: 4 - Trust was held, would occasionally break
+            5 - Trust was held most of the time: 5 - Trust was held most of the time
+            6 - There was a lot of Trust, Trust was held all the time: 6 - There was a lot of Trust, Trust was held all the time
+    questioner_5
+        type
+            text
+        doc
+        choices
+            1 - Strongly Disagree: 1 - Strongly Disagree
+            2 - Somewhat Disagree: 2 - Somewhat Disagree
+            3 - Neutral: 3 - Neutral
+            4 - Somewhat Agree: 4 - Somewhat Agree
+            5 - Strongly Agree: 5 - Strongly Agree
+    questioner_6
+        type
+            text
+        doc
+        choices
+            1 - Strongly Disagree: 1 - Strongly Disagree
+            2 - Somewhat Disagree: 2 - Somewhat Disagree
+            3 - Neutral: 3 - Neutral
+            4 - Somewhat Agree: 4 - Somewhat Agree
+            5 - Strongly Agree: 5 - Strongly Agree
+    questioner_7
+        type
+            text
+        doc
+        choices
+            1 - Strongly Disagree: 1 - Strongly Disagree
+            2 - Somewhat Disagree: 2 - Somewhat Disagree
+            3 - Neutral: 3 - Neutral
+            4 - Somewhat Agree: 4 - Somewhat Agree
+            5 - Strongly Agree: 5 - Strongly Agree
+    questioner_8
+        type
+            text
+        doc
+        choices
+            1 - Strongly Disagree: 1 - Strongly Disagree
+            2 - Somewhat Disagree: 2 - Somewhat Disagree
+            3 - Neutral: 3 - Neutral
+            4 - Somewhat Agree: 4 - Somewhat Agree
+            5 - Strongly Agree: 5 - Strongly Agree
+    questioner_9
+        type
+            text
+        doc
+        choices
+            1 - Strongly Disagree: 1 - Strongly Disagree
+            2 - Somewhat Disagree: 2 - Somewhat Disagree
+            3 - Neutral: 3 - Neutral
+            4 - Somewhat Agree: 4 - Somewhat Agree
+            5 - Strongly Agree: 5 - Strongly Agree
+    questioner_10
+        type
+            text
+        doc
+        choices
+            1 - Strongly Disagree: 1 - Strongly Disagree
+            2 - Somewhat Disagree: 2 - Somewhat Disagree
+            3 - Neutral: 3 - Neutral
+            4 - Somewhat Agree: 4 - Somewhat Agree
+            5 - Strongly Agree: 5 - Strongly Agree
+    questioner_11
+        type
+            text
+        doc
+        choices
+            1 - Strongly Disagree: 1 - Strongly Disagree
+            2 - Somewhat Disagree: 2 - Somewhat Disagree
+            3 - Neutral: 3 - Neutral
+            4 - Somewhat Agree: 4 - Somewhat Agree
+            5 - Strongly Agree: 5 - Strongly Agree
+    questioner_12
+        type
+            text
+        doc
+        choices
+            1 - Strongly Disagree: 1 - Strongly Disagree
+            2 - Somewhat Disagree: 2 - Somewhat Disagree
+            3 - Neutral: 3 - Neutral
+            4 - Somewhat Agree: 4 - Somewhat Agree
+            5 - Strongly Agree: 5 - Strongly Agree
+    questioner_13
+        type
+            text
+        doc
+        choices
+            1 - Strongly Disagree: 1 - Strongly Disagree
+            2 - Somewhat Disagree: 2 - Somewhat Disagree
+            3 - Neutral: 3 - Neutral
+            4 - Somewhat Agree: 4 - Somewhat Agree
+            5 - Strongly Agree: 5 - Strongly Agree
+    questioner_14
+        type
+            text
+        doc
+        choices
+            Male: Male
+            Female: Female
+            Other: Other
+    questioner_15
+        type
+            positive integer
+        doc
+        choices
+            10: 10
+            11: 11
+            12: 12
+            13: 13
+            14: 14
+            15: 15
+            16: 16
+            17: 17
+            18: 18
+            19: 19
+            20: 20
+            21: 21
+            22: 22
+            23: 23
+            24: 24
+            25: 25
+            26: 26
+            27: 27
+            28: 28
+            29: 29
+            30: 30
+            31: 31
+            32: 32
+            33: 33
+            34: 34
+            35: 35
+            36: 36
+            37: 37
+            38: 38
+            39: 39
+            40: 40
+            41: 41
+            42: 42
+            43: 43
+            44: 44
+            45: 45
+            46: 46
+            47: 47
+            48: 48
+            49: 49
+            50: 50
+            51: 51
+            52: 52
+            53: 53
+            54: 54
+            55: 55
+            56: 56
+            57: 57
+            58: 58
+            59: 59
+            60: 60
+            61: 61
+            62: 62
+            63: 63
+            64: 64
+            65: 65
+            66: 66
+            67: 67
+            68: 68
+            69: 69
+            70: 70
+            71: 71
+            72: 72
+            73: 73
+            74: 74
+            75: 75
+            76: 76
+            77: 77
+            78: 78
+            79: 79
+            80: 80
+            81: 81
+            82: 82
+            83: 83
+            84: 84
+            85: 85
+            86: 86
+            87: 87
+            88: 88
+            89: 89
+            90: 90
+            91: 91
+            92: 92
+            93: 93
+            94: 94
+            95: 95
+            96: 96
+            97: 97
+            98: 98
+            99: 99
+            100: 100
+            101: 101
+            102: 102
+            103: 103
+            104: 104
+            105: 105
+            106: 106
+            107: 107
+            108: 108
+            109: 109
+            110: 110
+            111: 111
+            112: 112
+            113: 113
+            114: 114
+            115: 115
+            116: 116
+            117: 117
+            118: 118
+            119: 119
+            120: 120
+            121: 121
+            122: 122
+            123: 123
+            124: 124
+            125: 125
+            126: 126
+            127: 127
+            128: 128
+            129: 129
+            130: 130
+            131: 131
+            132: 132
+            133: 133
+            134: 134
+            135: 135
+            136: 136
+            137: 137
+            138: 138
+            139: 139
+            140: 140
+            141: 141
+            142: 142
+            143: 143
+            144: 144
+            145: 145
+            146: 146
+            147: 147
+            148: 148
+            149: 149
+    questioner_16
+        type
+            text
+        doc
+    questioner_17
+        type
+            text
+        doc
+        choices
+            0 - $18,200: 0 - $18,200
+            $18,201 - $37,000: $18,201 - $37,000
+            $37,001 - $80,000: $37,001 - $80,000
+            $80,001 - $180,000: $80,001 - $180,000
+            $180,001 and over: $180,001 and over
+    payoff
+Group
+    id_in_subsession
+        type
+            positive integer
+        doc
+Subsession
+    round_number
+        type
+            positive integer
+        doc
+            If this subsession is repeated (i.e. has multiple rounds), this
+            field stores the position (index) of this subsession, among subsessions
+            in the same app.
+            For example, if a session consists of the subsessions:
+            [app1, app2, app1, app1, app3]
+            Then the round numbers of these subsessions would be:
+            [1, 1, 2, 3, 1]
+Session
+    code
+        type
+            text
+        doc
+            Randomly generated unique identifier for the session.
+    label
+        type
+            text
+        doc
+    experimenter_name
+        type
+            text
+        doc
+    mturk_HITId
+        type
+            text
+        doc
+    mturk_HITGroupId
+        type
+            text
+        doc
+    comment
+        type
+            text
+        doc
+    is_demo
+        type
+            NullBooleanField
+        doc
+        choices
+            True: Yes
+            False: No

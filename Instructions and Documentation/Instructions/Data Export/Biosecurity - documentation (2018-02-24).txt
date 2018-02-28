@@ -1,0 +1,671 @@
+Biosecurity: Documentation
+**************************
+
+Accessed: 2018-02-24
+
+
+This is the Biosecurity Game in which participants have 15 rounds of play. Each round participants must decide
+their biosecurity effort against biosecurity threats, the round may also include pledging the amount of effort they wish
+to contribute, showing their approval of other participant's efforts or pledges. The default is 4 players per group, anymore than this
+will increase the difficulty of the game due to joint probability. Please refer to the Administration Instructions and the Test Documentation
+for more information on adjusting variables, and how an outbreak is calculated.
+
+
+Participant
+    id_in_session
+        type
+            positive integer
+        doc
+    code
+        type
+            text
+        doc
+            Randomly generated unique identifier for the participant. If you would like to merge this dataset with those from another subsession in the same session, you should join on this field, which will be the same across subsessions.
+    label
+        type
+            text
+        doc
+            Label assigned by the experimenter. Can be assigned by passing a GET param called 'participant_label' to the participant's start URL
+    _is_bot
+        type
+            NullBooleanField
+        doc
+        choices
+            True: Yes
+            False: No
+    _index_in_pages
+        type
+            positive integer
+        doc
+    _max_page_index
+        type
+            positive integer
+        doc
+    _current_app_name
+        type
+            text
+        doc
+    _round_number
+        type
+            positive integer
+        doc
+    _current_page_name
+        type
+            text
+        doc
+    ip_address
+        type
+            GenericIPAddressField
+        doc
+    time_started
+        type
+            DateTimeField
+        doc
+    visited
+        type
+            NullBooleanField
+        doc
+            Whether this user's start URL was opened
+        choices
+            True: Yes
+            False: No
+    mturk_worker_id
+        type
+            text
+        doc
+    mturk_assignment_id
+        type
+            text
+        doc
+    payoff
+        type
+            decimal
+        doc
+Player
+    id_in_group
+        type
+            positive integer
+        doc
+            Index starting from 1. In multiplayer games, indicates whether this is player 1, player 2, etc.
+    funds_at_rounds_end
+        type
+            decimal
+        doc
+    protection
+        type
+            decimal
+        doc
+    groupTarget
+        type
+            integer
+        doc
+    individualPledge
+        type
+            decimal
+        doc
+    cost
+        type
+            decimal
+        doc
+    Group_Approval
+        type
+            decimal
+        doc
+            [error]
+    name_1
+        type
+            text
+        doc
+    name_2
+        type
+            text
+        doc
+    name_3
+        type
+            text
+        doc
+    name_4
+        type
+            text
+        doc
+    name_5
+        type
+            text
+        doc
+    name_6
+        type
+            text
+        doc
+    name_7
+        type
+            text
+        doc
+    name_8
+        type
+            text
+        doc
+    name_9
+        type
+            text
+        doc
+    name_10
+        type
+            text
+        doc
+    name_11
+        type
+            text
+        doc
+    name_12
+        type
+            text
+        doc
+    name_13
+        type
+            text
+        doc
+    name_14
+        type
+            text
+        doc
+    name_15
+        type
+            text
+        doc
+    name_16
+        type
+            text
+        doc
+    name_17
+        type
+            text
+        doc
+    name_18
+        type
+            text
+        doc
+    name_19
+        type
+            text
+        doc
+    name_20
+        type
+            text
+        doc
+    approval_1
+        type
+            integer
+        doc
+        choices
+            -6: Strongly Disapprove (-6)
+            -5: -5
+            -4: -4
+            -3: Disapprove (-3)
+            -2: -2
+            -1: -1
+            0: Neutral (0)
+            1: 1
+            2: 2
+            3: Approve (3)
+            4: 4
+            5: 5
+            6: Strongly approve (6)
+    approval_2
+        type
+            integer
+        doc
+        choices
+            -6: Strongly Disapprove (-6)
+            -5: -5
+            -4: -4
+            -3: Disapprove (-3)
+            -2: -2
+            -1: -1
+            0: Neutral (0)
+            1: 1
+            2: 2
+            3: Approve (3)
+            4: 4
+            5: 5
+            6: Strongly approve (6)
+    approval_3
+        type
+            integer
+        doc
+        choices
+            -6: Strongly Disapprove (-6)
+            -5: -5
+            -4: -4
+            -3: Disapprove (-3)
+            -2: -2
+            -1: -1
+            0: Neutral (0)
+            1: 1
+            2: 2
+            3: Approve (3)
+            4: 4
+            5: 5
+            6: Strongly approve (6)
+    approval_4
+        type
+            integer
+        doc
+        choices
+            -6: Strongly Disapprove (-6)
+            -5: -5
+            -4: -4
+            -3: Disapprove (-3)
+            -2: -2
+            -1: -1
+            0: Neutral (0)
+            1: 1
+            2: 2
+            3: Approve (3)
+            4: 4
+            5: 5
+            6: Strongly approve (6)
+    approval_5
+        type
+            integer
+        doc
+        choices
+            -6: Strongly Disapprove (-6)
+            -5: -5
+            -4: -4
+            -3: Disapprove (-3)
+            -2: -2
+            -1: -1
+            0: Neutral (0)
+            1: 1
+            2: 2
+            3: Approve (3)
+            4: 4
+            5: 5
+            6: Strongly approve (6)
+    approval_6
+        type
+            integer
+        doc
+        choices
+            -6: Strongly Disapprove (-6)
+            -5: -5
+            -4: -4
+            -3: Disapprove (-3)
+            -2: -2
+            -1: -1
+            0: Neutral (0)
+            1: 1
+            2: 2
+            3: Approve (3)
+            4: 4
+            5: 5
+            6: Strongly approve (6)
+    approval_7
+        type
+            integer
+        doc
+        choices
+            -6: Strongly Disapprove (-6)
+            -5: -5
+            -4: -4
+            -3: Disapprove (-3)
+            -2: -2
+            -1: -1
+            0: Neutral (0)
+            1: 1
+            2: 2
+            3: Approve (3)
+            4: 4
+            5: 5
+            6: Strongly approve (6)
+    approval_8
+        type
+            integer
+        doc
+        choices
+            -6: Strongly Disapprove (-6)
+            -5: -5
+            -4: -4
+            -3: Disapprove (-3)
+            -2: -2
+            -1: -1
+            0: Neutral (0)
+            1: 1
+            2: 2
+            3: Approve (3)
+            4: 4
+            5: 5
+            6: Strongly approve (6)
+    approval_9
+        type
+            integer
+        doc
+        choices
+            -6: Strongly Disapprove (-6)
+            -5: -5
+            -4: -4
+            -3: Disapprove (-3)
+            -2: -2
+            -1: -1
+            0: Neutral (0)
+            1: 1
+            2: 2
+            3: Approve (3)
+            4: 4
+            5: 5
+            6: Strongly approve (6)
+    approval_10
+        type
+            integer
+        doc
+        choices
+            -6: Strongly Disapprove (-6)
+            -5: -5
+            -4: -4
+            -3: Disapprove (-3)
+            -2: -2
+            -1: -1
+            0: Neutral (0)
+            1: 1
+            2: 2
+            3: Approve (3)
+            4: 4
+            5: 5
+            6: Strongly approve (6)
+    approval_11
+        type
+            integer
+        doc
+        choices
+            -6: Strongly Disapprove (-6)
+            -5: -5
+            -4: -4
+            -3: Disapprove (-3)
+            -2: -2
+            -1: -1
+            0: Neutral (0)
+            1: 1
+            2: 2
+            3: Approve (3)
+            4: 4
+            5: 5
+            6: Strongly approve (6)
+    approval_12
+        type
+            integer
+        doc
+        choices
+            -6: Strongly Disapprove (-6)
+            -5: -5
+            -4: -4
+            -3: Disapprove (-3)
+            -2: -2
+            -1: -1
+            0: Neutral (0)
+            1: 1
+            2: 2
+            3: Approve (3)
+            4: 4
+            5: 5
+            6: Strongly approve (6)
+    approval_13
+        type
+            integer
+        doc
+        choices
+            -6: Strongly Disapprove (-6)
+            -5: -5
+            -4: -4
+            -3: Disapprove (-3)
+            -2: -2
+            -1: -1
+            0: Neutral (0)
+            1: 1
+            2: 2
+            3: Approve (3)
+            4: 4
+            5: 5
+            6: Strongly approve (6)
+    approval_14
+        type
+            integer
+        doc
+        choices
+            -6: Strongly Disapprove (-6)
+            -5: -5
+            -4: -4
+            -3: Disapprove (-3)
+            -2: -2
+            -1: -1
+            0: Neutral (0)
+            1: 1
+            2: 2
+            3: Approve (3)
+            4: 4
+            5: 5
+            6: Strongly approve (6)
+    approval_15
+        type
+            integer
+        doc
+        choices
+            -6: Strongly Disapprove (-6)
+            -5: -5
+            -4: -4
+            -3: Disapprove (-3)
+            -2: -2
+            -1: -1
+            0: Neutral (0)
+            1: 1
+            2: 2
+            3: Approve (3)
+            4: 4
+            5: 5
+            6: Strongly approve (6)
+    approval_16
+        type
+            integer
+        doc
+        choices
+            -6: Strongly Disapprove (-6)
+            -5: -5
+            -4: -4
+            -3: Disapprove (-3)
+            -2: -2
+            -1: -1
+            0: Neutral (0)
+            1: 1
+            2: 2
+            3: Approve (3)
+            4: 4
+            5: 5
+            6: Strongly approve (6)
+    approval_17
+        type
+            integer
+        doc
+        choices
+            -6: Strongly Disapprove (-6)
+            -5: -5
+            -4: -4
+            -3: Disapprove (-3)
+            -2: -2
+            -1: -1
+            0: Neutral (0)
+            1: 1
+            2: 2
+            3: Approve (3)
+            4: 4
+            5: 5
+            6: Strongly approve (6)
+    approval_18
+        type
+            integer
+        doc
+        choices
+            -6: Strongly Disapprove (-6)
+            -5: -5
+            -4: -4
+            -3: Disapprove (-3)
+            -2: -2
+            -1: -1
+            0: Neutral (0)
+            1: 1
+            2: 2
+            3: Approve (3)
+            4: 4
+            5: 5
+            6: Strongly approve (6)
+    approval_19
+        type
+            integer
+        doc
+        choices
+            -6: Strongly Disapprove (-6)
+            -5: -5
+            -4: -4
+            -3: Disapprove (-3)
+            -2: -2
+            -1: -1
+            0: Neutral (0)
+            1: 1
+            2: 2
+            3: Approve (3)
+            4: 4
+            5: 5
+            6: Strongly approve (6)
+    approval_20
+        type
+            integer
+        doc
+        choices
+            -6: Strongly Disapprove (-6)
+            -5: -5
+            -4: -4
+            -3: Disapprove (-3)
+            -2: -2
+            -1: -1
+            0: Neutral (0)
+            1: 1
+            2: 2
+            3: Approve (3)
+            4: 4
+            5: 5
+            6: Strongly approve (6)
+    bio_question_1
+        type
+            text
+        doc
+        choices
+            $25: $25
+            $20: $20
+            $0: $0
+            $5: $5
+    bio_question_2
+        type
+            text
+        doc
+        choices
+            -$15: -$15
+            $0: $0
+            -$5: -$5
+            $25: $25
+    bio_question_3
+        type
+            text
+        doc
+        choices
+            100%: 100%
+            50%: 50%
+            25%: 25%
+            0%: 0%
+    bio_question_4
+        type
+            text
+        doc
+        choices
+            75%: 75%
+            50%: 50%
+            25%: 25%
+            100%: 100%
+    payoff
+Group
+    id_in_subsession
+        type
+            positive integer
+        doc
+    incursion
+        type
+            NullBooleanField
+        doc
+            [error]
+    incursion_count
+        type
+            integer
+        doc
+            [error]
+    GroupTargetProbability
+        type
+            decimal
+        doc
+            [error]
+    chance_of_incursion
+        type
+            decimal
+        doc
+            [error]
+    contribution
+        type
+            NullBooleanField
+        doc
+            [error]
+    pledge
+        type
+            NullBooleanField
+        doc
+            [error]
+Subsession
+    round_number
+        type
+            positive integer
+        doc
+            If this subsession is repeated (i.e. has multiple rounds), this
+            field stores the position (index) of this subsession, among subsessions
+            in the same app.
+            For example, if a session consists of the subsessions:
+            [app1, app2, app1, app1, app3]
+            Then the round numbers of these subsessions would be:
+            [1, 1, 2, 3, 1]
+Session
+    code
+        type
+            text
+        doc
+            Randomly generated unique identifier for the session.
+    label
+        type
+            text
+        doc
+    experimenter_name
+        type
+            text
+        doc
+    mturk_HITId
+        type
+            text
+        doc
+    mturk_HITGroupId
+        type
+            text
+        doc
+    comment
+        type
+            text
+        doc
+    is_demo
+        type
+            NullBooleanField
+        doc
+        choices
+            True: Yes
+            False: No
