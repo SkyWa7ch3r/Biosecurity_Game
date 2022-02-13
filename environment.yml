@@ -72,4 +72,3 @@ dependencies:
     - ws4py==0.3.5
     - xlsxwriter==0.9.3
     - zope-interface==4.2.0
-prefix: /home/skywatcher/miniconda3/envs/biogame_v1.0
