@@ -9,7 +9,7 @@ is running on an old version of oTree and an older version of Python (3.6), the 
 
 # TODO
 
-- [ ] Cleaned up the repository
+- [x] Cleaned up the repository
 - [ ] Add new environment.yaml and requirements.txt files
 - [ ] Move all instructions and documentation to readthedocs
 - [ ] Create docker containers and docker compose for the new server
