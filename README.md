@@ -9,8 +9,8 @@ is running on an old version of oTree and an older version of Python (3.6), the 
 
 # TODO
 
-- [x] Cleaned up the repository
-- [ ] Add new environment.yaml and requirements.txt files
+- [X] Cleaned up the repository
+- [X] Add new environment.yaml and requirements.txt files
 - [ ] Move all instructions and documentation to readthedocs
 - [ ] Create docker containers and docker compose for the new server
 - [ ] Update the existing project to oTree >= 5.5 with the sample games added, alongside the original project.
