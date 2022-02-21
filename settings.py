@@ -67,7 +67,7 @@ LANGUAGE_CODE = 'en'
 # if an app is included in SESSION_CONFIGS, you don't need to list it here
 INSTALLED_APPS = ['otree','otreechat', 'django.contrib.admin', 'django.contrib.auth', 'django.contrib.contenttypes', 'django.contrib.messages', 'django.contrib.sessions']
 
-SENTRY_DSN = 'http://2fc10e0ecf6c4e699910d279943a09e0:06b6088276c64734b77bca2f79a3abaf@sentry.otree.org/75'
+SENTRY_DSN = ''
 
 DEMO_PAGE_INTRO_TEXT = """
 <p align="justify"><b>Welcome to the Biosecurity Game Administration page.</b> Here you can start a demo session to test out a game,
