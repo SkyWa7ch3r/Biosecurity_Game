@@ -48,8 +48,8 @@ DATABASES = {
 AUTH_LEVEL = environ.get('OTREE_AUTH_LEVEL')
 
 # setting for integration with AWS Mturk
-AWS_ACCESS_KEY_ID = environ.get('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = environ.get('AWS_SECRET_ACCESS_KEY')
+# AWS_ACCESS_KEY_ID = environ.get('AWS_ACCESS_KEY_ID')
+# AWS_SECRET_ACCESS_KEY = environ.get('AWS_SECRET_ACCESS_KEY')
 
 
 # e.g. EUR, CAD, GBP, CHF, CNY, JPY
@@ -82,22 +82,22 @@ You may also go here for information on the Testing of this website: <p align="c
 # and also in docs for boto:
 # https://boto.readthedocs.org/en/latest/ref/mturk.html?highlight=mturk#module-boto.mturk.qualification
 
-mturk_hit_settings = {
-    'keywords': ['easy', 'bonus', 'choice', 'study'],
-    'title': 'Title for your experiment',
-    'description': 'Description for your experiment',
-    'frame_height': 500,
-    'preview_template': 'global/MTurkPreview.html',
-    'minutes_allotted_per_assignment': 60,
-    'expiration_hours': 7*24,  # 7 days
-    # 'grant_qualification_id': 'YOUR_QUALIFICATION_ID_HERE',# to prevent retakes
-    'qualification_requirements': [
-        # qualification.LocaleRequirement("EqualTo", "US"),
-        # qualification.PercentAssignmentsApprovedRequirement("GreaterThanOrEqualTo", 50),
-        # qualification.NumberHitsApprovedRequirement("GreaterThanOrEqualTo", 5),
-        # qualification.Requirement('YOUR_QUALIFICATION_ID_HERE', 'DoesNotExist')
-    ]
-}
+# mturk_hit_settings = {
+#     'keywords': ['easy', 'bonus', 'choice', 'study'],
+#     'title': 'Title for your experiment',
+#     'description': 'Description for your experiment',
+#     'frame_height': 500,
+#     'preview_template': 'global/MTurkPreview.html',
+#     'minutes_allotted_per_assignment': 60,
+#     'expiration_hours': 7*24,  # 7 days
+#     # 'grant_qualification_id': 'YOUR_QUALIFICATION_ID_HERE',# to prevent retakes
+#     'qualification_requirements': [
+#         # qualification.LocaleRequirement("EqualTo", "US"),
+#         # qualification.PercentAssignmentsApprovedRequirement("GreaterThanOrEqualTo", 50),
+#         # qualification.NumberHitsApprovedRequirement("GreaterThanOrEqualTo", 5),
+#         # qualification.Requirement('YOUR_QUALIFICATION_ID_HERE', 'DoesNotExist')
+#     ]
+# }
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
 # in SESSION_CONFIGS, except those that explicitly override it.
@@ -109,7 +109,7 @@ SESSION_CONFIG_DEFAULTS = {
     'participation_fee': 10.0,
     'num_bots': 6,
     'doc': "",
-    'mturk_hit_settings': mturk_hit_settings,
+    #'mturk_hit_settings': mturk_hit_settings,
 	'num_demo_participants': 4,
 	'dynamic_finances' : False,
     'set_leader' : False,

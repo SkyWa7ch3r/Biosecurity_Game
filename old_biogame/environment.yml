@@ -1,0 +1,9 @@
+name: biogame
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.6.15
+  - pip:
+    - otree-core==1.2.0
+    - otreechat==0.2.1
