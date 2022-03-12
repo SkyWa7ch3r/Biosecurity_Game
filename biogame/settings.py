@@ -99,12 +99,12 @@ SESSION_FIELDS = []
 LANGUAGE_CODE = 'en'
 
 # e.g. EUR, GBP, CNY, JPY
-REAL_WORLD_CURRENCY_CODE = 'USD'
+REAL_WORLD_CURRENCY_CODE = 'AUD'
 USE_POINTS = True
 
 ROOMS = [
     dict(
-        name='econ101',
+        name='class',
         display_name='Econ 101 class',
         participant_label_file='_rooms/econ101.txt',
     ),
@@ -120,6 +120,6 @@ Here are some oTree games.
 """
 
 
-SECRET_KEY = '5679940727964'
+SECRET_KEY = environ.get('OTREE_SECRET')
 
 INSTALLED_APPS = ['otree']
