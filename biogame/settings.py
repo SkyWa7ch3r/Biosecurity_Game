@@ -3,22 +3,82 @@ from os import environ
 
 SESSION_CONFIGS = [
     dict(
-        name='guess_two_thirds',
-        display_name="Guess 2/3 of the Average",
-        app_sequence=['guess_two_thirds', 'payment_info'],
-        num_demo_participants=3,
+        name='bargaining',
+        display_name="Bargaining",
+        app_sequence=['bargaining'],
+        num_demo_participants=2,
+    ),
+    dict(
+        name='bertrand',
+        display_name="Bertrand",
+        app_sequence=['bertrand'],
+        num_demo_participants=2,
+    ),
+    dict(
+        name='common_auction',
+        display_name="Common Value Auction",
+        app_sequence=['common_value_auction'],
+        num_demo_participants=2,
+    ),
+    dict(
+        name='cournot',
+        display_name="Cournot",
+        app_sequence=['cournot'],
+        num_demo_participants=2,
+    ),
+    dict(
+        name='dictator',
+        display_name="Dictator",
+        app_sequence=['dictator'],
+        num_demo_participants=2,
     ),
     dict(
         name='survey',
         display_name='Example Survey', 
-        app_sequence=['survey', 'payment_info'], 
+        app_sequence=['survey'], 
         num_demo_participants=1
+    ),
+    dict(
+        name='guess_two_thirds',
+        display_name="Guess 2/3 of the Average",
+        app_sequence=['guess_two_thirds'],
+        num_demo_participants=3,
+    ),
+    dict(
+        name='pennies',
+        display_name="Matching Pennies",
+        app_sequence=['matching_pennies'],
+        num_demo_participants=2,
     ),
     dict(
         name='prisoner',
         display_name="Prisoner's Dilemma",
-        app_sequence=['prisoner', 'payment_info'],
+        app_sequence=['prisoner'],
         num_demo_participants=2,
+    ),
+    dict(
+        name='public_good',
+        display_name="Public Goods",
+        app_sequence=['public_goods_simple'],
+        num_demo_participants=3,
+    ),
+    dict(
+        name='traveler',
+        display_name="Traveler's Dilemma",
+        app_sequence=['traveler_dilemma'],
+        num_demo_participants=2,
+    ),
+    dict(
+        name='trust',
+        display_name="Trust",
+        app_sequence=['trust'],
+        num_demo_participants=2,
+    ),
+    dict(
+        name='volunteer',
+        display_name="Volunteer's Dilemma",
+        app_sequence=['volunteer_dilemma'],
+        num_demo_participants=3,
     ),
 ]
 
