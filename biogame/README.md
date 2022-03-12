@@ -11,8 +11,8 @@ is running on an old version of oTree and an older version of Python (3.6), the 
 
 - [X] Cleaned up the repository
 - [X] Add requirements.txt files
-- [ ] Create docker containers and push to DockerHub
-- [ ] Create new to oTree >= 5.5 with the sample games added
+- [X] Create docker containers and push to DockerHub
+- [X] Create new to oTree >= 5.5 with the sample games added
 - [ ] Update the Biosecurity Game to oTree >=5.5
 - [ ] Move all instructions and documentation to readthedocs
 - [ ] GitHub Actions to build and push new version to DockerHub
