@@ -1,4 +1,4 @@
-FROM python:3.9.10
+FROM python:latest
 # Set the work directory as oTree
 WORKDIR /oTree
 # Copy everything into it
@@ -12,4 +12,4 @@ RUN pip install -r requirements.txt
 # ENV OTREE_PRODUCTION=1
 # ENV DATABASE_URL=postgres://user:pass@host:5432/db
 # Run the server
-CMD ["otree", "prodserver"]
+CMD ./start_otree.sh

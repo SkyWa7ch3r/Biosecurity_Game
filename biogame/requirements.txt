@@ -1,6 +1,6 @@
 # oTree-may-overwrite-this-file
 # IF YOU MODIFY THIS FILE, remove these comments. 
 # otherwise, oTree will automatically overwrite it.
-otree>=5.7.0
-psycopg2>=2.9.0
-numpy>=1.22.0
+otree
+psycopg2
+numpy
